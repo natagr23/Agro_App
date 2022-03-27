@@ -35,12 +35,15 @@ const Navbar = () => {
 
           {isMatch ? (
             <>
-              <Typography>TIENDA</Typography>
+              <Typography sx={{ fontSize: '1.5rem', paddingLeft: '10%' }}>
+                TIENDA
+              </Typography>
               <DrawerComp />
             </>
           ) : (
             <>
               <Tabs
+                // sx={{ marginLeft: 'auto' }}
                 textColor="inherit"
                 value={value}
                 onChange={(e, value) => setValue(value)}

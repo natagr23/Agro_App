@@ -25,7 +25,7 @@ const DrawerComp = () => {
       <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
         <List>
           {pages.map((page, index) => (
-            <ListItemButton key={index}>
+            <ListItemButton onClick={() => setOpenDrawer(false)} key={index}>
               <ListItemIcon>
                 <ListItemText>{page}</ListItemText>
               </ListItemIcon>
