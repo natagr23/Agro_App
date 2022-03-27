@@ -18,6 +18,8 @@ import {
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DrawerComp from '../Drawer/DrawerComp';
 
+const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
+
 const Navbar = () => {
   const [value, setValue] = useState();
   const theme = useTheme();
@@ -44,10 +46,9 @@ const Navbar = () => {
                 onChange={(e, value) => setValue(value)}
                 indicatorColor="secondary"
               >
-                <Tab label="Products" />
-                <Tab label="Services" />
-                <Tab label="ContactUs" />
-                <Tab label="About Us" />
+                {pages.map((page, index) => (
+                  <Tab key={index} label={page} />
+                ))}
               </Tabs>
               <Button sx={{ marginLeft: 'auto' }} variant="contained">
                 Login{' '}
