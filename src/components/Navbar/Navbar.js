@@ -63,16 +63,6 @@ const Navbar = () => {
           )}
         </Toolbar>
       </AppBar>
-
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        {/* <DrawerHeader /> */}
-
-        {/* <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-        </Typography> */}
-      </Box>
     </Box>
   );
 };
