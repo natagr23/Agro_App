@@ -38,7 +38,7 @@ export default function Api() {
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <h3> Random joke generator😂 </h3>
-      <p>{movies.title}</p>
+      <p>{movies.Object}</p>
       <button onClick={fetchMoviesHandler}>Get new joke</button>
     </div>
   );
