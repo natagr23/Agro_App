@@ -9,10 +9,9 @@ function App() {
     <div className="App">
       <Navbar />
       <StyledEngineProvider injectFirst>
-        <Api />
         <SearchBar />
       </StyledEngineProvider>
-      ,
+      <Api />,
     </div>
   );
 }
