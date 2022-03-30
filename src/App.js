@@ -8,10 +8,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <StyledEngineProvider injectFirst>
-        <SearchBar />
-      </StyledEngineProvider>
-      <Api />,
+      {/* <SearchBar /> */}
+      <StyledEngineProvider injectFirst></StyledEngineProvider>
+      <Api />
     </div>
   );
 }

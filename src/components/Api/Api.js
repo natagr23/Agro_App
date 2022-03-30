@@ -1,29 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SearchBar from '../SearchBar/SearchBar';
+import Input from '@mui/material/Input';
+import Box from '@mui/material/Box';
 
-export default function Api() {
+export default function Api(props) {
   const [data, setData] = useState({ hits: [] });
   const [query, setQuery] = useState('food');
+  const [url, setUrl] = useState(
+    'https://hn.algolia.com/api/v1/search?query=redux'
+  );
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        'https://hn.algolia.com/api/v1/search?query=food'
-      );
+      const result = await axios(url);
 
       setData(result.data);
     };
 
     fetchData();
-  }, []);
+  }, [url]);
 
   return (
     <React.Fragment>
+      <Box
+        sx={{
+          p: 10,
+          pb: 0,
+        }}
+      ></Box>
       <input
         type="text"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
       />
+      <button
+        type="button"
+        onClick={() =>
+          setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
+        }
+      >
+        Search
+      </button>
       <ul>
         {data.hits.map((item) => (
           <li key={item.objectID}>
