@@ -51,7 +51,7 @@ export default function Api() {
 
       <List>
         {data.hits.map((item) => (
-          <ListItem disablePadding key={item.objectID}>
+          <ListItem key={item.objectID}>
             <a href={item.url}>{item.title}</a>
           </ListItem>
         ))}
