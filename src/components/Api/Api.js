@@ -27,7 +27,12 @@ export default function Api() {
   }, [url]);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        p: 9,
+        pb: 0,
+      }}
+    >
       <Input
         // placeholder='buscar'
         type="text"
