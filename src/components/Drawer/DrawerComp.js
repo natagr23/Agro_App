@@ -15,7 +15,7 @@ const pages = [
   'About Us',
   'Contact Us',
   'Login',
-  'Logout',
+  'Sign Up',
 ];
 
 const DrawerComp = () => {

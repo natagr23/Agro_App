@@ -5,13 +5,16 @@ import axios from 'axios';
 import Input from '@mui/material/Input';
 // import SearchBar from './components/SearchBar/SearchBar';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+// import SearchIcon from '@mui/icons-material/Search';
+// import IconButton from '@mui/material/IconButton';
+// import ClearIcon from '@mui/icons-material/Clear';
 
 export default function Api() {
   const [data, setData] = useState({ hits: [] });
-  const [query, setQuery] = useState('food');
+  const [query, setQuery] = useState('');
   const [url, setUrl] = useState(
     'https://hn.algolia.com/api/v1/search?query=redux'
   );
@@ -30,18 +33,22 @@ export default function Api() {
     <Box
       sx={{
         p: 9,
-        pb: 0,
+        pb: 1,
       }}
     >
       <Input
-        // placeholder='buscar'
+        placeholder="buscar"
         type="text"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
+        inputProps={{
+          'aria-label': 'weight',
+        }}
       />
 
       <Button
-        variant="outlined"
+        sx={{ margin: 2 }}
+        variant="contained"
         onClick={() =>
           setUrl(`https://hn.algolia.com/api/v1/search?query=${query}`)
         }

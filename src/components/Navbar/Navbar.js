@@ -17,11 +17,17 @@ import {
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DrawerComp from '../Drawer/DrawerComp';
+import { Link } from 'react-router-dom';
 
 const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
 
 const Navbar = () => {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   const theme = useTheme();
   console.log(theme);
   const isMatch = useMediaQuery(theme.breakpoints.down('md'));
@@ -43,12 +49,24 @@ const Navbar = () => {
           ) : (
             <>
               <Tabs
-                // sx={{ marginLeft: 'auto' }}
+                sx={{ marginLeft: 'auto' }}
                 textColor="inherit"
                 value={value}
-                onChange={(e, value) => setValue(value)}
+                onChange={handleTabChange}
                 indicatorColor="secondary"
               >
+                <Tab
+                  label="Products"
+                  index={0}
+                  component={Link}
+                  to={'/components/Products/Products'}
+                />
+                <Tab
+                  label="Products"
+                  index={1}
+                  component={Link}
+                  to={'/components/Services/Services'}
+                />
                 {pages.map((page, index) => (
                   <Tab key={index} label={page} />
                 ))}
