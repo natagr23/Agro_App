@@ -16,10 +16,12 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
 import DrawerComp from '../Drawer/DrawerComp';
 import { Link } from 'react-router-dom';
+import { PagesRounded } from '@mui/icons-material';
 
-const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
+// const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
 
 const Navbar = () => {
   const [value, setValue] = useState(0);
@@ -37,7 +39,13 @@ const Navbar = () => {
       <CssBaseline />
       <AppBar sx={{ background: '#063970' }}>
         <Toolbar>
-          <AddShoppingCartIcon />
+          <Button
+            variant="contained"
+            component={Link}
+            to={'/components/Home/Home'}
+          >
+            <HomeIcon />
+          </Button>
 
           {isMatch ? (
             <>
@@ -51,7 +59,6 @@ const Navbar = () => {
               <Tabs
                 sx={{ marginLeft: 'auto' }}
                 textColor="inherit"
-                value={value}
                 onChange={handleTabChange}
                 indicatorColor="secondary"
               >
@@ -62,14 +69,14 @@ const Navbar = () => {
                   to={'/components/Products/Products'}
                 />
                 <Tab
-                  label="Products"
+                  label="Services"
                   index={1}
                   component={Link}
                   to={'/components/Services/Services'}
                 />
-                {pages.map((page, index) => (
+                {/* {pages.map((page, index) => (
                   <Tab key={index} label={page} />
-                ))}
+                ))} */}
               </Tabs>
               <Button sx={{ marginLeft: 'auto' }} variant="contained">
                 Login{' '}
