@@ -15,16 +15,15 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
 import HomeIcon from '@mui/icons-material/Home';
 import DrawerComp from '../Drawer/DrawerComp';
 import { Link } from 'react-router-dom';
-import { PagesRounded } from '@mui/icons-material';
 
 // const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
 
 const Navbar = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(false);
 
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
@@ -49,7 +48,7 @@ const Navbar = () => {
 
           {isMatch ? (
             <>
-              <Typography sx={{ fontSize: '1.5rem', paddingLeft: '10%' }}>
+              <Typography sx={{ fontSize: '1.2 rem', paddingLeft: '10%' }}>
                 TIENDA
               </Typography>
               <DrawerComp />
@@ -61,18 +60,31 @@ const Navbar = () => {
                 textColor="inherit"
                 onChange={handleTabChange}
                 indicatorColor="secondary"
+                value={value}
               >
                 <Tab
                   label="Products"
-                  index={0}
                   component={Link}
                   to={'/components/Products/Products'}
+                  value={value}
                 />
                 <Tab
                   label="Services"
-                  index={1}
                   component={Link}
                   to={'/components/Services/Services'}
+                  value={value}
+                />
+                <Tab
+                  label="About"
+                  component={Link}
+                  to={'/components/About/About'}
+                  value={value}
+                />
+                <Tab
+                  label="Contact"
+                  component={Link}
+                  to={'/components/Contact/Contact'}
+                  value={value}
                 />
                 {/* {pages.map((page, index) => (
                   <Tab key={index} label={page} />

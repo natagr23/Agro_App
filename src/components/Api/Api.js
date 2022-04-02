@@ -16,7 +16,7 @@ export default function Api() {
   const [data, setData] = useState({ hits: [] });
   const [query, setQuery] = useState('');
   const [url, setUrl] = useState(
-    'https://hn.algolia.com/api/v1/search?query=redux'
+    'https://hn.algolia.com/api/v1/search?query=food'
   );
 
   useEffect(() => {
