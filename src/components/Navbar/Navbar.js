@@ -90,7 +90,12 @@ const Navbar = () => {
                   <Tab key={index} label={page} />
                 ))} */}
               </Tabs>
-              <Button sx={{ marginLeft: 'auto' }} variant="contained">
+              <Button
+                sx={{ marginLeft: 'auto' }}
+                variant="contained"
+                component={Link}
+                to={'/components/Login/Login'}
+              >
                 Login{' '}
               </Button>
               <Button sx={{ marginLeft: '10px' }} variant="contained">

@@ -7,6 +7,7 @@ import Services from './components/Services/Services';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import Login from './components/Login/Login';
 
 // import { Home, Favorites } from "pages";
 
@@ -36,6 +37,7 @@ function App() {
               path="/components/Contact/Contact"
               element={<Contact />}
             />
+            <Route exact path="/components/Login/Login" element={<Login />} />
           </Routes>
         </Router>
       </StyledEngineProvider>
