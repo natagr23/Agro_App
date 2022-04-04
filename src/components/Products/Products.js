@@ -2,7 +2,9 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
-export default function Products() {
+export default function Products(props) {
+  console.log(props.name);
+
   const itemData = [
     {
       img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
@@ -55,7 +57,7 @@ export default function Products() {
   ];
   return (
     <>
-      <h2>Products</h2>
+      <h2>name</h2>
       <p>That feels like an existential question, don't you think?</p>
       <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
         {itemData.map((item) => (
@@ -69,7 +71,6 @@ export default function Products() {
           </ImageListItem>
         ))}
       </ImageList>
-      ); }
     </>
   );
 }

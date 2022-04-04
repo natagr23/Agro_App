@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   Drawer,
   List,
+  Tab,
+  Link,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -20,6 +22,13 @@ const pages = [
 
 const DrawerComp = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const handleClick = () => {
+    // <a href="/components/Products/Products"></a>;
+    // <a href="/components/Products/Products"></a>;
+    // <Link to={`/components/${page}/${page}`}>here </Link>;
+    // <Link to={'/components/Products/Products'} />;
+    // <Link href="/" onClick={this.onClickSubmit}></Link>;
+  };
   return (
     <React.Fragment>
       <Drawer open={openDrawer} onClose={() => setOpenDrawer(false)}>
@@ -27,7 +36,7 @@ const DrawerComp = () => {
           {pages.map((page, index) => (
             <ListItemButton onClick={() => setOpenDrawer(false)} key={index}>
               <ListItemIcon>
-                <ListItemText>{page}</ListItemText>
+                <ListItemText onClick={handleClick}>{page}</ListItemText>
               </ListItemIcon>
             </ListItemButton>
           ))}

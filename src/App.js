@@ -24,7 +24,7 @@ function App() {
             <Route
               exact
               path="/components/Products/Products"
-              element={<Products />}
+              element={<Products name="Producto1" />}
             />
             <Route
               exact
