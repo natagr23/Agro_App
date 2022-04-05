@@ -65,25 +65,25 @@ const Navbar = () => {
                 <Tab
                   label="Products"
                   component={Link}
-                  to={'/components/Products/Products'}
+                  to={'/Products'}
                   value={value}
                 />
                 <Tab
                   label="Services"
                   component={Link}
-                  to={'/components/Services/Services'}
+                  to={'/Services'}
                   value={value}
                 />
                 <Tab
                   label="About"
                   component={Link}
-                  to={'/components/About/About'}
+                  to={'/About'}
                   value={value}
                 />
                 <Tab
                   label="Contact"
                   component={Link}
-                  to={'/components/Contact/Contact'}
+                  to={'/Contact'}
                   value={value}
                 />
                 {/* {pages.map((page, index) => (
@@ -94,11 +94,16 @@ const Navbar = () => {
                 sx={{ marginLeft: 'auto' }}
                 variant="contained"
                 component={Link}
-                to={'/components/Login/Login'}
+                to={'/login'}
               >
                 Login{' '}
               </Button>
-              <Button sx={{ marginLeft: '10px' }} variant="contained">
+              <Button
+                sx={{ marginLeft: '10px' }}
+                variant="contained"
+                component={Link}
+                to={'/register'}
+              >
                 SignUp{''}
               </Button>
             </>

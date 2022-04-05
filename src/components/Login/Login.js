@@ -1,13 +1,19 @@
 import * as React from 'react';
 import Form from '../../components/common/Form';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function Login() {
   return (
-    <>
-      <h2>Login</h2>
-      <p>Login....</p>
-      <Form />
-    </>
+    <Router>
+      <>
+        <h2>Login</h2>
+        <p>Login....</p>
+        <Routes>
+          <Route path="/login" element={<Form />} />
+          <Route path="/register" element={<Form />} />
+        </Routes>
+      </>
+    </Router>
   );
 }
 
