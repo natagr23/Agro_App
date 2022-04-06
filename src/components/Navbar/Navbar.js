@@ -65,25 +65,25 @@ const Navbar = () => {
                 <Tab
                   label="Products"
                   component={Link}
-                  to={'/Products'}
+                  to={'/components/Products/Products'}
                   value={value}
                 />
                 <Tab
                   label="Services"
                   component={Link}
-                  to={'/Services'}
+                  to={'/components/Services/Services'}
                   value={value}
                 />
                 <Tab
                   label="About"
                   component={Link}
-                  to={'/About'}
+                  to={'/components/About/About'}
                   value={value}
                 />
                 <Tab
                   label="Contact"
                   component={Link}
-                  to={'/Contact'}
+                  to={'/components/Contact/Contact'}
                   value={value}
                 />
                 {/* {pages.map((page, index) => (
