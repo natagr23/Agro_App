@@ -28,7 +28,7 @@ export default function Account() {
 
       <p> Account...</p>
       <Button onClick={handleLogout}>Log out</Button>
-      <SearchBar />
+      {/* <SearchBar /> */}
     </>
   );
 }
