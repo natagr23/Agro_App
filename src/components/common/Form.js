@@ -30,6 +30,7 @@ export default function BasicTextFields({
         />
         <TextField
           id="password"
+          type="password"
           label="Enter the Password"
           variant="outlined"
           onChange={(e) => setPassword(e.target.value)}
