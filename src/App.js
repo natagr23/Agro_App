@@ -7,6 +7,7 @@ import Services from './components/Services/Services';
 import Home from './components/Home/Home';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
+import Account from './components/Account/Account';
 
 import Form from './components/common/Form';
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -30,7 +31,7 @@ function App() {
     if (id === 1) {
       signInWithEmailAndPassword(authentication, email, password)
         .then((response) => {
-          navigate('/components/Home/Home');
+          navigate('/components/Account/Account');
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
@@ -48,7 +49,7 @@ function App() {
     if (id === 2) {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
-          navigate('/components/Home/Home');
+          navigate('/components/Account/Account');
           sessionStorage.setItem(
             'Auth Token',
             response._tokenResponse.refreshToken
@@ -65,7 +66,7 @@ function App() {
     let authToken = sessionStorage.getItem('Auth Token');
 
     if (authToken) {
-      navigate('/components/Home/Home');
+      navigate('/components/Account/Account');
     }
   }, [navigate]);
   return (
@@ -75,7 +76,11 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route exact path="/components/Home/Home" element={<Home />} />
+          <Route
+            exact
+            path="/components/Account/Account"
+            element={<Account />}
+          />
           <Route
             exact
             path="/components/Products/Products"
