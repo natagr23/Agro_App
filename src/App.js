@@ -10,7 +10,8 @@ import Contact from './components/Contact/Contact';
 import Account from './components/Account/Account';
 
 import Form from './components/common/Form';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+// import SearchBar from './components/SearchBar/SearchBar';
 
 import { app } from './components/Api/firebase-config';
 import {
@@ -122,7 +123,12 @@ function App() {
             }
           />
           <Route path="/components/Home/Home" element={<Home />} />
+          <Route
+            path="/"
+            element={<Navigate to="/components/Home/Home" replace={true} />}
+          />
         </Routes>
+        {/* <SearchBar /> */}
       </StyledEngineProvider>
     </React.Fragment>
   );
