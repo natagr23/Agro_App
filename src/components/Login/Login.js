@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {
@@ -21,16 +21,24 @@ function Login() {
   const login = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((response) => {
+        if (auth.currentUser.emailVerified) {
+          navigate('/components/Account/Account');
+          sessionStorage.setItem(
+            'Auth Token',
+            response._tokenResponse.refreshToken
+          );
+        }
         if (!auth.currentUser.emailVerified) {
           sendEmailVerification(auth.currentUser)
             .then(() => {
               setTimeActive(true);
               navigate('/verify-email');
             })
+
             .catch((err) => alert(err.message));
         } else {
-          navigate('/');
+          navigate('/components/Home/Home');
         }
       })
       .catch((err) => {

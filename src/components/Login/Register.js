@@ -7,6 +7,8 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { useAuthValue } from '../AuthContext/AuthContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -33,15 +35,30 @@ function Register() {
     if (validatePassword()) {
       // Create a new user with email and password using firebase
       createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          sendEmailVerification(auth.currentUser)
-            .then(() => {
-              setTimeActive(true);
-              navigate('/verify-email');
-            })
-            .catch((err) => alert(err.message));
+        .then((response) => {
+          navigate('/components/Account/Account');
+          sessionStorage.setItem(
+            'Auth Token',
+            response._tokenResponse.refreshToken
+          );
+          setTimeActive(true);
+          navigate('/verify-email');
         })
-        .catch((err) => setError(err.message));
+        // .then(() => {
+        //   sendEmailVerification(auth.currentUser)
+        //     .then(() => {
+        //       setTimeActive(true);
+        //       navigate('/verify-email');
+        //     })
+        //     .catch((err) => alert(err.message));
+        // })
+        .catch((error) => {
+          if (error.code === 'auth/email-already-in-use') {
+            toast.error('Email Already in Use');
+          } else {
+            setError(error.message);
+          }
+        });
     }
     setEmail('');
     setPassword('');

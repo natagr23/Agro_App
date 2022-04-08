@@ -47,24 +47,24 @@ function App() {
   let navigate = useNavigate();
   const handleAction = (id) => {
     const authentication = getAuth();
-    if (id === 1) {
-      signInWithEmailAndPassword(authentication, email, password)
-        .then((response) => {
-          navigate('/components/Account/Account');
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
-        })
-        .catch((error) => {
-          if (error.code === 'auth/wrong-password') {
-            toast.error('Please check the Password');
-          }
-          if (error.code === 'auth/user-not-found') {
-            toast.error('Please check the Email');
-          }
-        });
-    }
+    // if (id === 1) {
+    //   signInWithEmailAndPassword(authentication, email, password)
+    //     .then((response) => {
+    //       navigate('/components/Account/Account');
+    //       sessionStorage.setItem(
+    //         'Auth Token',
+    //         response._tokenResponse.refreshToken
+    //       );
+    //     })
+    //     .catch((error) => {
+    //       if (error.code === 'auth/wrong-password') {
+    //         toast.error('Please check the Password');
+    //       }
+    //       if (error.code === 'auth/user-not-found') {
+    //         toast.error('Please check the Email');
+    //       }
+    //     });
+    // }
     if (id === 2) {
       createUserWithEmailAndPassword(authentication, email, password)
         .then((response) => {
@@ -96,6 +96,10 @@ function App() {
         <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
           <Routes>
             <Route
+              path="/"
+              element={<Navigate to="/components/Home/Home" replace={true} />}
+            />
+            <Route
               exact
               path="/components/Account/Account"
               element={<Account />}
@@ -125,15 +129,12 @@ function App() {
                 </PrivateRoute>
               }
             />
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
 
             <Route path="/components/Home/Home" element={<Home />} />
-            <Route
-              path="/"
-              element={<Navigate to="/components/Home/Home" replace={true} />}
-            />
           </Routes>
         </AuthProvider>
         {/* <SearchBar /> */}
