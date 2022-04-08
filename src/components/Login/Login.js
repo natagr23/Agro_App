@@ -79,6 +79,10 @@ function Login() {
           Don't have and account?
           <Link to="/register">Create one here</Link>
         </p>
+        <p>
+          Forgot Password?
+          <Link to="/forgot-password">Remember</Link>
+        </p>
       </div>
     </div>
   );

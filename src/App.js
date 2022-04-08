@@ -9,21 +9,24 @@ import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import Account from './components/Account/Account';
 
-import Form from './components/common/Form';
+// import Form from './components/common/Form';
 
 import Profile from './components/Login/Profile';
 import Register from './components/Login/Register';
 import VerifyEmail from './components/Login/VerifyEmail';
 import Login from './components/Login/Login';
 import PrivateRoute from './components/Login/PrivateRoute';
+import ForgotPassword from './components/Login/ForgotPassword';
+import ResetPassword from './components/Login/ResetPassword';
+
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 // import SearchBar from './components/SearchBar/SearchBar';
 
-import { app } from './components/Api/firebase-config';
+// import { app } from './components/Api/firebase-config';
 import {
   getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
+  // signInWithEmailAndPassword,
+  // createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { AuthProvider } from './components/AuthContext/AuthContext';
 import { auth } from './components/Api/firebase-config';
@@ -47,39 +50,6 @@ function App() {
   let navigate = useNavigate();
   const handleAction = (id) => {
     const authentication = getAuth();
-    // if (id === 1) {
-    //   signInWithEmailAndPassword(authentication, email, password)
-    //     .then((response) => {
-    //       navigate('/components/Account/Account');
-    //       sessionStorage.setItem(
-    //         'Auth Token',
-    //         response._tokenResponse.refreshToken
-    //       );
-    //     })
-    //     .catch((error) => {
-    //       if (error.code === 'auth/wrong-password') {
-    //         toast.error('Please check the Password');
-    //       }
-    //       if (error.code === 'auth/user-not-found') {
-    //         toast.error('Please check the Email');
-    //       }
-    //     });
-    // }
-    if (id === 2) {
-      createUserWithEmailAndPassword(authentication, email, password)
-        .then((response) => {
-          navigate('/components/Account/Account');
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
-        })
-        .catch((error) => {
-          if (error.code === 'auth/email-already-in-use') {
-            toast.error('Email Already in Use');
-          }
-        });
-    }
   };
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token');
@@ -133,8 +103,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
 
             <Route path="/components/Home/Home" element={<Home />} />
+
+            {/* <Route path="/forgot-password">
+              <ForgotPassword />
+            </Route>
+            <Route path="/reset-password">
+              <ResetPassword />
+            </Route> */}
           </Routes>
         </AuthProvider>
         {/* <SearchBar /> */}
@@ -167,3 +145,37 @@ export default App;
 //     setPassword={setPassword}
 //     handleAction={() => handleAction(2)}
 //   />
+
+// if (id === 1) {
+//   signInWithEmailAndPassword(authentication, email, password)
+//     .then((response) => {
+//       navigate('/components/Account/Account');
+//       sessionStorage.setItem(
+//         'Auth Token',
+//         response._tokenResponse.refreshToken
+//       );
+//     })
+//     .catch((error) => {
+//       if (error.code === 'auth/wrong-password') {
+//         toast.error('Please check the Password');
+//       }
+//       if (error.code === 'auth/user-not-found') {
+//         toast.error('Please check the Email');
+//       }
+//     });
+// }
+// if (id === 2) {
+//   createUserWithEmailAndPassword(authentication, email, password)
+//     .then((response) => {
+//       navigate('/components/Account/Account');
+//       sessionStorage.setItem(
+//         'Auth Token',
+//         response._tokenResponse.refreshToken
+//       );
+//     })
+//     .catch((error) => {
+//       if (error.code === 'auth/email-already-in-use') {
+//         toast.error('Email Already in Use');
+//       }
+//     });
+// }
