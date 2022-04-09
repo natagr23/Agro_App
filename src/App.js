@@ -17,22 +17,17 @@ import VerifyEmail from './components/Login/VerifyEmail';
 import Login from './components/Login/Login';
 import PrivateRoute from './components/Login/PrivateRoute';
 import ForgotPassword from './components/Login/ForgotPassword';
-import ResetPassword from './components/Login/ResetPassword';
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 // import SearchBar from './components/SearchBar/SearchBar';
 
 // import { app } from './components/Api/firebase-config';
-import {
-  getAuth,
-  // signInWithEmailAndPassword,
-  // createUserWithEmailAndPassword,
-} from 'firebase/auth';
+
 import { AuthProvider } from './components/AuthContext/AuthContext';
 import { auth } from './components/Api/firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
@@ -45,12 +40,8 @@ function App() {
     });
   }, []);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   let navigate = useNavigate();
-  const handleAction = (id) => {
-    const authentication = getAuth();
-  };
+
   useEffect(() => {
     let authToken = sessionStorage.getItem('Auth Token');
 

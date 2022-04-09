@@ -1,35 +1,72 @@
-import React from 'react';
+import { useState } from 'react';
+import { auth } from '../Api/firebase-config';
 
+import { sendPasswordResetEmail } from 'firebase/auth';
+
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import TextField from '@mui/material/TextField';
+// import Button from '../../components/common/Button';
 import Box from '@mui/material/Box';
 
-export default function ForgotPassword() {
+function ForgotPassword() {
+  const [email, setEmail] = useState('');
+
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+
+  function handleReset(e) {
+    e.preventDefault();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log('password reset email sent');
+        setMessage('Check your email to reset passowrd');
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          toast.error('Please check the Email');
+        }
+
+        setError('Email not found');
+        // ..
+      });
+  }
+
   return (
-    <React.Fragment>
+    <div>
       <Box
         component="form"
         sx={{
-          '& > :not(style)': { m: 5, width: '25ch' },
+          '& > :not(style)': { m: 7, width: '25ch' },
         }}
         noValidate
-        autoComplete="off"
+        autoComplete="on"
       >
-        <h3 textAlign="center" margin="0 0 2rem 0">
-          Forgot Password
-        </h3>
-        <TextField margin="0 0 1rem 0" textAlign="center">
-          Enter your email.
-        </TextField>
-        <TextField>
-          <input
+        <h2>
+          <br /> Password Reset Page
+        </h2>
+
+        <form onSubmit={handleReset}>
+          {message && <p>{message}</p>}
+          {error && <p>{error}</p>}
+
+          <label>Email</label>
+          <TextField
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             type="email"
-            name="email"
-            placeholder="Email"
-            autoComplete="off"
+            placeholder="E-mail"
           />
-        </TextField>
+
+          <input type="submit" value="Submit" />
+          <p className="text-center text-xs mt-4">
+            <Link to="/">Cancel</Link>
+          </p>
+        </form>
       </Box>
-    </React.Fragment>
+    </div>
   );
 }
+
+export default ForgotPassword;
