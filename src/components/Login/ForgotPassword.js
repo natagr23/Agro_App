@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import TextField from '@mui/material/TextField';
 // import Button from '../../components/common/Button';
 import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -59,8 +61,16 @@ function ForgotPassword() {
             placeholder="E-mail"
           />
 
-          <input type="submit" value="Submit" />
-          <p className="text-center text-xs mt-4">
+          <FilledInput
+            type="submit"
+            value="Submit"
+            color="warning"
+            variant="filled"
+            inputProps={{
+              'aria-label': 'weight',
+            }}
+          />
+          <p>
             <Link to="/">Cancel</Link>
           </p>
         </form>
