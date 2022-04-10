@@ -59,7 +59,7 @@ export default function Products(props) {
     <>
       <h2>name</h2>
       <p>That feels like an existential question, don't you think?</p>
-      <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+      <ImageList sx={{ width: 500, height: 450 }} cols={1} rowHeight={164}>
         {itemData.map((item) => (
           <ImageListItem key={item.img}>
             <img

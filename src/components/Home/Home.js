@@ -1,5 +1,4 @@
-
-import SearchBar from '../../components/SearchBar/SearchBar';
+import HomeGrid from '../../components/UI/HomeGrid';
 
 export default function Home() {
   return (
@@ -7,7 +6,7 @@ export default function Home() {
       <div> Home Page</div>
       <p> Home...</p>
 
-      <SearchBar />
+      <HomeGrid />
     </>
   );
 }

@@ -12,6 +12,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
 import FilledInput from '@mui/material/FilledInput';
+import { Button } from '@mui/material';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ function ForgotPassword() {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         console.log('password reset email sent');
-        setMessage('Check your email to reset passowrd');
+        setMessage('Check your email to reset password');
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -62,15 +63,18 @@ function ForgotPassword() {
           placeholder="E-mail"
         />
 
-        <FilledInput
+        <Button
           type="submit"
           value="Submit"
           color="primary"
           variant="filled"
-          inputProps={{
-            'aria-label': 'weight',
-          }}
-        />
+          // inputProps={{
+          //   'aria-label': 'weight',
+          // }}
+        >
+          Submit
+        </Button>
+
         <p>
           <Link to="/">Cancel</Link>
         </p>

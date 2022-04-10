@@ -94,6 +94,14 @@ const Navbar = () => {
                 sx={{ marginLeft: 'auto' }}
                 variant="contained"
                 component={Link}
+                to={'/SignIn'}
+              >
+                SignIn{' '}
+              </Button>
+              <Button
+                sx={{ marginLeft: 'auto' }}
+                variant="contained"
+                component={Link}
                 to={'/login'}
               >
                 Login{' '}
