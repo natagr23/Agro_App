@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import { auth } from '../Api/firebase-config';
 
@@ -36,46 +37,46 @@ function ForgotPassword() {
   }
 
   return (
-    <div>
-      <Box
+    <React.Fragment>
+      {/* <Box
         component="form"
         sx={{
           '& > :not(style)': { m: 7, width: '25ch' },
         }}
         noValidate
         autoComplete="on"
-      >
-        <h2>
-          <br /> Password Reset Page
-        </h2>
+      > */}
+      <h2>
+        <br /> Password Reset Page
+      </h2>
 
-        <form onSubmit={handleReset}>
-          {message && <p>{message}</p>}
-          {error && <p>{error}</p>}
+      <form onSubmit={handleReset}>
+        {message && <p>{message}</p>}
+        {error && <p>{error}</p>}
 
-          <label>Email</label>
-          <TextField
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            type="email"
-            placeholder="E-mail"
-          />
+        <label>Email</label>
+        <TextField
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          type="email"
+          placeholder="E-mail"
+        />
 
-          <FilledInput
-            type="submit"
-            value="Submit"
-            color="warning"
-            variant="filled"
-            inputProps={{
-              'aria-label': 'weight',
-            }}
-          />
-          <p>
-            <Link to="/">Cancel</Link>
-          </p>
-        </form>
-      </Box>
-    </div>
+        <FilledInput
+          type="submit"
+          value="Submit"
+          color="primary"
+          variant="filled"
+          inputProps={{
+            'aria-label': 'weight',
+          }}
+        />
+        <p>
+          <Link to="/">Cancel</Link>
+        </p>
+      </form>
+      {/* </Box> */}
+    </React.Fragment>
   );
 }
 
