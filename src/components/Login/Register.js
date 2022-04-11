@@ -4,7 +4,7 @@ import { auth } from '../Api/firebase-config';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
+  // sendEmailVerification,
 } from 'firebase/auth';
 import { useAuthValue } from '../AuthContext/AuthContext';
 import { toast } from 'react-toastify';

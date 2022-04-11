@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import SearchBar from '../../components/SearchBar/SearchBar';
+// import SearchBar from '../../components/SearchBar/SearchBar';
 
 export default function Account() {
   const handleLogout = () => {
