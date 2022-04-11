@@ -90,6 +90,14 @@ const Navbar = () => {
                   <Tab key={index} label={page} />
                 ))} */}
               </Tabs>
+              {/* <Button
+                sx={{ marginLeft: 'auto' }}
+                variant="contained"
+                component={Link}
+                to={'/SignIn'}
+              >
+                SignIn{' '} */}
+              {/* </Button> */}
               <Button
                 sx={{ marginLeft: 'auto' }}
                 variant="contained"
@@ -97,14 +105,6 @@ const Navbar = () => {
                 to={'/SignIn'}
               >
                 SignIn{' '}
-              </Button>
-              <Button
-                sx={{ marginLeft: 'auto' }}
-                variant="contained"
-                component={Link}
-                to={'/login'}
-              >
-                Login{' '}
               </Button>
               <Button
                 sx={{ marginLeft: '10px' }}

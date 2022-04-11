@@ -18,7 +18,7 @@ export default function Account() {
     }
 
     if (!authToken) {
-      navigate('/login');
+      navigate('/SignIn');
     }
   }, [navigate]);
   return (

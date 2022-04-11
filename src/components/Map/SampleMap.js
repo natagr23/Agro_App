@@ -29,3 +29,7 @@ export default function SampleMap() {
     </div>
   );
 }
+
+// https://www.freecodecamp.org/news/react-context-for-beginners/
+
+// https://developers.google.com/maps/documentation/javascript/react-map

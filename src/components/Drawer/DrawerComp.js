@@ -16,7 +16,7 @@ const pages = [
   'Services',
   'About Us',
   'Contact Us',
-  'Login',
+  'SignIn',
   'Sign Up',
 ];
 

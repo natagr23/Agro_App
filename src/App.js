@@ -11,11 +11,8 @@ import Account from './components/Account/Account';
 
 // import Form from './components/common/Form';
 
-import Profile from './components/Login/Profile';
 import Register from './components/Login/Register';
-import VerifyEmail from './components/Login/VerifyEmail';
-import Login from './components/Login/Login';
-import PrivateRoute from './components/Login/PrivateRoute';
+
 import ForgotPassword from './components/Login/ForgotPassword';
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
@@ -82,7 +79,7 @@ function App() {
               path="/components/Contact/Contact"
               element={<Contact />}
             />
-            <Route
+            {/* <Route
               exact
               path="/"
               element={
@@ -90,12 +87,11 @@ function App() {
                   <Profile />
                 </PrivateRoute>
               }
-            />
+            /> */}
 
-            <Route path="/login" element={<Login />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/verify-email" element={<VerifyEmail />} />
+
             <Route path="/forgot-password" element={<ForgotPassword />} />
 
             <Route path="/components/Home/Home" element={<Home />} />
@@ -115,60 +111,3 @@ function App() {
 }
 
 export default App;
-
-// <Route
-// exact
-// path="/login"
-// element={
-//   <Form
-//     title="Login"
-//     setEmail={setEmail}
-//     setPassword={setPassword}
-//     handleAction={() => handleAction(1)}
-//   />
-// }
-// />
-// <Route
-// exact
-// path="/register"
-// element={
-//   <Form
-//     title="Register"
-//     setEmail={setEmail}
-//     setPassword={setPassword}
-//     handleAction={() => handleAction(2)}
-//   />
-
-// if (id === 1) {
-//   signInWithEmailAndPassword(authentication, email, password)
-//     .then((response) => {
-//       navigate('/components/Account/Account');
-//       sessionStorage.setItem(
-//         'Auth Token',
-//         response._tokenResponse.refreshToken
-//       );
-//     })
-//     .catch((error) => {
-//       if (error.code === 'auth/wrong-password') {
-//         toast.error('Please check the Password');
-//       }
-//       if (error.code === 'auth/user-not-found') {
-//         toast.error('Please check the Email');
-//       }
-//     });
-// }
-// if (id === 2) {
-//   createUserWithEmailAndPassword(authentication, email, password)
-//     .then((response) => {
-//       navigate('/components/Account/Account');
-//       sessionStorage.setItem(
-//         'Auth Token',
-//         response._tokenResponse.refreshToken
-//       );
-//     })
-//     .catch((error) => {
-//       if (error.code === 'auth/email-already-in-use') {
-//         toast.error('Email Already in Use');
-//       }
-//     });
-// }

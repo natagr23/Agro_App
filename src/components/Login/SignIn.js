@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+// import { Link } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,6 +13,19 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { useState } from 'react';
+// import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import {
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
+import { auth } from '../Api/firebase-config';
+import { useNavigate } from 'react-router-dom';
+import { useAuthValue } from '../AuthContext/AuthContext';
 
 function Copyright(props) {
   return (
@@ -34,13 +48,48 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { setTimeActive } = useAuthValue();
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // const data = new FormData(event.currentTarget);
+    // console.log({
+    //   email: data.get('email'),
+    //   password: data.get('password'),
+    // });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((response) => {
+        if (auth.currentUser.emailVerified) {
+          navigate('/components/Account/Account');
+          sessionStorage.setItem(
+            'Auth Token',
+            response._tokenResponse.refreshToken
+          );
+        }
+        if (!auth.currentUser.emailVerified) {
+          sendEmailVerification(auth.currentUser)
+            .then(() => {
+              setTimeActive(true);
+              navigate('/verify-email');
+            })
+
+            .catch((err) => alert(err.message));
+        } else {
+          navigate('/components/Home/Home');
+        }
+      })
+      .catch((err) => {
+        if (err.code === 'auth/wrong-password') {
+          toast.error('Please check the Password');
+        }
+        if (err.code === 'auth/user-not-found') {
+          toast.error('Please check the Email');
+        }
+      });
   };
 
   return (
@@ -76,6 +125,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin="normal"
@@ -86,6 +136,7 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -101,12 +152,10 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+                <Link href="#/forgot-password">Forgot password?</Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
