@@ -82,13 +82,14 @@ export default function SignIn() {
           navigate('/components/Home/Home');
         }
       })
-      .catch((err) => {
-        if (err.code === 'auth/wrong-password') {
+      .catch((error) => {
+        if (error.code === 'auth/wrong-password') {
           toast.error('Please check the Password');
         }
-        if (err.code === 'auth/user-not-found') {
+        if (error.code === 'auth/user-not-found') {
           toast.error('Please check the Email');
         }
+        // setError('Email not found');
       });
   };
 
