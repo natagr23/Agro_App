@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useReducer, createContext } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -23,8 +23,14 @@ class Product {
     this.provider_id = provider_id;
   }
 }
+export const ProductLocationContext = createContext();
+
+function reducer(state, item) {
+  return [...state, item];
+}
 
 export default function ProductList() {
+  const [location, setLocation] = useReducer(reducer, []);
   const [productList, setProductList] = useState([
     new Product(
       'P1',
@@ -77,6 +83,7 @@ export default function ProductList() {
   };
 
   return (
+    <ProductLocationContext.Provider value={{ location, setLocation }}>
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
       <Stack spacing={2}>
         {productList.map((product) => {
@@ -93,5 +100,6 @@ export default function ProductList() {
         })}
       </Stack>
     </Box>
+    </ProductLocationContext.Provider>
   );
 }

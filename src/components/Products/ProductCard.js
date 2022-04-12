@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import { ProductLocationContext } from './ProductList';
 
 export default function ProductCard(props) {
   const click_handler = (event) => {
