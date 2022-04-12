@@ -15,6 +15,8 @@ import Register from './components/Login/Register';
 
 import ForgotPassword from './components/Login/ForgotPassword';
 
+import LocationContext from './components/Context/LocationContext';
+
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 // import SearchBar from './components/SearchBar/SearchBar';
 
@@ -27,6 +29,11 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SignIn from './components/Login/SignIn';
+
+const location = {
+  Latitude: 4.738627335055662,
+  Longitude: -74.0432920985392,
+};
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -49,37 +56,38 @@ function App() {
   }, [navigate]);
   return (
     <React.Fragment>
-      <ToastContainer />
-      <StyledEngineProvider injectFirst>
-        <Navbar />
-        <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
-          <Routes>
-            <Route
-              path="/"
-              element={<Navigate to="/components/Home/Home" replace={true} />}
-            />
-            <Route
-              exact
-              path="/components/Account/Account"
-              element={<Account />}
-            />
-            <Route
-              exact
-              path="/components/Products/Products"
-              element={<Products name="Producto1" />}
-            />
-            <Route
-              exact
-              path="/components/Services/Services"
-              element={<Services />}
-            />
-            <Route exact path="/components/About/About" element={<About />} />
-            <Route
-              exact
-              path="/components/Contact/Contact"
-              element={<Contact />}
-            />
-            {/* <Route
+      <LocationContext.Provider value={location}>
+        <ToastContainer />
+        <StyledEngineProvider injectFirst>
+          <Navbar />
+          <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
+            <Routes>
+              <Route
+                path="/"
+                element={<Navigate to="/components/Home/Home" replace={true} />}
+              />
+              <Route
+                exact
+                path="/components/Account/Account"
+                element={<Account />}
+              />
+              <Route
+                exact
+                path="/components/Products/Products"
+                element={<Products name="Producto1" />}
+              />
+              <Route
+                exact
+                path="/components/Services/Services"
+                element={<Services />}
+              />
+              <Route exact path="/components/About/About" element={<About />} />
+              <Route
+                exact
+                path="/components/Contact/Contact"
+                element={<Contact />}
+              />
+              {/* <Route
               exact
               path="/"
               element={
@@ -89,23 +97,24 @@ function App() {
               }
             /> */}
 
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/register" element={<Register />} />
+              <Route path="/SignIn" element={<SignIn />} />
+              <Route path="/register" element={<Register />} />
 
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            <Route path="/components/Home/Home" element={<Home />} />
+              <Route path="/components/Home/Home" element={<Home />} />
 
-            {/* <Route path="/forgot-password">
+              {/* <Route path="/forgot-password">
               <ForgotPassword />
             </Route>
             <Route path="/reset-password">
               <ResetPassword />
             </Route> */}
-          </Routes>
-        </AuthProvider>
-        {/* <SearchBar /> */}
-      </StyledEngineProvider>
+            </Routes>
+          </AuthProvider>
+          {/* <SearchBar /> */}
+        </StyledEngineProvider>
+      </LocationContext.Provider>
     </React.Fragment>
   );
 }

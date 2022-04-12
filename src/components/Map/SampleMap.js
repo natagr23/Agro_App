@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import GoogleMapReact from 'google-map-react';
+import LocationContext from '../Context/LocationContext';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export default function SampleMap() {
+  const location = useContext(LocationContext);
   const defaultProps = {
     center: {
       lat: 4.743231052096736,
@@ -21,8 +23,8 @@ export default function SampleMap() {
         defaultZoom={defaultProps.zoom}
       >
         <AnyReactComponent
-          lat={4.743231052096736}
-          lng={-74.03544274444285}
+          lat={location.Latitude}
+          lng={location.Longitude}
           text="My Marker"
         />
       </GoogleMapReact>

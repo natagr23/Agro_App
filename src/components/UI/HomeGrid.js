@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -6,6 +7,7 @@ import Grid from '@mui/material/Grid';
 // import SearchBar from '../../components/SearchBar/SearchBar';
 import ProductList from '../../components/Products/ProductList';
 import SampleMap from '../../components/Map/SampleMap';
+import LocationContext from '../Context/LocationContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,8 +18,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function HomeGrid() {
+  const location = useContext(LocationContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <h2>{location.Latitude}</h2>
       <Grid container spacing={2}>
         <Grid item xs={6} md={4}>
           <Item>
