@@ -31,8 +31,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import SignIn from './components/Login/SignIn';
 
 const location = {
-  Latitude: 4.738627335055662,
-  Longitude: -74.0432920985392,
+  Latitude: 4.738457902416201,
+  Longitude: -74.04319631121376,
 };
 
 function App() {
