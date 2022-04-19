@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import ProductList from '../../components/Products/ProductList';
 import SampleMap from '../../components/Map/SampleMap';
 // import LocationContext from '../Context/LocationContext';
+import { PersonalInfoContext } from '../Context/ProductLocationContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',

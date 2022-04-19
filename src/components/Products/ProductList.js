@@ -1,10 +1,12 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useContext } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
+// import ProductLocationContext from '../../components/Context/ProductLocationContext';
+import { PersonalInfoProvider } from '../Context/ProductLocationContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -23,14 +25,13 @@ class Product {
     this.provider_id = provider_id;
   }
 }
-export const ProductLocationContext = createContext();
 
-function reducer(state, item) {
-  return [...state, item];
-}
+// function reducer(state, item) {
+//   return [...state, item];
+// }
 
 export default function ProductList() {
-  const [location, setLocation] = useReducer(reducer, []);
+  // const [location, setLocation] = useReducer(reducer, []);
   const [productList, setProductList] = useState([
     new Product(
       'P1',
@@ -82,24 +83,34 @@ export default function ProductList() {
     console.log(selected_provider.name, selected_provider.location);
   };
 
+  console.log(
+    providerList.map((provider) => {
+      return provider.location;
+    })
+  );
+
   return (
-    <ProductLocationContext.Provider value={{ location, setLocation }}>
+    // <ProductLocationContext.Provider value={3}>
+
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <Stack spacing={2}>
-        {productList.map((product) => {
-          return (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              id={product.id}
-              description={product.description}
-              image_url={product.image_url}
-              OnSelectProduct={OnSelectProduct}
-            />
-          );
-        })}
-      </Stack>
+      <PersonalInfoProvider value={providerList}>
+        <Stack spacing={2}>
+          {productList.map((product) => {
+            return (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                id={product.id}
+                description={product.description}
+                image_url={product.image_url}
+                OnSelectProduct={OnSelectProduct}
+              />
+            );
+          })}
+        </Stack>
+      </PersonalInfoProvider>
     </Box>
-    </ProductLocationContext.Provider>
+
+    // </ProductLocationContext.Provider>
   );
 }
