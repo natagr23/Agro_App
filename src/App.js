@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -35,9 +35,13 @@ const location = {
   Longitude: -74.04319631121376,
 };
 
+export const farmerContext = createContext();
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);
+
+  const [farmer, setFarmer] = useState('Finca xxx');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -56,38 +60,45 @@ function App() {
   }, [navigate]);
   return (
     <React.Fragment>
-      <LocationContext.Provider value={location}>
-        <ToastContainer />
-        <StyledEngineProvider injectFirst>
-          <Navbar />
-          <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
-            <Routes>
-              <Route
-                path="/"
-                element={<Navigate to="/components/Home/Home" replace={true} />}
-              />
-              <Route
-                exact
-                path="/components/Account/Account"
-                element={<Account />}
-              />
-              <Route
-                exact
-                path="/components/Products/Products"
-                element={<Products name="Producto1" />}
-              />
-              <Route
-                exact
-                path="/components/Services/Services"
-                element={<Services />}
-              />
-              <Route exact path="/components/About/About" element={<About />} />
-              <Route
-                exact
-                path="/components/Contact/Contact"
-                element={<Contact />}
-              />
-              {/* <Route
+      <farmerContext.Provider value={farmer}>
+        <LocationContext.Provider value={location}>
+          <ToastContainer />
+          <StyledEngineProvider injectFirst>
+            <Navbar />
+            <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Navigate to="/components/Home/Home" replace={true} />
+                  }
+                />
+                <Route
+                  exact
+                  path="/components/Account/Account"
+                  element={<Account />}
+                />
+                <Route
+                  exact
+                  path="/components/Products/Products"
+                  element={<Products name="Producto1" />}
+                />
+                <Route
+                  exact
+                  path="/components/Services/Services"
+                  element={<Services />}
+                />
+                <Route
+                  exact
+                  path="/components/About/About"
+                  element={<About />}
+                />
+                <Route
+                  exact
+                  path="/components/Contact/Contact"
+                  element={<Contact />}
+                />
+                {/* <Route
               exact
               path="/"
               element={
@@ -97,24 +108,28 @@ function App() {
               }
             /> */}
 
-              <Route path="/SignIn" element={<SignIn />} />
-              <Route path="/register" element={<Register />} />
+                <Route path="/SignIn" element={<SignIn />} />
+                <Route path="/register" element={<Register />} />
 
-              <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
 
-              <Route path="/components/Home/Home" element={<Home />} />
+                <Route
+                  path="/components/Home/Home"
+                  element={<Home farmer={farmer} />}
+                />
 
-              {/* <Route path="/forgot-password">
+                {/* <Route path="/forgot-password">
               <ForgotPassword />
             </Route>
             <Route path="/reset-password">
               <ResetPassword />
             </Route> */}
-            </Routes>
-          </AuthProvider>
-          {/* <SearchBar /> */}
-        </StyledEngineProvider>
-      </LocationContext.Provider>
+              </Routes>
+            </AuthProvider>
+            {/* <SearchBar /> */}
+          </StyledEngineProvider>
+        </LocationContext.Provider>
+      </farmerContext.Provider>
     </React.Fragment>
   );
 }

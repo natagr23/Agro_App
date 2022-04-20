@@ -1,17 +1,31 @@
 //https://codesandbox.io/s/33xqq?file=/src/App.js:1205-1230
 
+//https://codesandbox.io/s/react-context-provider-forked-cwke2h?file=/src/MyComponent2.js:396-495
+
+//useContext Marker, InfoWindow  from "react-google-maps";
+
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 // import Marker from 'google-map-react';
 // import styled from 'styled-components';
+
 import LocationContext from '../Context/LocationContext';
 
 import { PersonalInfoContext } from '../Context/ProductLocationContext';
 
 import MarkerMap from './MarkerMap';
+import { farmerContext } from '../../App';
+import { providerContext } from '../../components/Products/ProductList';
+import { ProveedorProvider } from '../Context/productContext';
+// import ProductList from '../../components/Products/ProductList';
 
 export default function SampleMap() {
-  const people = useContext(PersonalInfoContext);
+  // const [providerList] = useContext(providerContext);
+  let farmer = useContext(farmerContext);
+
+  let provider = useContext(providerContext);
+
+  let proveedor = useContext(ProveedorProvider);
 
   const location = useContext(LocationContext);
 
@@ -20,12 +34,20 @@ export default function SampleMap() {
   //     <h3 key={index}>My name is {finca.name}</h3>
   //   ))
   // );
+  // console.log(JSON.stringify(providerList));
+  console.log(proveedor);
   return (
+    // <providerContext.Consumer value={[providerList, setproviderList]}>
     // Important! Always set the container height explicitly
     <div style={{ height: '100vh', width: '100%' }}>
       {/* <PersonalInfoContext.Consumer> */}
+      <h2>{`Hello ${farmer} again!`}</h2>
+
+      <h2>{`Hello ${provider} again!`}</h2>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A' }}
+        bootstrapURLKeys={{
+          key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
+        }}
         defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
         defaultZoom={15}
       >
@@ -59,6 +81,7 @@ export default function SampleMap() {
       </GoogleMapReact>
       {/* </PersonalInfoContext.Consumer> */}
     </div>
+    // </providerContext.Consumer>
   );
 }
 

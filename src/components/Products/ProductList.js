@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 // import ProductLocationContext from '../../components/Context/ProductLocationContext';
 import { PersonalInfoProvider } from '../Context/ProductLocationContext';
+import { proveedorContext } from '../Context/productContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -30,7 +31,10 @@ class Product {
 //   return [...state, item];
 // }
 
-export default function ProductList() {
+export const providerContext = createContext();
+
+export default function ProductList(props) {
+  // const [ proveedor, setproveedor] = useContext(proveedorContext);
   // const [location, setLocation] = useReducer(reducer, []);
   const [productList, setProductList] = useState([
     new Product(
@@ -93,22 +97,25 @@ export default function ProductList() {
     // <ProductLocationContext.Provider value={3}>
 
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <PersonalInfoProvider value={providerList}>
-        <Stack spacing={2}>
-          {productList.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                id={product.id}
-                description={product.description}
-                image_url={product.image_url}
-                OnSelectProduct={OnSelectProduct}
-              />
-            );
-          })}
-        </Stack>
-      </PersonalInfoProvider>
+      <providerContext.Provider>
+        {props.children}
+        <PersonalInfoProvider value={providerList}>
+          <Stack spacing={2}>
+            {productList.map((product) => {
+              return (
+                <ProductCard
+                  key={product.id}
+                  name={product.name}
+                  id={product.id}
+                  description={product.description}
+                  image_url={product.image_url}
+                  OnSelectProduct={OnSelectProduct}
+                />
+              );
+            })}
+          </Stack>
+        </PersonalInfoProvider>
+      </providerContext.Provider>
     </Box>
 
     // </ProductLocationContext.Provider>

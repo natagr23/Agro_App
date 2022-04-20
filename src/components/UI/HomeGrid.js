@@ -1,4 +1,4 @@
-// import React, { useContext } from 'react';
+import React, { useContext } from 'react';
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import ProductList from '../../components/Products/ProductList';
 import SampleMap from '../../components/Map/SampleMap';
 // import LocationContext from '../Context/LocationContext';
-import { PersonalInfoContext } from '../Context/ProductLocationContext';
+// import { PersonalInfoProvider } from '../Context/ProductLocationContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,9 +20,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function HomeGrid() {
   // const location = useContext(LocationContext);
+  // const people = useContext(PersonalInfoContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* <h2>{location.Latitude}</h2> */}
+      {/* <PersonalInfoProvider value={providerList}> */}
       <Grid container spacing={2}>
         <Grid item xs={6} md={4}>
           <Item>
@@ -38,6 +40,7 @@ export default function HomeGrid() {
           </Item>
         </Grid>
       </Grid>
+      {/* </PersonalInfoProvider> */}
     </Box>
   );
 }
