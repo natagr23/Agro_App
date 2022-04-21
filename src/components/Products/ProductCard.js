@@ -28,7 +28,7 @@ export default function ProductCard(props) {
             {props.description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {fincas.provider.map((finca, index) => (
+            {fincas.provider1.map((finca, index) => (
               <h3 key={index}>My name is {finca.name}</h3>
             ))}
           </Typography>

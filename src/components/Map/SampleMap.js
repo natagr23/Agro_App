@@ -16,16 +16,24 @@ import { PersonalInfoContext } from '../Context/ProductLocationContext';
 import MarkerMap from './MarkerMap';
 import { farmerContext } from '../../App';
 import { providerContext } from '../../components/Products/ProductList';
-import { ProveedorProvider } from '../Context/productContext';
+// import { ProveedorProvider } from '../Context/productContext';
 // import ProductList from '../../components/Products/ProductList';
+// import Typography from '@mui/material/Typography';
+import { useAppContext } from '../Context/AppContext';
 
 export default function SampleMap() {
   // const [providerList] = useContext(providerContext);
+
+  const [search, setSearch] = useAppContext();
+
+  console.log(search);
   let farmer = useContext(farmerContext);
 
-  let provider = useContext(providerContext);
+  const provider = useContext(providerContext);
 
-  let proveedor = useContext(ProveedorProvider);
+  const fincas = useContext(PersonalInfoContext);
+
+  // let proveedor = useContext(ProveedorProvider);
 
   const location = useContext(LocationContext);
 
@@ -35,15 +43,25 @@ export default function SampleMap() {
   //   ))
   // );
   // console.log(JSON.stringify(providerList));
-  console.log(proveedor);
+
   return (
-    // <providerContext.Consumer value={[providerList, setproviderList]}>
     // Important! Always set the container height explicitly
     <div style={{ height: '100vh', width: '100%' }}>
       {/* <PersonalInfoContext.Consumer> */}
+      {/* <PersonalInfoContext.Consumer> */}
+
       <h2>{`Hello ${farmer} again!`}</h2>
 
       <h2>{`Hello ${provider} again!`}</h2>
+
+      <h2>{`Hello ${fincas} again!`}</h2>
+
+      <h2>{JSON.stringify(search)}</h2>
+
+      {/* {fincas.provider.map((finca, index) => (
+        <h3 key={index}>My name is {finca.name}</h3>
+      ))} */}
+
       <GoogleMapReact
         bootstrapURLKeys={{
           key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
@@ -80,8 +98,9 @@ export default function SampleMap() {
         ))} */}
       </GoogleMapReact>
       {/* </PersonalInfoContext.Consumer> */}
+      {/* </PersonalInfoContext.Consumer> */}
     </div>
-    // </providerContext.Consumer>
+    //{' '}
   );
 }
 
