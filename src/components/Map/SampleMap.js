@@ -1,6 +1,4 @@
-//https://codesandbox.io/s/33xqq?file=/src/App.js:1205-1230
-
-//https://codesandbox.io/s/react-context-provider-forked-cwke2h?file=/src/MyComponent2.js:396-495
+//https://stackoverflow.com/questions/63911883/how-do-i-implement-sibling-component-communication-in-app-shell-and-ssr
 
 //useContext Marker, InfoWindow  from "react-google-maps";
 
@@ -15,18 +13,26 @@ import { PersonalInfoContext } from '../Context/ProductLocationContext';
 
 import MarkerMap from './MarkerMap';
 import { farmerContext } from '../../App';
-import { providerContext } from '../../components/Products/ProductList';
-// import { ProveedorProvider } from '../Context/productContext';
-// import ProductList from '../../components/Products/ProductList';
-// import Typography from '@mui/material/Typography';
+
 import { useAppContext } from '../Context/AppContext';
 
-export default function SampleMap() {
-  // const [providerList] = useContext(providerContext);
+import { providerContext } from '../../components/Products/ProductList';
+import { ProductList } from '../../components/Products/ProductList';
 
+import { useProductListContext } from '../../components/Products/ProductList';
+// import { ProductList } from '../../components/Products/ProductList';
+
+export default function SampleMap() {
+  // const [providerList, setproviderList] = useProductListContext();
+
+  const { productList, setproductList } = useProductListContext();
   const [search, setSearch] = useAppContext();
 
   console.log(search);
+
+  // const { productList } = useProductListContext();
+  console.log(productList);
+
   let farmer = useContext(farmerContext);
 
   const provider = useContext(providerContext);
@@ -37,39 +43,50 @@ export default function SampleMap() {
 
   const location = useContext(LocationContext);
 
+  const prueba = useProductListContext();
+
+  const busqueda = useAppContext();
+
   // console.log(
-  //   people.providerList.map((finca, index) => (
+  //   providerList.map((finca, index) => (
   //     <h3 key={index}>My name is {finca.name}</h3>
   //   ))
   // );
-  // console.log(JSON.stringify(providerList));
 
   return (
-    // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%' }}>
-      {/* <PersonalInfoContext.Consumer> */}
-      {/* <PersonalInfoContext.Consumer> */}
+    <>
+      // {/* <ProductList> */}
+      {/* <ProductList> */}
+      <div style={{ height: '100vh', width: '100%' }}>
+        {/* <PersonalInfoContext.Consumer> */}
+        {/* <PersonalInfoContext.Consumer> */}
 
-      <h2>{`Hello ${farmer} again!`}</h2>
+        <h2>{`Hi ${productList} again!`}</h2>
 
-      <h2>{`Hello ${provider} again!`}</h2>
+        <h2>{`Hello ${farmer} again!`}</h2>
 
-      <h2>{`Hello ${fincas} again!`}</h2>
+        <h2>{`Hello ${provider} again!`}</h2>
 
-      <h2>{JSON.stringify(search)}</h2>
+        <h2>{`Hello ${fincas} again!`}</h2>
 
-      {/* {fincas.provider.map((finca, index) => (
-        <h3 key={index}>My name is {finca.name}</h3>
-      ))} */}
+        <h2>{`Hola ${prueba} again!`}</h2>
 
-      <GoogleMapReact
-        bootstrapURLKeys={{
-          key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
-        }}
-        defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
-        defaultZoom={15}
-      >
-        {/* {people.providerList.map((person, index) => (
+        <h2>{`Hola ${JSON.stringify(busqueda)} again!`}</h2>
+
+        {/* <h2>{JSON.stringify(search)}</h2> */}
+
+        {/* {prueba.map((finca, index) => (
+          <h3 key={index}>My name is {finca.name}</h3>
+        ))} */}
+
+        <GoogleMapReact
+          bootstrapURLKeys={{
+            key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
+          }}
+          defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
+          defaultZoom={15}
+        >
+          {/* {people.providerList.map((person, index) => (
             <MarkerMap
               key={index}
               text={'place.name'}
@@ -78,29 +95,32 @@ export default function SampleMap() {
             />
           ))} */}
 
-        <MarkerMap
-          key={1}
-          text={'place.name'}
-          lat={location.Latitude}
-          lng={location.Longitude}
-        />
-        {/* <Marker
+          <MarkerMap
+            key={1}
+            text={'place.name'}
+            lat={location.Latitude}
+            lng={location.Longitude}
+          />
+          {/* <Marker
           position={{
             lat: location.Latitude,
             lng: location.Longitude,
           }}
         /> */}
-        {/* {location.map((location) => (
+          {/* {location.map((location) => (
           <MarkerMap
             lat={location.geometry.location.lat}
             lng={location.geometry.location.lng}
           />
         ))} */}
-      </GoogleMapReact>
-      {/* </PersonalInfoContext.Consumer> */}
-      {/* </PersonalInfoContext.Consumer> */}
-    </div>
-    //{' '}
+        </GoogleMapReact>
+        {/* </PersonalInfoContext.Consumer> */}
+        {/* </PersonalInfoContext.Consumer> */}
+      </div>
+      // {/* </ProductList> */}
+      // {/* </ProductList> */}
+      //{' '}
+    </>
   );
 }
 

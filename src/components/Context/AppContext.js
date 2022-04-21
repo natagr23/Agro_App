@@ -3,7 +3,10 @@ import { createContext, useContext, useState } from 'react';
 
 export const AppContext = createContext({});
 
-export const AppProvider = ({ initialState = { search: '' }, children }) => {
+export const AppProvider = ({
+  initialState = { search: 'asdfasd' },
+  children,
+}) => {
   const [search, setSearch] = useState(initialState);
   return (
     <AppContext.Provider value={[search, setSearch]}>

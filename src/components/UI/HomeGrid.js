@@ -5,11 +5,12 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 // import SearchBar from '../../components/SearchBar/SearchBar';
-import ProductList from '../../components/Products/ProductList';
+// import ProductList from '../../components/Products/ProductList';
 import SampleMap from '../../components/Map/SampleMap';
 // import LocationContext from '../Context/LocationContext';
 // import { PersonalInfoProvider } from '../Context/ProductLocationContext';
 import { AppProvider } from '../Context/AppContext';
+import { ProductList } from '../../components/Products/ProductList';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,8 +23,10 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function HomeGrid() {
   // const location = useContext(LocationContext);
   // const people = useContext(PersonalInfoContext);
+  // const providerList = useContext(providerContext);
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* <providerContext.Provider> */}
       <AppProvider>
         {/* <h2>{location.Latitude}</h2> */}
         {/* <PersonalInfoProvider value={providerList}> */}
@@ -44,6 +47,7 @@ export default function HomeGrid() {
         </Grid>
         {/* </PersonalInfoProvider> */}
       </AppProvider>
+      {/* </providerContext.Provider> */}
     </Box>
   );
 }

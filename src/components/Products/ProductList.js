@@ -31,11 +31,30 @@ class Product {
 //   return [...state, item];
 // }
 
-export const providerContext = createContext();
+export const providerContext = createContext({});
 
-export default function ProductList(props) {
+export const ProductList = ({
+  initialState = {
+    proveedores: [
+      new Provider(
+        'provider_01',
+        'Finca Los Manzanos',
+        [4.771663332599528, -73.97970681236106]
+      ),
+      new Provider(
+        'provider_02',
+        'Finca BuenaVista',
+        [4.811453752177087, -74.0089983026621]
+      ),
+    ],
+  },
+  children,
+}) => {
   // const [ proveedor, setproveedor] = useContext(proveedorContext);
   // const [location, setLocation] = useReducer(reducer, []);
+
+  const [providerList, setproviderList] = useState(initialState);
+
   const [productList, setProductList] = useState([
     new Product(
       'P1',
@@ -60,19 +79,6 @@ export default function ProductList(props) {
     ),
   ]);
 
-  const [providerList, setproviderList] = useState([
-    new Provider(
-      'provider_01',
-      'Finca Los Manzanos',
-      [4.771663332599528, -73.97970681236106]
-    ),
-    new Provider(
-      'provider_02',
-      'Finca BuenaVista',
-      [4.811453752177087, -74.0089983026621]
-    ),
-  ]);
-
   const OnSelectProduct = (product_id) => {
     console.log('desde productList', product_id);
     //search selected Product from user using id, retorna el producto donde cumpla con ese id
@@ -87,18 +93,21 @@ export default function ProductList(props) {
     console.log(selected_provider.name, selected_provider.location);
   };
 
-  console.log(
-    providerList.map((provider) => {
-      return provider.location;
-    })
-  );
+  // console.log(
+  //   providerList.map((provider) => {
+  //     return provider.location;
+  //   })
+  // );
+
+  // const provideData = { providerList, setproviderList };
 
   return (
     // <ProductLocationContext.Provider value={3}>
 
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <providerContext.Provider value={providerList}>
-        <PersonalInfoProvider value={providerList}>
+      <providerContext.Provider value={[providerList]}>
+        {children}
+        <PersonalInfoProvider value={productList}>
           <Stack spacing={2}>
             {productList.map((product) => {
               return (
@@ -119,4 +128,6 @@ export default function ProductList(props) {
 
     // </ProductLocationContext.Provider>
   );
-}
+};
+
+export const useProductListContext = () => useContext(providerContext);
