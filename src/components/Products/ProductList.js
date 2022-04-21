@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 // import ProductLocationContext from '../../components/Context/ProductLocationContext';
 import { PersonalInfoProvider } from '../Context/ProductLocationContext';
-import { proveedorContext } from '../Context/productContext';
+import { proveedorContext } from '../Context/AppContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -97,8 +97,7 @@ export default function ProductList(props) {
     // <ProductLocationContext.Provider value={3}>
 
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <providerContext.Provider>
-        {props.children}
+      <providerContext.Provider value={providerList}>
         <PersonalInfoProvider value={providerList}>
           <Stack spacing={2}>
             {productList.map((product) => {
