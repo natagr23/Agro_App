@@ -5,9 +5,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
-// import ProductLocationContext from '../../components/Context/ProductLocationContext';
 import { PersonalInfoProvider } from '../Context/ProductLocationContext';
-import { proveedorContext } from '../Context/AppContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -27,57 +25,47 @@ class Product {
   }
 }
 
-// function reducer(state, item) {
-//   return [...state, item];
-// }
+export const proveedores = [
+  new Provider(
+    'provider_01',
+    'Finca Los Manzanos',
+    [4.771663332599528, -73.97970681236106]
+  ),
+  new Provider(
+    'provider_02',
+    'Finca BuenaVista',
+    [4.811453752177087, -74.0089983026621]
+  ),
+];
 
-export const providerContext = createContext({});
+export const productos = [
+  new Product(
+    'P1',
+    'Naranjas',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet interdum tellus. Vivamus eu lectus odio',
+    'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+    'provider_01'
+  ),
+  new Product(
+    'P2',
+    'Guayabas',
+    'Nunc arcu nisl, pulvinar non posuere et, sollicitudin ac magna. Aenean ut varius augue.',
+    'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
+    'provider_01'
+  ),
+  new Product(
+    'P3',
+    'Peras',
+    'Proin dictum ut enim vitae luctus. Cras fringilla elit nec arcu tristique lacinia',
+    'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
+    'provider_02'
+  ),
+];
 
-export const ProductList = ({
-  initialState = {
-    proveedores: [
-      new Provider(
-        'provider_01',
-        'Finca Los Manzanos',
-        [4.771663332599528, -73.97970681236106]
-      ),
-      new Provider(
-        'provider_02',
-        'Finca BuenaVista',
-        [4.811453752177087, -74.0089983026621]
-      ),
-    ],
-  },
-  children,
-}) => {
-  // const [ proveedor, setproveedor] = useContext(proveedorContext);
-  // const [location, setLocation] = useReducer(reducer, []);
+export const ProductList = (props) => {
+  const [providerList, setproviderList] = useState(proveedores);
 
-  const [providerList, setproviderList] = useState(initialState);
-
-  const [productList, setProductList] = useState([
-    new Product(
-      'P1',
-      'Naranjas',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet interdum tellus. Vivamus eu lectus odio',
-      'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-      'provider_01'
-    ),
-    new Product(
-      'P2',
-      'Guayabas',
-      'Nunc arcu nisl, pulvinar non posuere et, sollicitudin ac magna. Aenean ut varius augue.',
-      'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-      'provider_01'
-    ),
-    new Product(
-      'P3',
-      'Peras',
-      'Proin dictum ut enim vitae luctus. Cras fringilla elit nec arcu tristique lacinia',
-      'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-      'provider_02'
-    ),
-  ]);
+  const [productList, setProductList] = useState(productos);
 
   const OnSelectProduct = (product_id) => {
     console.log('desde productList', product_id);
@@ -105,29 +93,24 @@ export const ProductList = ({
     // <ProductLocationContext.Provider value={3}>
 
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <providerContext.Provider value={[providerList]}>
-        {children}
-        <PersonalInfoProvider value={productList}>
-          <Stack spacing={2}>
-            {productList.map((product) => {
-              return (
-                <ProductCard
-                  key={product.id}
-                  name={product.name}
-                  id={product.id}
-                  description={product.description}
-                  image_url={product.image_url}
-                  OnSelectProduct={OnSelectProduct}
-                />
-              );
-            })}
-          </Stack>
-        </PersonalInfoProvider>
-      </providerContext.Provider>
+      <PersonalInfoProvider value={productList}>
+        <Stack spacing={2}>
+          {productList.map((product) => {
+            return (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                id={product.id}
+                description={product.description}
+                image_url={product.image_url}
+                OnSelectProduct={OnSelectProduct}
+              />
+            );
+          })}
+        </Stack>
+      </PersonalInfoProvider>
     </Box>
 
     // </ProductLocationContext.Provider>
   );
 };
-
-export const useProductListContext = () => useContext(providerContext);

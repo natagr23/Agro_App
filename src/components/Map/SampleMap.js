@@ -8,42 +8,27 @@ import GoogleMapReact from 'google-map-react';
 // import styled from 'styled-components';
 
 import LocationContext from '../Context/LocationContext';
-
 import { PersonalInfoContext } from '../Context/ProductLocationContext';
 
 import MarkerMap from './MarkerMap';
 import { farmerContext } from '../../App';
-
 import { useAppContext } from '../Context/AppContext';
-
-import { providerContext } from '../../components/Products/ProductList';
-import { ProductList } from '../../components/Products/ProductList';
-
-import { useProductListContext } from '../../components/Products/ProductList';
-// import { ProductList } from '../../components/Products/ProductList';
+import { proveedores } from '../Products/ProductList';
 
 export default function SampleMap() {
-  // const [providerList, setproviderList] = useProductListContext();
-
-  const { productList, setproductList } = useProductListContext();
   const [search, setSearch] = useAppContext();
 
   console.log(search);
 
   // const { productList } = useProductListContext();
-  console.log(productList);
 
   let farmer = useContext(farmerContext);
-
-  const provider = useContext(providerContext);
 
   const fincas = useContext(PersonalInfoContext);
 
   // let proveedor = useContext(ProveedorProvider);
 
   const location = useContext(LocationContext);
-
-  const prueba = useProductListContext();
 
   const busqueda = useAppContext();
 
@@ -61,23 +46,15 @@ export default function SampleMap() {
         {/* <PersonalInfoContext.Consumer> */}
         {/* <PersonalInfoContext.Consumer> */}
 
-        <h2>{`Hi ${productList} again!`}</h2>
-
         <h2>{`Hello ${farmer} again!`}</h2>
-
-        <h2>{`Hello ${provider} again!`}</h2>
-
-        <h2>{`Hello ${fincas} again!`}</h2>
-
-        <h2>{`Hola ${prueba} again!`}</h2>
-
-        <h2>{`Hola ${JSON.stringify(busqueda)} again!`}</h2>
+        {/* <h2>{`Hola ${JSON.stringify(busqueda)} again!`}</h2> */}
+        {/* <h2>{`Hola ${JSON.stringify(proveedores)} again!`}</h2> */}
 
         {/* <h2>{JSON.stringify(search)}</h2> */}
 
-        {/* {prueba.map((finca, index) => (
+        {proveedores.map((finca, index) => (
           <h3 key={index}>My name is {finca.name}</h3>
-        ))} */}
+        ))}
 
         <GoogleMapReact
           bootstrapURLKeys={{
@@ -86,14 +63,14 @@ export default function SampleMap() {
           defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
           defaultZoom={15}
         >
-          {/* {people.providerList.map((person, index) => (
+          {proveedores.map((person, index) => (
             <MarkerMap
               key={index}
               text={'place.name'}
               lat={person.location[0]}
               lng={person.location[1]}
             />
-          ))} */}
+          ))}
 
           <MarkerMap
             key={1}
