@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 import { PersonalInfoProvider } from '../Context/ProductLocationContext';
+import { Markers } from '../../components/Map/SampleMap';
 
 class Provider {
   constructor(id, name, location) {
@@ -25,7 +26,7 @@ class Product {
   }
 }
 
-export const proveedores = [
+export const providers = [
   new Provider(
     'provider_01',
     'Finca Los Manzanos',
@@ -38,7 +39,7 @@ export const proveedores = [
   ),
 ];
 
-export const productos = [
+export const products = [
   new Product(
     'P1',
     'Naranjas',
@@ -63,9 +64,9 @@ export const productos = [
 ];
 
 export const ProductList = (props) => {
-  const [providerList, setproviderList] = useState(proveedores);
+  const [providerList, setproviderList] = useState(providers);
 
-  const [productList, setProductList] = useState(productos);
+  const [productList, setProductList] = useState(products);
 
   const OnSelectProduct = (product_id) => {
     console.log('desde productList', product_id);
@@ -79,6 +80,7 @@ export const ProductList = (props) => {
       return provider.id === selected_product.provider_id;
     });
     console.log(selected_provider.name, selected_provider.location);
+    return console.log(Markers);
   };
 
   // console.log(
@@ -95,6 +97,7 @@ export const ProductList = (props) => {
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
       <PersonalInfoProvider value={productList}>
         <Stack spacing={2}>
+          {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
           {productList.map((product) => {
             return (
               <ProductCard

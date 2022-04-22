@@ -2,35 +2,53 @@
 
 //useContext Marker, InfoWindow  from "react-google-maps";
 
+//https://www.developintelligence.com/blog/2017/01/google-maps-in-react-redux-interactivity-across-different-components/
+
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-// import Marker from 'google-map-react';
+import Marker from 'google-map-react';
 // import styled from 'styled-components';
 
 import LocationContext from '../Context/LocationContext';
-import { PersonalInfoContext } from '../Context/ProductLocationContext';
+// import { PersonalInfoContext } from '../Context/ProductLocationContext';
 
 import MarkerMap from './MarkerMap';
-import { farmerContext } from '../../App';
+// import { farmerContext } from '../../App';
 import { useAppContext } from '../Context/AppContext';
-import { proveedores } from '../Products/ProductList';
+import { providers } from '../Products/ProductList';
+
+export const Markers = providers.map((provider, index) => (
+  <MarkerMap
+    key={index}
+    text={provider.name}
+    lat={provider.location[0]}
+    lng={provider.location[1]}
+  />
+));
 
 export default function SampleMap() {
   const [search, setSearch] = useAppContext();
-
   console.log(search);
+
+  // const [markerIsShown, setMarkerIsShown] = useState(false);
+
+  // const showCartHandler = () => {
+  //   setMarkerIsShown(true);
+  // };
+
+  // const hideCartHandler = () => {
+  //   setMarkerIsShown(false);
+  // };
 
   // const { productList } = useProductListContext();
 
-  let farmer = useContext(farmerContext);
+  // let farmer = useContext(farmerContext);
 
-  const fincas = useContext(PersonalInfoContext);
+  // const fincas = useContext(PersonalInfoContext);
 
   // let proveedor = useContext(ProveedorProvider);
 
   const location = useContext(LocationContext);
-
-  const busqueda = useAppContext();
 
   // console.log(
   //   providerList.map((finca, index) => (
@@ -40,63 +58,35 @@ export default function SampleMap() {
 
   return (
     <>
-      // {/* <ProductList> */}
-      {/* <ProductList> */}
       <div style={{ height: '100vh', width: '100%' }}>
-        {/* <PersonalInfoContext.Consumer> */}
-        {/* <PersonalInfoContext.Consumer> */}
-
-        <h2>{`Hello ${farmer} again!`}</h2>
-        {/* <h2>{`Hola ${JSON.stringify(busqueda)} again!`}</h2> */}
-        {/* <h2>{`Hola ${JSON.stringify(proveedores)} again!`}</h2> */}
-
         {/* <h2>{JSON.stringify(search)}</h2> */}
-
-        {proveedores.map((finca, index) => (
-          <h3 key={index}>My name is {finca.name}</h3>
-        ))}
 
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
           }}
           defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
-          defaultZoom={15}
+          defaultZoom={12}
         >
-          {proveedores.map((person, index) => (
+          {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
+          {providers.map((provider, index) => (
             <MarkerMap
               key={index}
-              text={'place.name'}
-              lat={person.location[0]}
-              lng={person.location[1]}
+              text={provider.name}
+              lat={provider.location[0]}
+              lng={provider.location[1]}
+
+              // eventHandlers={{
+              //   click: () => {
+              //     console.log('marker clicked');
+              //   },
+              // }}
             />
           ))}
 
-          <MarkerMap
-            key={1}
-            text={'place.name'}
-            lat={location.Latitude}
-            lng={location.Longitude}
-          />
-          {/* <Marker
-          position={{
-            lat: location.Latitude,
-            lng: location.Longitude,
-          }}
-        /> */}
-          {/* {location.map((location) => (
-          <MarkerMap
-            lat={location.geometry.location.lat}
-            lng={location.geometry.location.lng}
-          />
-        ))} */}
+          {/* <Marker lat={location.Latitude} lng={location.Longitude} /> */}
         </GoogleMapReact>
-        {/* </PersonalInfoContext.Consumer> */}
-        {/* </PersonalInfoContext.Consumer> */}
-      </div>
-      // {/* </ProductList> */}
-      // {/* </ProductList> */}
-      //{' '}
+      </div>{' '}
     </>
   );
 }
