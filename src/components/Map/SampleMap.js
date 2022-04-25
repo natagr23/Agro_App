@@ -4,6 +4,8 @@
 
 //https://www.developintelligence.com/blog/2017/01/google-maps-in-react-redux-interactivity-across-different-components/
 
+//https://github.com/gizm00/react_redux_camping_map/blob/master/src/CampFilterApp.jsx
+
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from 'google-map-react';
@@ -17,6 +19,8 @@ import MarkerMap from './MarkerMap';
 import { useAppContext } from '../Context/AppContext';
 import { providers } from '../Products/ProductList';
 
+import MapContext from '../Context/MapContext';
+
 export const Markers = providers.map((provider, index) => (
   <MarkerMap
     key={index}
@@ -27,8 +31,9 @@ export const Markers = providers.map((provider, index) => (
 ));
 
 export default function SampleMap() {
-  const [search, setSearch] = useAppContext();
-  console.log(search);
+  const mapContext = useContext(MapContext);
+  // const [search, setSearch] = useAppContext();
+  // console.log(search);
 
   // const [markerIsShown, setMarkerIsShown] = useState(false);
 

@@ -10,6 +10,8 @@ import SampleMap from '../../components/Map/SampleMap';
 import { AppProvider } from '../Context/AppContext';
 import { ProductList } from '../../components/Products/ProductList';
 
+import MapProvider from '../Context/MapProvider';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -22,26 +24,28 @@ export default function HomeGrid() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       {/* <providerContext.Provider> */}
-      <AppProvider>
-        {/* <h2>{location.Latitude}</h2> */}
+      <MapProvider>
+        <AppProvider>
+          {/* <h2>{location.Latitude}</h2> */}
 
-        <Grid container spacing={2}>
-          <Grid item xs={6} md={4}>
-            <Item>
-              {' '}
-              {/* <SearchBar /> */}
-              <ProductList />
-            </Item>
+          <Grid container spacing={2}>
+            <Grid item xs={6} md={4}>
+              <Item>
+                {' '}
+                {/* <SearchBar /> */}
+                <ProductList />
+              </Item>
+            </Grid>
+            <Grid item xs={6} md={8}>
+              <Item>
+                {' '}
+                <SampleMap />{' '}
+              </Item>
+            </Grid>
           </Grid>
-          <Grid item xs={6} md={8}>
-            <Item>
-              {' '}
-              <SampleMap />{' '}
-            </Item>
-          </Grid>
-        </Grid>
-        {/* </PersonalInfoProvider> */}
-      </AppProvider>
+          {/* </PersonalInfoProvider> */}
+        </AppProvider>
+      </MapProvider>
       {/* </providerContext.Provider> */}
     </Box>
   );
