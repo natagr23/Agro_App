@@ -1,10 +1,7 @@
-//https://stackoverflow.com/questions/63911883/how-do-i-implement-sibling-component-communication-in-app-shell-and-ssr
+//https://github.com/paulotijero/react-geolocation/blob/79b5de742e3910f67f67349b2b2b554ddaf5a4cf/src/index.js
 
-//useContext Marker, InfoWindow  from "react-google-maps";
-
-//https://www.developintelligence.com/blog/2017/01/google-maps-in-react-redux-interactivity-across-different-components/
-
-//https://github.com/gizm00/react_redux_camping_map/blob/master/src/CampFilterApp.jsx
+//apikey open marker context
+//apikey open marker usecontext
 
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
@@ -96,31 +93,61 @@ export default function SampleMap() {
   );
 }
 
-// https://www.freecodecamp.org/news/react-context-for-beginners/
+// import React from "react";
+// import { jsx } from "@emotion/core";
+// import GoogleMapsApiLoader from "google-maps-api-loader";
 
-// https://developers.google.com/maps/documentation/javascript/react-map
+// import RequestLocation from "../componets/request-location";
+// import { PositionContext } from "../contexts/position";
 
-// const Wrapper = styled.main`
-//   width: 100%;
-//   height: 100%;
-// `;
-
-// selected_provider.location.map(({ location }) => {
-//   return console.log(location);
-// });
-
-// const [places, setPlaces] = useState([]);
-
-// const fetchPlaces = async () => {
-//   fetch('places.json')
-//     .then((response) => response.json())
-//     .then((data) => setPlaces(data.results));
+// const container = {
+//   height: "90vh",
+//   width: "100vw"
 // };
 
-// useEffect(() => {
-//   fetchPlaces();
-// }, []);
+// function GoogleMap() {
+//   const position = React.useContext(PositionContext);
+//   const [googleMap, setGoogleMap] = React.useState(null);
+//   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
+//   const mapContainerRef = React.useRef(null);
 
-// if (!places || places.length === 0) {
-//   return null;
+//   React.useEffect(() => {
+//     GoogleMapsApiLoader({ apiKey }).then(google => {
+//       setGoogleMap(google);
+//     });
+//   }, [apiKey]);
+
+//   React.useEffect(() => {
+//     if (!googleMap || !mapContainerRef.current) return;
+
+//     const initialConfig = {
+//       zoom: 15,
+//       center: { lat: position.latitude, lng: position.longitude }
+//     };
+//     const map = new googleMap.maps.Map(mapContainerRef.current, initialConfig);
+//     const marker = new googleMap.maps.Marker({
+//       position: initialConfig.center,
+//       map: map
+//     });
+//     const InfoWindow = new googleMap.maps.InfoWindow({
+//       content: `<div id="content"> You are Here! <span role="img" aria-label="emoji dot position">
+//       🕵 ️
+//     </span></div>`
+//     });
+//     marker.addListener("click", () => {
+//       InfoWindow.open(map, marker);
+//     });
+//   }, [googleMap, mapContainerRef, position.latitude, position.longitude]);
+
+//   return (
+//     <React.Fragment>
+//       {position.latitude === 0 ? (
+//         <RequestLocation />
+//       ) : (
+//         <div css={container} ref={mapContainerRef} />
+//       )}
+//     </React.Fragment>
+//   );
 // }
+
+// export default GoogleMap;
