@@ -1,8 +1,3 @@
-//https://github.com/paulotijero/react-geolocation/blob/79b5de742e3910f67f67349b2b2b554ddaf5a4cf/src/index.js
-
-//apikey open marker context
-//apikey open marker usecontext
-
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from 'google-map-react';
@@ -14,84 +9,82 @@ import LocationContext from '../Context/LocationContext';
 import MarkerMap from './MarkerMap';
 // import { farmerContext } from '../../App';
 import { useAppContext } from '../Context/AppContext';
-import { providers } from '../Products/ProductList';
+// import { providers } from '../Products/ProductList';
+import ProviderJson from '../../components/Data/ProviderJson.json';
 
 import MapContext from '../Context/MapContext';
 
-export const Markers = providers.map((provider, index) => (
-  <MarkerMap
-    key={index}
-    text={provider.name}
-    lat={provider.location[0]}
-    lng={provider.location[1]}
-  />
-));
-
 export default function SampleMap() {
+  const [currentPosition, setCurrentPosition] = useState({});
   const mapContext = useContext(MapContext);
-  // const [search, setSearch] = useAppContext();
-  // console.log(search);
-
-  // const [markerIsShown, setMarkerIsShown] = useState(false);
-
-  // const showCartHandler = () => {
-  //   setMarkerIsShown(true);
-  // };
-
-  // const hideCartHandler = () => {
-  //   setMarkerIsShown(false);
-  // };
-
-  // const { productList } = useProductListContext();
-
-  // let farmer = useContext(farmerContext);
-
-  // const fincas = useContext(PersonalInfoContext);
-
-  // let proveedor = useContext(ProveedorProvider);
 
   const location = useContext(LocationContext);
 
-  // console.log(
-  //   providerList.map((finca, index) => (
-  //     <h3 key={index}>My name is {finca.name}</h3>
-  //   ))
-  // );
-
+  const AnyReactComponent = ({ text }) => <div>{text}</div>;
   return (
     <>
       <div style={{ height: '100vh', width: '100%' }}>
-        {/* <h2>{JSON.stringify(search)}</h2> */}
-
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
           }}
           defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
           defaultZoom={12}
+          yesIWantToUseGoogleMapApiInternals
         >
-          {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
-          {providers.map((provider, index) => (
+          {ProviderJson.map((provider, index) => (
+            <AnyReactComponent
+              key={index}
+              text={provider.name}
+              lat={provider.location[0]}
+              lng={provider.location[1]}
+            />
+          ))}
+
+          {ProviderJson.map((provider, index) => (
             <MarkerMap
               key={index}
               text={provider.name}
               lat={provider.location[0]}
               lng={provider.location[1]}
-
-              // eventHandlers={{
-              //   click: () => {
-              //     console.log('marker clicked');
-              //   },
-              // }}
             />
           ))}
-
           {/* <Marker lat={location.Latitude} lng={location.Longitude} /> */}
         </GoogleMapReact>
       </div>{' '}
     </>
   );
 }
+
+// export const Markers = ProviderJson.map((provider, index) => (
+//   <Marker
+//     key={index}
+//     text={provider.name}
+//     lat={provider.location[0]}
+//     lng={provider.location[1]}
+//   />
+// ));
+
+// const [search, setSearch] = useAppContext();
+// console.log(search);
+
+// const [markerIsShown, setMarkerIsShown] = useState(false);
+
+// const showCartHandler = () => {
+//   setMarkerIsShown(true);
+// };
+
+// const hideCartHandler = () => {
+//   setMarkerIsShown(false);
+// };
+
+// const { productList } = useProductListContext();
+
+// let farmer = useContext(farmerContext);
+
+// const fincas = useContext(PersonalInfoContext);
+
+// let proveedor = useContext(ProveedorProvider);
 
 // import React from "react";
 // import { jsx } from "@emotion/core";
