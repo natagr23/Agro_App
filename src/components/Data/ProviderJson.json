@@ -1,0 +1,12 @@
+[
+  {
+    "id": "provider_01",
+    "name": "Finca Los Manzanos",
+    "location": [4.771663332599528, -73.97970681236106]
+  },
+  {
+    "id": "provider_02",
+    "name": "Finca BuenaVista",
+    "location": [4.811453752177087, -74.0089983026621]
+  }
+]

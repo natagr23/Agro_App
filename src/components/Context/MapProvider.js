@@ -2,7 +2,7 @@ import React from 'react';
 
 const PositionContext = React.createContext();
 
-function PositionProvider(props) {
+export default function PositionProvider(props) {
   const [position, setPosition] = React.useState([0, 0]);
 
   React.useEffect(() => {
@@ -68,4 +68,4 @@ export { PositionProvider, PositionContext };
 //   return <MapContextProvider value={value}>{children}</MapContextProvider>;
 // };
 
-// export default MapProvider;
+//  export default MapProvider;

@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 import { PersonalInfoProvider } from '../Context/ProductLocationContext';
-import { Markers } from '../../components/Map/SampleMap';
+// import { Markers } from '../../components/Map/SampleMap';
+import ProviderJson from '../../components/Data/ProviderJson.json';
 
 class Provider {
   constructor(id, name, location) {
@@ -26,18 +27,18 @@ class Product {
   }
 }
 
-export const providers = [
-  new Provider(
-    'provider_01',
-    'Finca Los Manzanos',
-    [4.771663332599528, -73.97970681236106]
-  ),
-  new Provider(
-    'provider_02',
-    'Finca BuenaVista',
-    [4.811453752177087, -74.0089983026621]
-  ),
-];
+// export const providers = [
+//   new Provider(
+//     'provider_01',
+//     'Finca Los Manzanos',
+//     [4.771663332599528, -73.97970681236106]
+//   ),
+//   new Provider(
+//     'provider_02',
+//     'Finca BuenaVista',
+//     [4.811453752177087, -74.0089983026621]
+//   ),
+// ];
 
 export const products = [
   new Product(
@@ -64,7 +65,7 @@ export const products = [
 ];
 
 export const ProductList = (props) => {
-  const [providerList, setproviderList] = useState(providers);
+  const [providerList, setproviderList] = useState(ProviderJson);
 
   const [productList, setProductList] = useState(products);
 
@@ -80,7 +81,6 @@ export const ProductList = (props) => {
       return provider.id === selected_product.provider_id;
     });
     console.log(selected_provider.name, selected_provider.location);
-    return console.log(Markers);
   };
 
   // console.log(
