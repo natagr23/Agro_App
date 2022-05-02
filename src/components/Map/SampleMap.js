@@ -7,19 +7,7 @@
 //https://www.npmjs.com/package/@react-google-maps/api
 
 import React, { useState, useContext, useEffect } from 'react';
-import GoogleMapReact from 'google-map-react';
-// import Marker from 'google-map-react';
-
-// import styled from 'styled-components';
-
-import LocationContext from '../../Context/LocationContext';
-import MarkerMap from './MarkerMap';
-
-import { useAppContext } from '../../Context/AppContext';
-
-import ProviderJson from '../../components/Data/ProviderJson.json';
-
-import MapContext from '../../Context/MapContext';
+// import GoogleMapReact from 'google-map-react';
 import { ShopContext } from '../../Context/ShopContext';
 
 import {
@@ -33,15 +21,18 @@ const SampleMap = (props) => {
   const [map, setMap] = useState(null);
 
   const [currentPosition, setCurrentPosition] = useState({});
-
+  const [positionClickedOnMap, setPositionClickedOnMap] = useState();
+  const [isDisplayInfoWindowMarker, setIsDisplayInfoWindowMarker] =
+    useState(false);
+  const [openInfoWindowMarkerId, setOpenInfoWindowMarkerId] = useState();
   const ctx = useContext(ShopContext);
-  const mapContext = useContext(MapContext);
-  const location = useContext(LocationContext);
-
-  // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
   const addNewRestaurant = (data) => {
     props.addNewRestaurant(data);
+  };
+
+  const getPositionClickedOnMap = (e) => {
+    setPositionClickedOnMap(e);
   };
 
   const success = (position) => {
@@ -101,6 +92,11 @@ const SampleMap = (props) => {
     setMap(map);
   };
 
+  const handleToggleOpen = (markerId) => {
+    setIsDisplayInfoWindowMarker(true);
+    setOpenInfoWindowMarkerId(markerId);
+  };
+
   return isLoaded ? (
     // <ShopContext.Consumer>
     <div style={{ height: '100vh', width: '100%' }}>
@@ -109,6 +105,7 @@ const SampleMap = (props) => {
         center={currentPosition}
         zoom={11}
         onLoad={(map) => onMapLoad(map)}
+        onClick={getPositionClickedOnMap}
       >
         {ctx.shops !== false &&
           ctx.shops.map((element, index) => (
@@ -122,29 +119,31 @@ const SampleMap = (props) => {
                 url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
               }}
               name={element.name}
+              onClick={() => handleToggleOpen(index)}
             >
-              {
-                <InfoWindow
-                  options={{
-                    pixelOffset: {
-                      width: 0,
-                      height: 0,
-                    },
-                  }}
-                  position={{
-                    lat: element.location[0],
-                    lng: element.location[1],
-                  }}
-                >
-                  <div>
-                    <img
-                      src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.lat},${element.lng}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
-                      alt="restaurant picture"
-                    />
-                    <p>{element.name}</p>
-                  </div>
-                </InfoWindow>
-              }
+              {openInfoWindowMarkerId === index &&
+                isDisplayInfoWindowMarker === true && (
+                  <InfoWindow
+                    options={{
+                      pixelOffset: {
+                        width: 0,
+                        height: 0,
+                      },
+                    }}
+                    position={{
+                      lat: element.location[0],
+                      lng: element.location[1],
+                    }}
+                  >
+                    <div>
+                      <img
+                        src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.location[0]},${element.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
+                        alt="restaurant picture"
+                      />
+                      <p>{element.name}</p>
+                    </div>
+                  </InfoWindow>
+                )}
             </Marker>
           ))}
 
@@ -159,7 +158,7 @@ const SampleMap = (props) => {
             position={currentPosition}
           >
             <div>
-              <p>Votre position actuelle</p>
+              <p>Posición Actual</p>
             </div>
           </InfoWindow>
         </Marker>
