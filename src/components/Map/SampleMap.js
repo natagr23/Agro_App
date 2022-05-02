@@ -1,29 +1,182 @@
+//https://google-map-react.github.io/google-map-react/map/main/
+
+//https://google-map-react.github.io/google-map-react/map/balderdash
+
+//https://github.com/google-map-react/old-examples/blob/master/web/flux/components/examples/x_main/main_map_block.jsx
+
+//https://www.npmjs.com/package/@react-google-maps/api
+
 import React, { useState, useContext, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Marker from 'google-map-react';
+// import Marker from 'google-map-react';
+
 // import styled from 'styled-components';
 
-import LocationContext from '../Context/LocationContext';
-// import { PersonalInfoContext } from '../Context/ProductLocationContext';
-
+import LocationContext from '../../Context/LocationContext';
 import MarkerMap from './MarkerMap';
-// import { farmerContext } from '../../App';
-import { useAppContext } from '../Context/AppContext';
-// import { providers } from '../Products/ProductList';
+
+import { useAppContext } from '../../Context/AppContext';
+
 import ProviderJson from '../../components/Data/ProviderJson.json';
 
-import MapContext from '../Context/MapContext';
+import MapContext from '../../Context/MapContext';
+import { ShopContext } from '../../Context/ShopContext';
 
-export default function SampleMap() {
+import {
+  GoogleMap,
+  Marker,
+  InfoWindow,
+  useJsApiLoader,
+} from '@react-google-maps/api';
+
+const SampleMap = (props) => {
+  const [map, setMap] = useState(null);
+
   const [currentPosition, setCurrentPosition] = useState({});
-  const mapContext = useContext(MapContext);
 
+  const ctx = useContext(ShopContext);
+  const mapContext = useContext(MapContext);
   const location = useContext(LocationContext);
 
-  const AnyReactComponent = ({ text }) => <div>{text}</div>;
-  return (
-    <>
-      <div style={{ height: '100vh', width: '100%' }}>
+  // const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
+  const addNewRestaurant = (data) => {
+    props.addNewRestaurant(data);
+  };
+
+  const success = (position) => {
+    const currentPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
+    setCurrentPosition(currentPosition);
+  };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success);
+  }, []);
+
+  const containerStyle = {
+    height: '100%',
+    width: '100%',
+  };
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'AIzaSyCinlLedoJJ0bb-imfhm8tBdvJuPWcr8bI',
+    libraries: ['places'],
+  });
+
+  const onMapLoad = (map) => {
+    let service = new window.google.maps.places.PlacesService(map);
+
+    let request = {
+      location: { lng: currentPosition.lng, lat: currentPosition.lat },
+      radius: '800',
+      type: ['restaurant'],
+    };
+
+    service.nearbySearch(request, (results, status) => {
+      if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+        for (const result of results) {
+          let request2 = {
+            placeId: result.place_id,
+            fields: ['reviews'],
+          };
+
+          const ratings = [];
+          service.getDetails(request2, function (place, status) {
+            if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+              for (const placeElement of place.reviews) {
+                ratings.push({
+                  stars: placeElement.rating,
+                  comment: placeElement.text,
+                });
+              }
+            }
+          });
+        }
+      }
+    });
+
+    setMap(map);
+  };
+
+  return isLoaded ? (
+    // <ShopContext.Consumer>
+    <div style={{ height: '100vh', width: '100%' }}>
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={currentPosition}
+        zoom={11}
+        onLoad={(map) => onMapLoad(map)}
+      >
+        {ctx.shops !== false &&
+          ctx.shops.map((element, index) => (
+            <Marker
+              key={index}
+              position={{
+                lat: element.location[0],
+                lng: element.location[1],
+              }}
+              icon={{
+                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              }}
+              name={element.name}
+            >
+              {
+                <InfoWindow
+                  options={{
+                    pixelOffset: {
+                      width: 0,
+                      height: 0,
+                    },
+                  }}
+                  position={{
+                    lat: element.location[0],
+                    lng: element.location[1],
+                  }}
+                >
+                  <div>
+                    <img
+                      src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.lat},${element.lng}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
+                      alt="restaurant picture"
+                    />
+                    <p>{element.name}</p>
+                  </div>
+                </InfoWindow>
+              }
+            </Marker>
+          ))}
+
+        <Marker position={currentPosition}>
+          <InfoWindow
+            options={{
+              pixelOffset: {
+                width: 0,
+                height: 0,
+              },
+            }}
+            position={currentPosition}
+          >
+            <div>
+              <p>Votre position actuelle</p>
+            </div>
+          </InfoWindow>
+        </Marker>
+      </GoogleMap>
+    </div>
+  ) : (
+    // </ShopContext.Consumer>
+    <p>Map can't be load</p>
+  );
+};
+
+export default React.memo(SampleMap);
+
+// return (
+// <>
+{
+  /* <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{
             key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
@@ -31,116 +184,43 @@ export default function SampleMap() {
           defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
           defaultZoom={12}
           yesIWantToUseGoogleMapApiInternals
-        >
-          {ProviderJson.map((provider, index) => (
+        > */
+}
+{
+  /* {ProviderJson.map((provider, index) => (
             <AnyReactComponent
               key={index}
               text={provider.name}
               lat={provider.location[0]}
               lng={provider.location[1]}
+              icon={{
+                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+              }}
             />
-          ))}
-
-          {ProviderJson.map((provider, index) => (
-            <MarkerMap
-              key={index}
-              text={provider.name}
-              lat={provider.location[0]}
-              lng={provider.location[1]}
-            />
-          ))}
-          {/* <Marker lat={location.Latitude} lng={location.Longitude} /> */}
-        </GoogleMapReact>
-      </div>{' '}
-    </>
-  );
+          ))} */
 }
 
-// export const Markers = ProviderJson.map((provider, index) => (
-//   <Marker
-//     key={index}
-//     text={provider.name}
-//     lat={provider.location[0]}
-//     lng={provider.location[1]}
-//   />
-// ));
-
-// const [search, setSearch] = useAppContext();
-// console.log(search);
-
-// const [markerIsShown, setMarkerIsShown] = useState(false);
-
-// const showCartHandler = () => {
-//   setMarkerIsShown(true);
-// };
-
-// const hideCartHandler = () => {
-//   setMarkerIsShown(false);
-// };
-
-// const { productList } = useProductListContext();
-
-// let farmer = useContext(farmerContext);
-
-// const fincas = useContext(PersonalInfoContext);
-
-// let proveedor = useContext(ProveedorProvider);
-
-// import React from "react";
-// import { jsx } from "@emotion/core";
-// import GoogleMapsApiLoader from "google-maps-api-loader";
-
-// import RequestLocation from "../componets/request-location";
-// import { PositionContext } from "../contexts/position";
-
-// const container = {
-//   height: "90vh",
-//   width: "100vw"
-// };
-
-// function GoogleMap() {
-//   const position = React.useContext(PositionContext);
-//   const [googleMap, setGoogleMap] = React.useState(null);
-//   const apiKey = process.env.REACT_APP_GOOGLE_API_KEY;
-//   const mapContainerRef = React.useRef(null);
-
-//   React.useEffect(() => {
-//     GoogleMapsApiLoader({ apiKey }).then(google => {
-//       setGoogleMap(google);
-//     });
-//   }, [apiKey]);
-
-//   React.useEffect(() => {
-//     if (!googleMap || !mapContainerRef.current) return;
-
-//     const initialConfig = {
-//       zoom: 15,
-//       center: { lat: position.latitude, lng: position.longitude }
-//     };
-//     const map = new googleMap.maps.Map(mapContainerRef.current, initialConfig);
-//     const marker = new googleMap.maps.Marker({
-//       position: initialConfig.center,
-//       map: map
-//     });
-//     const InfoWindow = new googleMap.maps.InfoWindow({
-//       content: `<div id="content"> You are Here! <span role="img" aria-label="emoji dot position">
-//       🕵 ️
-//     </span></div>`
-//     });
-//     marker.addListener("click", () => {
-//       InfoWindow.open(map, marker);
-//     });
-//   }, [googleMap, mapContainerRef, position.latitude, position.longitude]);
-
-//   return (
-//     <React.Fragment>
-//       {position.latitude === 0 ? (
-//         <RequestLocation />
-//       ) : (
-//         <div css={container} ref={mapContainerRef} />
-//       )}
-//     </React.Fragment>
+{
+  /* {ProviderJson.map((provider, index) => (
+        <MarkerMap
+          key={index}
+          text={provider.name}
+          lat={provider.location[0]}
+          lng={provider.location[1]}
+        />
+      ))} */
+}
+{
+  /* <Marker lat={location.Latitude} lng={location.Longitude} /> */
+}
+{
+  /* </GoogleMapReact> */
+}
+{
+  /* </div>{' '} */
+}
+{
+  /* </> */
+}
 //   );
 // }
-
-// export default GoogleMap;

@@ -15,7 +15,7 @@ import Register from './components/Login/Register';
 
 import ForgotPassword from './components/Login/ForgotPassword';
 
-import LocationContext from './components/Context/LocationContext';
+import LocationContext from './Context/LocationContext';
 
 import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 // import SearchBar from './components/SearchBar/SearchBar';

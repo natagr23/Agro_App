@@ -2,11 +2,33 @@
   {
     "id": "provider_01",
     "name": "Finca Los Manzanos",
-    "location": [4.771663332599528, -73.97970681236106]
+    "location": [4.771663332599528, -73.97970681236106],
+    "lng": 6.14104635369681,
+    "ratings": [
+      {
+        "stars": 4,
+        "comment": "Un très bon restaurant pour nous faire voyager, avec plein de saveurs et de goûts et le tout fait maison..."
+      },
+      {
+        "stars": 5,
+        "comment": "De la vrai cuisine mexicaine. Très bon ! Personnel très gentil ! A refaire"
+      }
+    ]
   },
   {
     "id": "provider_02",
     "name": "Finca BuenaVista",
-    "location": [4.811453752177087, -74.0089983026621]
+    "location": [4.811453752177087, -74.0089983026621],
+    "lng": 6.14104635369681,
+    "ratings": [
+      {
+        "stars": 3,
+        "comment": "ppp Un très bon restaurant pour nous faire voyager, avec plein de saveurs et de goûts et le tout fait maison..."
+      },
+      {
+        "stars": 2,
+        "comment": "ppp De la vrai cuisine mexicaine. Très bon ! Personnel très gentil ! A refaire"
+      }
+    ]
   }
 ]

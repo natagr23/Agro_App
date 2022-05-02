@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
-import { PersonalInfoProvider } from '../Context/ProductLocationContext';
+import { PersonalInfoProvider } from '../../Context/ProductLocationContext';
 // import { Markers } from '../../components/Map/SampleMap';
 import ProviderJson from '../../components/Data/ProviderJson.json';
 
@@ -66,7 +66,6 @@ export const products = [
 
 export const ProductList = (props) => {
   const [providerList, setproviderList] = useState(ProviderJson);
-
   const [productList, setProductList] = useState(products);
 
   const OnSelectProduct = (product_id) => {

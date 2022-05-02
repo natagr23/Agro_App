@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -7,10 +7,12 @@ import Grid from '@mui/material/Grid';
 
 import SampleMap from '../../components/Map/SampleMap';
 
-import { AppProvider } from '../Context/AppContext';
+import { AppProvider } from '../../Context/AppContext';
 import { ProductList } from '../../components/Products/ProductList';
 
-import MapProvider from '../Context/MapProvider';
+import MapProvider from '../../Context/MapProvider';
+import { ShopContext } from '../../Context/ShopContext';
+import { ShopContextProvider } from '../../Context/ShopContext';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,33 +22,40 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function HomeGrid() {
+const HomeGrid = () => {
+  const ctx = useContext(ShopContext);
+
+  const [shopsFiltered, setShopsFiltered] = useState(ctx.shops);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* <providerContext.Provider> */}
-      <MapProvider>
-        <AppProvider>
-          {/* <h2>{location.Latitude}</h2> */}
+      <ShopContextProvider>
+        <MapProvider>
+          <AppProvider>
+            {/* <h2>{location.Latitude}</h2> */}
 
-          <Grid container spacing={2}>
-            <Grid item xs={6} md={4}>
-              <Item>
-                {' '}
-                {/* <SearchBar /> */}
-                <ProductList />
-              </Item>
+            <Grid container spacing={2}>
+              <Grid item xs={6} md={4}>
+                <Item>
+                  {' '}
+                  {/* <SearchBar /> */}
+                  <ProductList />
+                </Item>
+              </Grid>
+              <Grid item xs={6} md={8}>
+                <Item>
+                  {' '}
+                  <SampleMap shopsFiltered={shopsFiltered} />{' '}
+                </Item>
+              </Grid>
             </Grid>
-            <Grid item xs={6} md={8}>
-              <Item>
-                {' '}
-                <SampleMap />{' '}
-              </Item>
-            </Grid>
-          </Grid>
-          {/* </PersonalInfoProvider> */}
-        </AppProvider>
-      </MapProvider>
+            {/* </PersonalInfoProvider> */}
+          </AppProvider>
+        </MapProvider>
+      </ShopContextProvider>
       {/* </providerContext.Provider> */}
     </Box>
   );
-}
+};
+
+export default HomeGrid;
