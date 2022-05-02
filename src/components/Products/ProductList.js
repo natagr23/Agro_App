@@ -6,7 +6,6 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 import { PersonalInfoProvider } from '../../Context/ProductLocationContext';
-// import { Markers } from '../../components/Map/SampleMap';
 import ProviderJson from '../../components/Data/ProviderJson.json';
 
 class Provider {
@@ -88,13 +87,9 @@ export const ProductList = (props) => {
   //   })
   // );
 
-  // const provideData = { providerList, setproviderList };
-
   return (
-    // <ProductLocationContext.Provider value={3}>
-
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <PersonalInfoProvider value={productList}>
+      <PersonalInfoProvider value={providerList}>
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
           {productList.map((product) => {
@@ -112,7 +107,5 @@ export const ProductList = (props) => {
         </Stack>
       </PersonalInfoProvider>
     </Box>
-
-    // </ProductLocationContext.Provider>
   );
 };

@@ -7,10 +7,10 @@ import Grid from '@mui/material/Grid';
 
 import SampleMap from '../../components/Map/SampleMap';
 
-import { AppProvider } from '../../Context/AppContext';
+// import { AppProvider } from '../../Context/AppContext';
 import { ProductList } from '../../components/Products/ProductList';
 
-import MapProvider from '../../Context/MapProvider';
+// import MapProvider from '../../Context/MapProvider';
 import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
 
@@ -30,30 +30,22 @@ const HomeGrid = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ShopContextProvider>
-        <MapProvider>
-          <AppProvider>
-            {/* <h2>{location.Latitude}</h2> */}
-
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={4}>
-                <Item>
-                  {' '}
-                  {/* <SearchBar /> */}
-                  <ProductList />
-                </Item>
-              </Grid>
-              <Grid item xs={6} md={8}>
-                <Item>
-                  {' '}
-                  <SampleMap shopsFiltered={shopsFiltered} />{' '}
-                </Item>
-              </Grid>
-            </Grid>
-            {/* </PersonalInfoProvider> */}
-          </AppProvider>
-        </MapProvider>
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={4}>
+            <Item>
+              {' '}
+              {/* <SearchBar /> */}
+              <ProductList />
+            </Item>
+          </Grid>
+          <Grid item xs={6} md={8}>
+            <Item>
+              {' '}
+              <SampleMap shopsFiltered={shopsFiltered} />{' '}
+            </Item>
+          </Grid>
+        </Grid>
       </ShopContextProvider>
-      {/* </providerContext.Provider> */}
     </Box>
   );
 };

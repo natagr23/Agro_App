@@ -31,6 +31,15 @@ const SampleMap = (props) => {
     props.addNewRestaurant(data);
   };
 
+  const getBounds = () => {
+    ctx.updateBounds({
+      boundsNordEstlat: map.getBounds().getNorthEast().lat(),
+      boundsNordEstlng: map.getBounds().getNorthEast().lng(),
+      boundsSudOuestlat: map.getBounds().getSouthWest().lat(),
+      boundsSudOuestlng: map.getBounds().getSouthWest().lng(),
+    });
+  };
+
   const getPositionClickedOnMap = (e) => {
     setPositionClickedOnMap(e);
   };
@@ -91,10 +100,24 @@ const SampleMap = (props) => {
 
     setMap(map);
   };
+  useEffect(() => {
+    setTimeout(() => {
+      ctx.updateBounds({
+        boundsNordEstlat: map.getBounds().getNorthEast().location[0](),
+        boundsNordEstlng: map.getBounds().getNorthEast().location[1](),
+        boundsSudOuestlat: map.getBounds().getSouthWest().location[1](),
+        boundsSudOuestlng: map.getBounds().getSouthWest().location[2](),
+      });
+    }, 100);
+  }, [map]);
 
   const handleToggleOpen = (markerId) => {
     setIsDisplayInfoWindowMarker(true);
     setOpenInfoWindowMarkerId(markerId);
+  };
+
+  const hideInfoWindow = () => {
+    setIsDisplayInfoWindowMarker(false);
   };
 
   return isLoaded ? (
@@ -134,11 +157,12 @@ const SampleMap = (props) => {
                       lat: element.location[0],
                       lng: element.location[1],
                     }}
+                    onCloseClick={hideInfoWindow}
                   >
                     <div>
                       <img
                         src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.location[0]},${element.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
-                        alt="restaurant picture"
+                        alt=""
                       />
                       <p>{element.name}</p>
                     </div>
@@ -174,52 +198,3 @@ export default React.memo(SampleMap);
 
 // return (
 // <>
-{
-  /* <div style={{ height: '100vh', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{
-            key: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
-          }}
-          defaultCenter={{ lat: location.Latitude, lng: location.Longitude }}
-          defaultZoom={12}
-          yesIWantToUseGoogleMapApiInternals
-        > */
-}
-{
-  /* {ProviderJson.map((provider, index) => (
-            <AnyReactComponent
-              key={index}
-              text={provider.name}
-              lat={provider.location[0]}
-              lng={provider.location[1]}
-              icon={{
-                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-              }}
-            />
-          ))} */
-}
-
-{
-  /* {ProviderJson.map((provider, index) => (
-        <MarkerMap
-          key={index}
-          text={provider.name}
-          lat={provider.location[0]}
-          lng={provider.location[1]}
-        />
-      ))} */
-}
-{
-  /* <Marker lat={location.Latitude} lng={location.Longitude} /> */
-}
-{
-  /* </GoogleMapReact> */
-}
-{
-  /* </div>{' '} */
-}
-{
-  /* </> */
-}
-//   );
-// }
