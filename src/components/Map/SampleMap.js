@@ -27,10 +27,6 @@ const SampleMap = (props) => {
   const [openInfoWindowMarkerId, setOpenInfoWindowMarkerId] = useState();
   const ctx = useContext(ShopContext);
 
-  const addNewRestaurant = (data) => {
-    props.addNewRestaurant(data);
-  };
-
   const getBounds = () => {
     ctx.updateBounds({
       boundsNordEstlat: map.getBounds().getNorthEast().lat(),
@@ -60,10 +56,11 @@ const SampleMap = (props) => {
     height: '100%',
     width: '100%',
   };
+  const libraries = ['places'];
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyCinlLedoJJ0bb-imfhm8tBdvJuPWcr8bI',
-    libraries: ['places'],
+    libraries,
   });
 
   const onMapLoad = (map) => {
@@ -72,11 +69,11 @@ const SampleMap = (props) => {
     let request = {
       location: { lng: currentPosition.lng, lat: currentPosition.lat },
       radius: '800',
-      type: ['restaurant'],
+      type: ['shop'],
     };
 
     service.nearbySearch(request, (results, status) => {
-      if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+      if (status === window.google.maps.places.PlacesServiceStatus.OK) {
         for (const result of results) {
           let request2 = {
             placeId: result.place_id,
@@ -85,7 +82,7 @@ const SampleMap = (props) => {
 
           const ratings = [];
           service.getDetails(request2, function (place, status) {
-            if (status == window.google.maps.places.PlacesServiceStatus.OK) {
+            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
               for (const placeElement of place.reviews) {
                 ratings.push({
                   stars: placeElement.rating,
@@ -103,10 +100,10 @@ const SampleMap = (props) => {
   useEffect(() => {
     setTimeout(() => {
       ctx.updateBounds({
-        boundsNordEstlat: map.getBounds().getNorthEast().location[0](),
-        boundsNordEstlng: map.getBounds().getNorthEast().location[1](),
-        boundsSudOuestlat: map.getBounds().getSouthWest().location[1](),
-        boundsSudOuestlng: map.getBounds().getSouthWest().location[2](),
+        boundsNordEstlat: map.getBounds().getNorthEast().lat(),
+        boundsNordEstlng: map.getBounds().getNorthEast().lng(),
+        boundsSudOuestlat: map.getBounds().getSouthWest().lat(),
+        boundsSudOuestlng: map.getBounds().getSouthWest().lng(),
       });
     }, 100);
   }, [map]);
@@ -128,6 +125,7 @@ const SampleMap = (props) => {
         center={currentPosition}
         zoom={11}
         onLoad={(map) => onMapLoad(map)}
+        onBoundsChanged={getBounds}
         onClick={getPositionClickedOnMap}
       >
         {ctx.shops !== false &&

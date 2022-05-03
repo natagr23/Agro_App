@@ -27,6 +27,38 @@ const HomeGrid = () => {
 
   const [shopsFiltered, setShopsFiltered] = useState(ctx.shops);
 
+  useEffect(() => {
+    setTimeout(() => {
+      const filteredShopsWithBounds = ctx.shops.filter((shop) => {
+        if (
+          shop.location[0] > ctx.bounds.boundsSudOuestlat &&
+          shop.location[0] < ctx.bounds.boundsNordEstlat &&
+          shop.location[1] > ctx.bounds.boundsSudOuestlng &&
+          shop.location[1] < ctx.bounds.boundsNordEstlng
+        ) {
+          return true;
+        }
+      });
+
+      const filteredShopsWithRatings = filteredShopsWithBounds.filter((elt) => {
+        const ratingsAverage =
+          elt.ratings.reduce(
+            (previousValue, currentValue) => previousValue + currentValue.stars,
+            0
+          ) / elt.ratings.length;
+        if (ratingsAverage >= ctx.minStars && ratingsAverage <= ctx.maxStars) {
+          return elt;
+        }
+      });
+
+      if (filteredShopsWithRatings.length > 0) {
+        setShopsFiltered(filteredShopsWithRatings);
+      } else {
+        setShopsFiltered(false);
+      }
+    }, 800);
+  }, [ctx.bounds, ctx.minStars, ctx.maxStars, ctx.shops]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ShopContextProvider>
