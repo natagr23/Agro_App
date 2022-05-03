@@ -24,12 +24,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const HomeGrid = () => {
   const ctx = useContext(ShopContext);
-
   const [shopsFiltered, setShopsFiltered] = useState(ctx.shops);
 
   useEffect(() => {
     setTimeout(() => {
-      const filteredShopsWithBounds = ctx.shops.filter((shop) => {
+      let filteredShopsWithBounds = ctx.shops.filter((shop) => {
         if (
           shop.location[0] > ctx.bounds.boundsSudOuestlat &&
           shop.location[0] < ctx.bounds.boundsNordEstlat &&
