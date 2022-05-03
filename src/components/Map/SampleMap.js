@@ -17,6 +17,7 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 
+const libraries = ['places'];
 const SampleMap = (props) => {
   const [map, setMap] = useState(null);
 
@@ -56,11 +57,12 @@ const SampleMap = (props) => {
     height: '100%',
     width: '100%',
   };
-  const libraries = ['places'];
+  let libRef = React.useRef(libraries);
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyCinlLedoJJ0bb-imfhm8tBdvJuPWcr8bI',
-    libraries,
+    libraries: libRef.current,
   });
 
   const onMapLoad = (map) => {

@@ -53,7 +53,6 @@ function App() {
   }, [navigate]);
   return (
     <React.Fragment>
-      {/* <LocationContext.Provider value={location}> */}
       <ToastContainer />
       <StyledEngineProvider injectFirst>
         <Navbar />
@@ -114,7 +113,6 @@ function App() {
         </AuthProvider>
         {/* <SearchBar /> */}
       </StyledEngineProvider>
-      {/* </LocationContext.Provider> */}
     </React.Fragment>
   );
 }

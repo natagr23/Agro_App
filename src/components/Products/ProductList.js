@@ -5,8 +5,10 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
-import { PersonalInfoProvider } from '../../Context/ProductLocationContext';
+
 import ProviderJson from '../../components/Data/ProviderJson.json';
+import { ShopContext } from '../../Context/ShopContext';
+import { ShopContextProvider } from '../../Context/ShopContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -89,7 +91,8 @@ export const ProductList = (props) => {
 
   return (
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
-      <PersonalInfoProvider value={providerList}>
+      <ShopContextProvider value={providerList}>
+        {/* <PersonalInfoProvider value={providerList}> */}
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
           {productList.map((product) => {
@@ -105,7 +108,9 @@ export const ProductList = (props) => {
             );
           })}
         </Stack>
-      </PersonalInfoProvider>
+
+        {/* </PersonalInfoProvider> */}
+      </ShopContextProvider>
     </Box>
   );
 };

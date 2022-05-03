@@ -4,13 +4,17 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { PersonalInfoContext } from '../../Context/ProductLocationContext';
+// import { PersonalInfoContext } from '../../Context/ProductLocationContext';
+
+import { ShopContext } from '../../Context/ShopContext';
 
 export default function ProductCard(props) {
   const click_handler = (event) => {
     props.OnSelectProduct(props.id);
   };
-  const fincas = useContext(PersonalInfoContext);
+
+  // const fincas = useContext(PersonalInfoContext);
+  const fincas = useContext(ShopContext);
   return (
     <Card onClick={click_handler} sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -28,7 +32,7 @@ export default function ProductCard(props) {
             {props.description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {fincas.provider.map((finca, index) => (
+            {fincas.shops.map((finca, index) => (
               <h3 key={index}>Producto {finca.name}</h3>
             ))}
           </Typography>
