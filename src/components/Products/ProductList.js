@@ -69,7 +69,9 @@ export const products = [
 export const ProductList = (props) => {
   const [providerList, setproviderList] = useState(ProviderJson);
   const [productList, setProductList] = useState(products);
-  const { show, setShow } = React.useContext(ShowContext);
+  const { showProduct, setShowProduct } = React.useContext(ShowContext);
+
+  const ctx = useContext(ShopContext);
 
   const OnSelectProduct = (product_id) => {
     console.log('desde productList', product_id);
@@ -83,7 +85,8 @@ export const ProductList = (props) => {
       return provider.id === selected_product.provider_id;
     });
     console.log(selected_provider.name, selected_provider.location);
-    setShow(true);
+    // setShowProduct(true);
+    ctx.updateShow(true);
   };
 
   // console.log(
@@ -98,7 +101,7 @@ export const ProductList = (props) => {
         {/* <PersonalInfoProvider value={providerList}> */}
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
-          {show &&
+          {!showProduct &&
             productList.map((product) => {
               return (
                 <ProductCard

@@ -131,6 +131,7 @@ const SampleMap = (props) => {
         onClick={getPositionClickedOnMap}
       >
         {ctx.shops !== false &&
+          ctx.show1 &&
           ctx.shops.map((element, index) => (
             <Marker
               key={index}
