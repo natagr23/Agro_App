@@ -66,13 +66,13 @@ const HomeGrid = () => {
             <Item>
               {' '}
               {/* <SearchBar /> */}
-              <ProductList />
+              <ProductList shopsFiltered={shopsFiltered} />
             </Item>
           </Grid>
           <Grid item xs={6} md={8}>
             <Item>
               {' '}
-              <SampleMap shopsFiltered={shopsFiltered} />{' '}
+              <SampleMap />{' '}
             </Item>
           </Grid>
         </Grid>

@@ -31,12 +31,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import SignIn from './components/Login/SignIn';
 // import { ShopContext } from './Context/ShopContext';
 import { ShopContextProvider } from './Context/ShopContext';
+import { ShowContext } from './Context/ShowContext';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);
+  const [show, setShow] = useState(false);
 
-  const [farmer, setFarmer] = useState('Finca xxx');
+  // const [farmer, setFarmer] = useState('Finca xxx');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -58,35 +60,36 @@ function App() {
       <ToastContainer />
       <StyledEngineProvider injectFirst>
         <Navbar />
-        <ShopContextProvider>
-          {/* <AuthProvider value={{ currentUser, timeActive, setTimeActive }}> */}
-          <Routes>
-            <Route
-              path="/"
-              element={<Navigate to="/components/Home/Home" replace={true} />}
-            />
-            <Route
-              exact
-              path="/components/Account/Account"
-              element={<Account />}
-            />
-            <Route
-              exact
-              path="/components/Products/Products"
-              element={<Products name="Producto1" />}
-            />
-            <Route
-              exact
-              path="/components/Services/Services"
-              element={<Services />}
-            />
-            <Route exact path="/components/About/About" element={<About />} />
-            <Route
-              exact
-              path="/components/Contact/Contact"
-              element={<Contact />}
-            />
-            {/* <Route
+        <ShowContext.Provider value={{ show, setShow }}>
+          <ShopContextProvider>
+            {/* <AuthProvider value={{ currentUser, timeActive, setTimeActive }}> */}
+            <Routes>
+              <Route
+                path="/"
+                element={<Navigate to="/components/Home/Home" replace={true} />}
+              />
+              <Route
+                exact
+                path="/components/Account/Account"
+                element={<Account />}
+              />
+              <Route
+                exact
+                path="/components/Products/Products"
+                element={<Products name="Producto1" />}
+              />
+              <Route
+                exact
+                path="/components/Services/Services"
+                element={<Services />}
+              />
+              <Route exact path="/components/About/About" element={<About />} />
+              <Route
+                exact
+                path="/components/Contact/Contact"
+                element={<Contact />}
+              />
+              {/* <Route
               exact
               path="/"
               element={
@@ -96,26 +99,24 @@ function App() {
               }
             /> */}
 
-            <Route path="/SignIn" element={<SignIn />} />
-            <Route path="/register" element={<Register />} />
+              <Route path="/SignIn" element={<SignIn />} />
+              <Route path="/register" element={<Register />} />
 
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
 
-            <Route
-              path="/components/Home/Home"
-              element={<Home farmer={farmer} />}
-            />
+              <Route path="/components/Home/Home" element={<Home />} />
 
-            {/* <Route path="/forgot-password">
+              {/* <Route path="/forgot-password">
               <ForgotPassword />
             </Route>
             <Route path="/reset-password">
               <ResetPassword />
             </Route> */}
-          </Routes>
-          {/* </AuthProvider> */}
-          {/* <SearchBar /> */}
-        </ShopContextProvider>
+            </Routes>
+            {/* </AuthProvider> */}
+            {/* <SearchBar /> */}
+          </ShopContextProvider>
+        </ShowContext.Provider>
       </StyledEngineProvider>
     </React.Fragment>
   );

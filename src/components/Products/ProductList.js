@@ -9,6 +9,7 @@ import ProductCard from './ProductCard';
 import ProviderJson from '../../components/Data/ProviderJson.json';
 import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
+import { ShowContext } from '../../Context/ShowContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -68,6 +69,7 @@ export const products = [
 export const ProductList = (props) => {
   const [providerList, setproviderList] = useState(ProviderJson);
   const [productList, setProductList] = useState(products);
+  const { show, setShow } = React.useContext(ShowContext);
 
   const OnSelectProduct = (product_id) => {
     console.log('desde productList', product_id);
@@ -81,6 +83,7 @@ export const ProductList = (props) => {
       return provider.id === selected_product.provider_id;
     });
     console.log(selected_provider.name, selected_provider.location);
+    setShow(true);
   };
 
   // console.log(
@@ -95,18 +98,19 @@ export const ProductList = (props) => {
         {/* <PersonalInfoProvider value={providerList}> */}
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
-          {productList.map((product) => {
-            return (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                id={product.id}
-                description={product.description}
-                image_url={product.image_url}
-                OnSelectProduct={OnSelectProduct}
-              />
-            );
-          })}
+          {show &&
+            productList.map((product) => {
+              return (
+                <ProductCard
+                  key={product.id}
+                  name={product.name}
+                  id={product.id}
+                  description={product.description}
+                  image_url={product.image_url}
+                  OnSelectProduct={OnSelectProduct}
+                />
+              );
+            })}
         </Stack>
 
         {/* </PersonalInfoProvider> */}
