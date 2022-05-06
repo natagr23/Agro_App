@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 //https://console.firebase.google.com/project/agroapp-ae569/overview
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCinlLedoJJ0bb-imfhm8tBdvJuPWcr8bI',
+  apiKey: 'AIzaSyC-9GVoEPB7uxg8jKLp0QfiWdvzWE7YrfE',
   authDomain: 'agroapp-ae569.firebaseapp.com',
   databaseURL: 'https://agroapp-ae569-default-rtdb.firebaseio.com',
   projectId: 'agroapp-ae569',

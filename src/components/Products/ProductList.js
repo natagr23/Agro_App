@@ -9,7 +9,7 @@ import ProductCard from './ProductCard';
 import ProviderJson from '../../components/Data/ProviderJson.json';
 import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
-import { ShowContext } from '../../Context/ShowContext';
+// import { ShowContext } from '../../Context/ShowContext';
 
 class Provider {
   constructor(id, name, location) {
@@ -69,7 +69,7 @@ export const products = [
 export const ProductList = (props) => {
   const [providerList, setproviderList] = useState(ProviderJson);
   const [productList, setProductList] = useState(products);
-  const { showProduct, setShowProduct } = React.useContext(ShowContext);
+  // const { showProduct, setShowProduct } = React.useContext(ShowContext);
 
   const ctx = useContext(ShopContext);
 
@@ -101,7 +101,7 @@ export const ProductList = (props) => {
         {/* <PersonalInfoProvider value={providerList}> */}
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
-          {!showProduct &&
+          {!ctx.setShow &&
             productList.map((product) => {
               return (
                 <ProductCard

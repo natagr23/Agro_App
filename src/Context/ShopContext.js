@@ -9,7 +9,7 @@ export const ShopContextProvider = (props) => {
   const [minStars, setMinStars] = useState(1);
   const [maxStars, setMaxStars] = useState(5);
   const [bounds, setBounds] = useState({});
-  const [show1, setShow1] = useState(false);
+  const [show, setShow] = useState(false);
 
   const updateShops = (restaurantsUpdated) => {
     setShops((prevState) => [...prevState, restaurantsUpdated]);
@@ -41,14 +41,14 @@ export const ShopContextProvider = (props) => {
   };
 
   const updateShow = (data) => {
-    setShow1(true);
+    setShow(true);
   };
 
   return (
     <ShopContext.Provider
       value={{
         shops: shops,
-        show1: show1,
+        show: show,
         updateShow: updateShow,
         minStars: minStars,
         maxStars: maxStars,
