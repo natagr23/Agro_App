@@ -1,0 +1,23 @@
+[
+  {
+    "id": "P1",
+    "name": "Naranjas",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet interdum tellus. Vivamus eu lectus odio",
+    "image_url": "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
+    "provider_id": "provider_01"
+  },
+  {
+    "id": "P2",
+    "name": "Guayabas",
+    "description": "Nunc arcu nisl, pulvinar non posuere et, sollicitudin ac magna. Aenean ut varius augue",
+    "image_url": "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
+    "provider_id": "provider_01"
+  },
+  {
+    "id": "P3",
+    "name": "Peras",
+    "description": "Proin dictum ut enim vitae luctus. Cras fringilla elit nec arcu tristique lacinia",
+    "image_url": "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
+    "provider_id": "provider_02"
+  }
+]

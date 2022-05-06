@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 
 import ProviderJson from '../../components/Data/ProviderJson.json';
+import ProductJson from '../../components/Data/ProviderJson.json';
 import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
 // import { ShowContext } from '../../Context/ShowContext';
@@ -67,6 +68,18 @@ export const products = [
 ];
 
 export const ProductList = (props) => {
+  //create a new array by filtering the original array
+  const filteredData = ProductJson.filter((el) => {
+    //if no input the return the original
+    if (props.input === '') {
+      return el;
+    }
+    //return the item which contains the user input
+    else {
+      return el.text.toLowerCase().includes(props.input);
+    }
+  });
+
   const [providerList, setproviderList] = useState(ProviderJson);
   const [productList, setProductList] = useState(products);
   // const { showProduct, setShowProduct } = React.useContext(ShowContext);
@@ -102,7 +115,7 @@ export const ProductList = (props) => {
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
           {!ctx.setShow &&
-            productList.map((product) => {
+            ctx.products.map((product) => {
               return (
                 <ProductCard
                   key={product.id}

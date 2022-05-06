@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const HomeGrid = () => {
+const HomeGrid = (props) => {
   const ctx = useContext(ShopContext);
   const [shopsFiltered, setShopsFiltered] = useState(ctx.shops);
 
@@ -66,7 +66,7 @@ const HomeGrid = () => {
             <Item>
               {' '}
               {/* <SearchBar /> */}
-              <ProductList shopsFiltered={shopsFiltered} />
+              <ProductList input={props.input} />
             </Item>
           </Grid>
           <Grid item xs={6} md={8}>

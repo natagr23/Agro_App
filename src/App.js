@@ -60,6 +60,7 @@ function App() {
       <ToastContainer />
       <StyledEngineProvider injectFirst>
         <Navbar />
+
         {/* <ShowContext.Provider value={{ show, setShow }}> */}
         <ShopContextProvider>
           {/* <AuthProvider value={{ currentUser, timeActive, setTimeActive }}> */}
