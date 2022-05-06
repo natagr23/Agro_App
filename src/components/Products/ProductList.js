@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import ProductCard from './ProductCard';
 
 import ProviderJson from '../../components/Data/ProviderJson.json';
-import ProductJson from '../../components/Data/ProviderJson.json';
+import ProductJson from '../../components/Data/ProductJson.json';
 import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
 // import { ShowContext } from '../../Context/ShowContext';
@@ -76,7 +76,7 @@ export const ProductList = (props) => {
     }
     //return the item which contains the user input
     else {
-      return el.text.toLowerCase().includes(props.input);
+      return el.name.toLowerCase().includes(props.input);
     }
   });
 
@@ -115,7 +115,7 @@ export const ProductList = (props) => {
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
           {!ctx.setShow &&
-            ctx.products.map((product) => {
+            filteredData.map((product) => {
               return (
                 <ProductCard
                   key={product.id}
