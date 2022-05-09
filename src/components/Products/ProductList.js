@@ -92,14 +92,13 @@ export const ProductList = (props) => {
     let selected_product = productList.find((product) => {
       return product.id === product_id;
     });
-
+    ctx.updateShow(true);
     // seleccionar el proveedor que coincida con ese id
     let selected_provider = providerList.find((provider) => {
       return provider.id === selected_product.provider_id;
     });
     console.log(selected_provider.name, selected_provider.location);
     // setShowProduct(true);
-    ctx.updateShow(true);
   };
 
   // console.log(

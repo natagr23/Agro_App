@@ -20,7 +20,7 @@ import {
 const libraries = ['places'];
 const SampleMap = (props) => {
   const [map, setMap] = useState(null);
-
+  const [openMarkerId, setOpenMarkerId] = useState();
   const [currentPosition, setCurrentPosition] = useState({});
   const [positionClickedOnMap, setPositionClickedOnMap] = useState();
   const [isDisplayInfoWindowMarker, setIsDisplayInfoWindowMarker] =
@@ -119,6 +119,10 @@ const SampleMap = (props) => {
     setIsDisplayInfoWindowMarker(false);
   };
 
+  const handleMarkerOpen = (productId) => {
+    setOpenMarkerId(productId);
+  };
+
   return isLoaded ? (
     // <ShopContext.Consumer>
     <div style={{ height: '100vh', width: '100%' }}>
@@ -132,6 +136,7 @@ const SampleMap = (props) => {
       >
         {ctx.shops !== false &&
           ctx.show &&
+          // openMarkerId === index &&
           ctx.shops.map((element, index) => (
             <Marker
               key={index}
