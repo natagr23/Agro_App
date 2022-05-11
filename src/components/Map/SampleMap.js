@@ -140,7 +140,7 @@ const SampleMap = (props) => {
           ctx.show &&
           // openMarkerId === index &&
           ctx.shops.map((element, id) => {
-            if (element.id === id) {
+            if (element.id !== id) {
               return (
                 <Marker
                   key={id}
