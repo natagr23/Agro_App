@@ -1,3 +1,5 @@
+//markerRef = useRef   apikey react
+
 //https://google-map-react.github.io/google-map-react/map/main/
 
 //https://google-map-react.github.io/google-map-react/map/balderdash
@@ -61,7 +63,7 @@ const SampleMap = (props) => {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyCinlLedoJJ0bb-imfhm8tBdvJuPWcr8bI',
+    googleMapsApiKey: 'AIzaSyAhoPLVukmNJqSFkcG9DTvtz-fHJdUAY9A',
     libraries: libRef.current,
   });
 
@@ -119,9 +121,9 @@ const SampleMap = (props) => {
     setIsDisplayInfoWindowMarker(false);
   };
 
-  const handleMarkerOpen = (productId) => {
-    setOpenMarkerId(productId);
-  };
+  // const handleMarkerOpen = (productId) => {
+  //   setOpenMarkerId(productId);
+  // };
 
   return isLoaded ? (
     // <ShopContext.Consumer>
@@ -137,45 +139,49 @@ const SampleMap = (props) => {
         {ctx.shops !== false &&
           ctx.show &&
           // openMarkerId === index &&
-          ctx.shops.map((element, index) => (
-            <Marker
-              key={index}
-              position={{
-                lat: element.location[0],
-                lng: element.location[1],
-              }}
-              icon={{
-                url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-              }}
-              name={element.name}
-              onClick={() => handleToggleOpen(index)}
-            >
-              {openInfoWindowMarkerId === index &&
-                isDisplayInfoWindowMarker === true && (
-                  <InfoWindow
-                    options={{
-                      pixelOffset: {
-                        width: 0,
-                        height: 0,
-                      },
-                    }}
-                    position={{
-                      lat: element.location[0],
-                      lng: element.location[1],
-                    }}
-                    onCloseClick={hideInfoWindow}
-                  >
-                    <div>
-                      <img
-                        src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.location[0]},${element.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
-                        alt=""
-                      />
-                      <p>{element.name}</p>
-                    </div>
-                  </InfoWindow>
-                )}
-            </Marker>
-          ))}
+          ctx.shops.map((element, id) => {
+            if (element.id === id) {
+              return (
+                <Marker
+                  key={id}
+                  position={{
+                    lat: element.location[0],
+                    lng: element.location[1],
+                  }}
+                  icon={{
+                    url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                  }}
+                  name={element.name}
+                  onClick={() => handleToggleOpen(id)}
+                >
+                  {openInfoWindowMarkerId === id &&
+                    isDisplayInfoWindowMarker === true && (
+                      <InfoWindow
+                        options={{
+                          pixelOffset: {
+                            width: 0,
+                            height: 0,
+                          },
+                        }}
+                        position={{
+                          lat: element.location[0],
+                          lng: element.location[1],
+                        }}
+                        onCloseClick={hideInfoWindow}
+                      >
+                        <div>
+                          <img
+                            src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.location[0]},${element.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
+                            alt=""
+                          />
+                          <p>{element.name}</p>
+                        </div>
+                      </InfoWindow>
+                    )}
+                </Marker>
+              );
+            }
+          })}
 
         <Marker position={currentPosition}>
           <InfoWindow

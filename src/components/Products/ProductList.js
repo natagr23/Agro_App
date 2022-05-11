@@ -86,20 +86,20 @@ export const ProductList = (props) => {
 
   const ctx = useContext(ShopContext);
 
-  const OnSelectProduct = (product_id) => {
-    console.log('desde productList', product_id);
-    //search selected Product from user using id, retorna el producto donde cumpla con ese id
-    let selected_product = productList.find((product) => {
-      return product.id === product_id;
-    });
-    ctx.updateShow(true);
-    // seleccionar el proveedor que coincida con ese id
-    let selected_provider = providerList.find((provider) => {
-      return provider.id === selected_product.provider_id;
-    });
-    console.log(selected_provider.name, selected_provider.location);
-    // setShowProduct(true);
-  };
+  // const OnSelectProduct_ini = (product_id) => {
+  //   console.log('desde productList', product_id);
+  //   //search selected Product from user using id, retorna el producto donde cumpla con ese id
+  //   let selected_product = productList.find((product) => {
+  //     return product.id === product_id;
+  //   });
+  //   ctx.updateShow(true);
+  //   // seleccionar el proveedor que coincida con ese id
+  //   let selected_provider = providerList.find((provider) => {
+  //     return provider.id === selected_product.provider_id;
+  //   });
+  //   console.log(selected_provider.name, selected_provider.location);
+
+  // };
 
   // console.log(
   //   providerList.map((provider) => {
@@ -122,7 +122,8 @@ export const ProductList = (props) => {
                   id={product.id}
                   description={product.description}
                   image_url={product.image_url}
-                  OnSelectProduct={OnSelectProduct}
+                  // OnSelectProduct={OnSelectProduct_ini}
+                  OnSelectProduct={ctx.OnSelectProduct}
                 />
               );
             })}

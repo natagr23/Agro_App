@@ -8,10 +8,27 @@ export const ShopContext = createContext({});
 export const ShopContextProvider = (props) => {
   const [shops, setShops] = useState(ProviderJson);
   const [products, setProducts] = useState(ProductJson);
+  const [selected, setSelected] = useState(null);
   const [minStars, setMinStars] = useState(1);
   const [maxStars, setMaxStars] = useState(5);
   const [bounds, setBounds] = useState({});
   const [show, setShow] = useState(false);
+
+  const OnSelectProduct = (product_id) => {
+    console.log('desde productList', product_id);
+    //search selected Product from user using id, retorna el producto donde cumpla con ese id
+    let selected_product = products.find((product) => {
+      return product.id === product_id;
+    });
+    updateShow(product_id);
+    // setOpenMarkerId(markerId);
+    // seleccionar el proveedor que coincida con ese id
+    let selected_provider = shops.find((provider) => {
+      return provider.id === selected_product.provider_id;
+    });
+    console.log(selected_provider.name, selected_provider.location);
+    // setShowProduct(true);
+  };
 
   const updateShops = (shopsUpdated) => {
     setShops((prevState) => [...prevState, shopsUpdated]);
@@ -46,18 +63,20 @@ export const ShopContextProvider = (props) => {
     setBounds(data);
   };
 
-  const updateShow = (data) => {
-    setShow(true);
+  const updateShow = (shops_id) => {
+    setShow(shops_id);
   };
 
   return (
     <ShopContext.Provider
       value={{
+        OnSelectProduct: OnSelectProduct,
         products: products,
         updateProducts: updateProducts,
         shops: shops,
         show: show,
         updateShow: updateShow,
+
         minStars: minStars,
         maxStars: maxStars,
         bounds: bounds,
