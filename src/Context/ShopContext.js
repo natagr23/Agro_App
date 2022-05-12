@@ -11,7 +11,7 @@ export const ShopContextProvider = (props) => {
   const [selected, setSelected] = useState(null);
   const [minStars, setMinStars] = useState(1);
   const [maxStars, setMaxStars] = useState(5);
-  const [bounds, setBounds] = useState({});
+  const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
 
   const OnSelectProduct = (product_id) => {

@@ -1,15 +1,21 @@
+//cambiar fecha antes de 30 días
+//https://console.firebase.google.com/project/agro-services-a96dc/firestore/rules
+
+//https://firebase.google.com/docs/auth/web/google-signin
+
+//https://css-tricks.com/user-registration-authentication-firebase-react/
+
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 //https://console.firebase.google.com/project/agroapp-ae569/overview
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyC-9GVoEPB7uxg8jKLp0QfiWdvzWE7YrfE',
-  authDomain: 'agroapp-ae569.firebaseapp.com',
-  databaseURL: 'https://agroapp-ae569-default-rtdb.firebaseio.com',
-  projectId: 'agroapp-ae569',
-  storageBucket: 'agroapp-ae569.appspot.com',
-  messagingSenderId: '230630635208',
-  appId: '1:230630635208:web:67af96ce65aa69c77d97fd',
+  apiKey: 'AIzaSyATqbxJ2psmEf_dGods0SuKAhyZOHLBHSU',
+  authDomain: 'agro-services-a96dc.firebaseapp.com',
+  projectId: 'agro-services-a96dc',
+  storageBucket: 'agro-services-a96dc.appspot.com',
+  messagingSenderId: '445686841502',
+  appId: '1:445686841502:web:945dec602a0ce2d77afb8f',
 };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
