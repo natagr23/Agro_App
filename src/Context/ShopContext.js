@@ -7,16 +7,14 @@ export const ShopContext = createContext({});
 
 export const ShopContextProvider = (props) => {
   const [shops, setShops] = useState(ProviderJson);
-  const [products, setProducts] = useState(ProductJson);
-  const [selected, setSelected] = useState(null);
+  const [products] = useState(ProductJson);
+
   const [minStars, setMinStars] = useState(1);
   const [maxStars, setMaxStars] = useState(5);
   const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
-  const [openMarkerId, setOpenMarkerId] = useState();
 
   const handleOpenMarker = (product_id) => {
-    setOpenMarkerId(product_id);
     updateShow(product_id);
 
     let selected_product = products.find((product) => {
@@ -93,7 +91,6 @@ export const ShopContextProvider = (props) => {
         shops: shops,
         show: show,
         updateShow: updateShow,
-
         minStars: minStars,
         maxStars: maxStars,
         bounds: bounds,

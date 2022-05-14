@@ -1,17 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
-
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-
 import SampleMap from '../../components/Map/SampleMap';
-
-// import { AppProvider } from '../../Context/AppContext';
 import { ProductList } from '../../components/Products/ProductList';
 
-// import MapProvider from '../../Context/MapProvider';
-import { ShopContext } from '../../Context/ShopContext';
 import { ShopContextProvider } from '../../Context/ShopContext';
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,41 +17,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const HomeGrid = (props) => {
-  const ctx = useContext(ShopContext);
-  const [shopsFiltered, setShopsFiltered] = useState(ctx.shops);
-
-  useEffect(() => {
-    setTimeout(() => {
-      let filteredShopsWithBounds = ctx.shops.filter((shop) => {
-        if (
-          shop.location[0] > ctx.bounds.boundsSudOuestlat &&
-          shop.location[0] < ctx.bounds.boundsNordEstlat &&
-          shop.location[1] > ctx.bounds.boundsSudOuestlng &&
-          shop.location[1] < ctx.bounds.boundsNordEstlng
-        ) {
-          return true;
-        }
-      });
-
-      const filteredShopsWithRatings = filteredShopsWithBounds.filter((elt) => {
-        const ratingsAverage =
-          elt.ratings.reduce(
-            (previousValue, currentValue) => previousValue + currentValue.stars,
-            0
-          ) / elt.ratings.length;
-        if (ratingsAverage >= ctx.minStars && ratingsAverage <= ctx.maxStars) {
-          return elt;
-        }
-      });
-
-      if (filteredShopsWithRatings.length > 0) {
-        setShopsFiltered(filteredShopsWithRatings);
-      } else {
-        setShopsFiltered(false);
-      }
-    }, 800);
-  }, [ctx.bounds, ctx.minStars, ctx.maxStars, ctx.shops]);
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ShopContextProvider>

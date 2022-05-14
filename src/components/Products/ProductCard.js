@@ -31,11 +31,11 @@ export default function ProductCard(props) {
           <Typography variant="body2" color="text.secondary">
             {props.description}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {fincas.shops.map((finca, index) => (
-              <h3 key={index}>Producto {finca.name}</h3>
-            ))}
-          </Typography>
+          {fincas.shops.map((finca, index) => (
+            <Typography key={index} variant="body2" color="text.secondary">
+              <strong>Producto {finca.name}</strong>
+            </Typography>
+          ))}
         </CardContent>
       </CardActionArea>
     </Card>

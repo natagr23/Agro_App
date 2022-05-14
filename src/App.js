@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -25,18 +25,16 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { AuthProvider } from './components/AuthContext/AuthContext';
 import { auth } from './components/Api/firebase-config';
 import { onAuthStateChanged } from 'firebase/auth';
-
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SignIn from './components/Login/SignIn';
-// import { ShopContext } from './Context/ShopContext';
 import { ShopContextProvider } from './Context/ShopContext';
-import { ShowContext } from './Context/ShowContext';
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);
-  const [show, setShow] = useState(false);
+ 
 
   // const [farmer, setFarmer] = useState('Finca xxx');
 

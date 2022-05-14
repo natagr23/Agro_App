@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-// import { Link } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -13,9 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -50,18 +47,13 @@ const theme = createTheme();
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  
   const { setTimeActive } = useAuthValue();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
-    signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         if (auth.currentUser.emailVerified) {
           navigate('/components/Account/Account');
@@ -89,7 +81,7 @@ export default function SignIn() {
         if (error.code === 'auth/user-not-found') {
           toast.error('Please check the Email');
         }
-        // setError('Email not found');
+       
       });
   };
 
