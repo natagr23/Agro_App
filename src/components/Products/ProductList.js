@@ -123,7 +123,7 @@ export const ProductList = (props) => {
                   description={product.description}
                   image_url={product.image_url}
                   // OnSelectProduct={OnSelectProduct_ini}
-                  OnSelectProduct={ctx.OnSelectProduct}
+                  OnSelectProduct={ctx.handleOpenMarker}
                 />
               );
             })}

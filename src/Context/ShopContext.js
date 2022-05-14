@@ -13,8 +13,24 @@ export const ShopContextProvider = (props) => {
   const [maxStars, setMaxStars] = useState(5);
   const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
+  const [openMarkerId, setOpenMarkerId] = useState();
+
+  const handleOpenMarker = (product_id) => {
+    setOpenMarkerId(product_id);
+    updateShow(product_id);
+
+    let selected_product = products.find((product) => {
+      return product.id === product_id;
+    });
+    let selected_provider2 = shops.find((provider) => {
+      return provider.id === selected_product.provider_id;
+    });
+
+    console.log(selected_provider2.name, selected_provider2.location);
+  };
 
   const OnSelectProduct = (product_id) => {
+    //  handleToggleOpenMarker(id);
     console.log('desde productList', product_id);
     //search selected Product from user using id, retorna el producto donde cumpla con ese id
     let selected_product = products.find((product) => {
@@ -70,6 +86,7 @@ export const ShopContextProvider = (props) => {
   return (
     <ShopContext.Provider
       value={{
+        handleOpenMarker: handleOpenMarker,
         OnSelectProduct: OnSelectProduct,
         products: products,
         updateProducts: updateProducts,

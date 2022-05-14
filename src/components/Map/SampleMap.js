@@ -22,7 +22,7 @@ import {
 const libraries = ['places'];
 const SampleMap = (props) => {
   const [map, setMap] = useState(null);
-  const [openMarkerId, setOpenMarkerId] = useState();
+
   const [currentPosition, setCurrentPosition] = useState({});
   const [positionClickedOnMap, setPositionClickedOnMap] = useState();
   const [isDisplayInfoWindowMarker, setIsDisplayInfoWindowMarker] =
@@ -138,7 +138,7 @@ const SampleMap = (props) => {
       >
         {ctx.shops !== false &&
           ctx.show &&
-          // openMarkerId === index &&
+          ctx.openMarkerId === ctx.product_id &&
           ctx.shops.map((element, id) => {
             if (element.id !== id) {
               return (
