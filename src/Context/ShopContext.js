@@ -13,6 +13,7 @@ export const ShopContextProvider = (props) => {
   const [maxStars, setMaxStars] = useState(5);
   const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState(null);
 
   const handleOpenMarker = (product_id) => {
     updateShow(product_id);
@@ -23,7 +24,9 @@ export const ShopContextProvider = (props) => {
     let selected_provider2 = shops.find((provider) => {
       return provider.id === selected_product.provider_id;
     });
-
+    setSelectedProvider(() => {
+      return selected_provider2;
+    });
     console.log(selected_provider2.name, selected_provider2.location);
   };
 
@@ -84,6 +87,7 @@ export const ShopContextProvider = (props) => {
   return (
     <ShopContext.Provider
       value={{
+        selectedProvider: selectedProvider,
         handleOpenMarker: handleOpenMarker,
         OnSelectProduct: OnSelectProduct,
         products: products,

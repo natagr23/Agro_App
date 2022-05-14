@@ -83,6 +83,17 @@ const SampleMap = (props) => {
   //   setOpenMarkerId(productId);
   // };
 
+  useEffect(() => {
+    if (!ctx.selectedProvider) {
+      return;
+    }
+    const currentPosition = {
+      lat: ctx.selectedProvider.location[0],
+      lng: ctx.selectedProvider.location[1],
+    };
+    setCurrentPosition(currentPosition);
+  }, [ctx.selectedProvider]);
+
   return isLoaded ? (
     // <ShopContext.Consumer>
     <div style={{ height: '100vh', width: '100%' }}>
@@ -97,7 +108,7 @@ const SampleMap = (props) => {
         >
           {ctx.shops !== false &&
             ctx.show &&
-            ctx.openMarkerId === ctx.product_id &&
+            // ctx.openMarkerId === ctx.product_id &&
             ctx.shops.map((element, id) => {
               if (element.id !== id) {
                 return (

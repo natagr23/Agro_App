@@ -20,7 +20,6 @@ export const ProductList = (props) => {
           let selected_provider = providerList.find((provider) => {
             return provider.id === product.provider_id;
           });
-          // console.log(ctx.bounds, selected_provider.location);
 
           if (
             selected_provider.location[0] > ctx.bounds.boundsSudOuestlat &&
