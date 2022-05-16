@@ -83,16 +83,16 @@ const SampleMap = (props) => {
   //   setOpenMarkerId(productId);
   // };
 
-  useEffect(() => {
-    if (!ctx.selectedProvider) {
-      return;
-    }
-    const currentPosition = {
-      lat: ctx.selectedProvider.location[0],
-      lng: ctx.selectedProvider.location[1],
-    };
-    setCurrentPosition(currentPosition);
-  }, [ctx.selectedProvider]);
+  // useEffect(() => {
+  //   if (!ctx.selectedProvider) {
+  //     return;
+  //   }
+  //   const currentPosition = {
+  //     lat: ctx.selectedProvider.location[0],
+  //     lng: ctx.selectedProvider.location[1],
+  //   };
+  //   setCurrentPosition(currentPosition);
+  // }, [ctx.selectedProvider]);
 
   return isLoaded ? (
     // <ShopContext.Consumer>
@@ -110,7 +110,7 @@ const SampleMap = (props) => {
             ctx.show &&
             // ctx.openMarkerId === ctx.product_id &&
             ctx.shops.map((element, id) => {
-              if (element.id !== id) {
+              if (element === ctx.selectedProvider) {
                 return (
                   <Marker
                     key={id}
