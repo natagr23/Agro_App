@@ -11,6 +11,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 // import GoogleMapReact from 'google-map-react';
 import { ShopContext } from '../../Context/ShopContext';
+import DescriptionMarker from '../Map/DescriptionMarker';
 
 import {
   GoogleMap,
@@ -99,31 +100,39 @@ const SampleMap = (props) => {
     <div style={{ height: '100vh', width: '100%' }}>
       {currentPosition !== null && (
         <GoogleMap
+          // {...ctx.viewport}
+          defaultZoom={12}
+          onViewportChange={(viewport) => ctx.updateViewport(viewport)}
           mapContainerStyle={containerStyle}
           center={currentPosition}
           zoom={11}
           onLoad={(map) => onMapLoad(map)}
           onBoundsChanged={getBounds}
-          onClick={getPositionClickedOnMap}
+          // onClick={getPositionClickedOnMap}
         >
           {ctx.shops !== false &&
             ctx.show &&
             // ctx.openMarkerId === ctx.product_id &&
-            ctx.shops.map((element, id) => {
-              if (element === ctx.selectedProvider) {
+            ctx.shops.map((product, id) => {
+              if (product === ctx.selectedProvider) {
                 return (
                   <Marker
-                    key={id}
+                    key={product.id}
                     position={{
-                      lat: element.location[0],
-                      lng: element.location[1],
+                      lat: product.location[0],
+                      lng: product.location[1],
                     }}
                     icon={{
                       url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                     }}
-                    name={element.name}
+                    name={product.name}
                     onClick={() => handleToggleOpen(id)}
                   >
+                    <DescriptionMarker
+                      name={product.name}
+                      selected={ctx.selectedProduct === product}
+                    />
+
                     {openInfoWindowMarkerId === id &&
                       isDisplayInfoWindowMarker === true && (
                         <InfoWindow
@@ -134,17 +143,17 @@ const SampleMap = (props) => {
                             },
                           }}
                           position={{
-                            lat: element.location[0],
-                            lng: element.location[1],
+                            lat: product.location[0],
+                            lng: product.location[1],
                           }}
                           onCloseClick={hideInfoWindow}
                         >
                           <div>
                             <img
-                              src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${element.location[0]},${element.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
+                              src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${product.location[0]},${product.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
                               alt=""
                             />
-                            <p>{element.name}</p>
+                            <p>{product.name}</p>
                           </div>
                         </InfoWindow>
                       )}

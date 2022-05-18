@@ -13,6 +13,10 @@ export const ProductList = (props) => {
   const [productList] = useState(ProductJson);
   const [filteredData, setFilteredData] = useState(ProviderJson);
 
+  // const selectFlat = () => {
+  //   props.selectFlat(props.flat);
+  // };
+
   useEffect(() => {
     setFilteredData(
       productList.filter((product) => {
@@ -62,6 +66,8 @@ export const ProductList = (props) => {
                   image_url={product.image_url}
                   // OnSelectProduct={OnSelectProduct_ini}
                   OnSelectProduct={ctx.handleOpenMarker}
+                  onClick={ctx.selectProduct}
+                  product={product}
                 />
               );
             })}

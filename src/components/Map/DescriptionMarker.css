@@ -1,0 +1,12 @@
+.marker {
+  background-color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 6px;
+  border: solid gray 1px;
+  padding: 4px;
+}
+
+.marker.selected {
+  background-color: yellow;
+}

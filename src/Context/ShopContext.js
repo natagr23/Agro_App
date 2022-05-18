@@ -14,6 +14,25 @@ export const ShopContextProvider = (props) => {
   const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [viewport, setViewport] = useState({
+    latitude: 4.7208119626905445, // bogota
+    longitude: -74.02090554345155, // bogota
+    width: '100wv',
+    height: '100vh',
+    zoom: 10,
+  });
+
+  const selectProduct = (product) => {
+    setSelectedProduct((old) => ({
+      selectedProduct: product,
+      viewport: {
+        ...old.viewport,
+        latitude: shops.location[0],
+        longitude: shops.location[1],
+      },
+    }));
+  };
 
   const handleOpenMarker = (product_id) => {
     updateShow(product_id);
@@ -28,23 +47,6 @@ export const ShopContextProvider = (props) => {
       return selected_provider2;
     });
     console.log(selected_provider2.name, selected_provider2.location);
-  };
-
-  const OnSelectProduct = (product_id) => {
-    //  handleToggleOpenMarker(id);
-    console.log('desde productList', product_id);
-    //search selected Product from user using id, retorna el producto donde cumpla con ese id
-    let selected_product = products.find((product) => {
-      return product.id === product_id;
-    });
-    updateShow(product_id);
-    // setOpenMarkerId(markerId);
-    // seleccionar el proveedor que coincida con ese id
-    let selected_provider = shops.find((provider) => {
-      return provider.id === selected_product.provider_id;
-    });
-    console.log(selected_provider.name, selected_provider.location);
-    // setShowProduct(true);
   };
 
   const updateShops = (shopsUpdated) => {
@@ -84,12 +86,19 @@ export const ShopContextProvider = (props) => {
     setShow(shops_id);
   };
 
+  const updateViewport = (viewport) => {
+    setViewport({ viewport });
+  };
+
   return (
     <ShopContext.Provider
       value={{
+        updateViewport: updateViewport,
+        viewport: viewport,
         selectedProvider: selectedProvider,
         handleOpenMarker: handleOpenMarker,
-        OnSelectProduct: OnSelectProduct,
+        selectProduct: selectProduct,
+        selectedProduct: selectedProduct,
         products: products,
         updateProducts: updateProducts,
         shops: shops,
