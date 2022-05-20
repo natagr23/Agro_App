@@ -30,11 +30,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import SignIn from './components/Login/SignIn';
 import { ShopContextProvider } from './Context/ShopContext';
 
-
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [timeActive, setTimeActive] = useState(false);
- 
 
   // const [farmer, setFarmer] = useState('Finca xxx');
 
@@ -63,31 +61,47 @@ function App() {
         <ShopContextProvider>
           <AuthProvider value={{ currentUser, timeActive, setTimeActive }}>
             <Routes>
-              <Route
-                path="/"
-                element={<Navigate to="/components/Home/Home" replace={true} />}
-              />
+              {!currentUser && (
+                <Route
+                  path="/"
+                  element={
+                    <Navigate to="/components/Home/Home" replace={true} />
+                  }
+                />
+              )}
               <Route
                 exact
                 path="/components/Account/Account"
                 element={<Account />}
               />
-              <Route
-                exact
-                path="/components/Products/Products"
-                element={<Products name="Producto1" />}
-              />
-              <Route
-                exact
-                path="/components/Services/Services"
-                element={<Services />}
-              />
-              <Route exact path="/components/About/About" element={<About />} />
-              <Route
-                exact
-                path="/components/Contact/Contact"
-                element={<Contact />}
-              />
+              {!currentUser && (
+                <Route
+                  exact
+                  path="/components/Products/Products"
+                  element={<Products name="Producto1" />}
+                />
+              )}
+              {!currentUser && (
+                <Route
+                  exact
+                  path="/components/Services/Services"
+                  element={<Services />}
+                />
+              )}
+              {!currentUser && (
+                <Route
+                  exact
+                  path="/components/About/About"
+                  element={<About />}
+                />
+              )}
+              {!currentUser && (
+                <Route
+                  exact
+                  path="/components/Contact/Contact"
+                  element={<Contact />}
+                />
+              )}
               {/* <Route
               exact
               path="/"
