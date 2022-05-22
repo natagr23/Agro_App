@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Box from '@mui/material/Box';
 
@@ -19,10 +19,11 @@ import {
 import HomeIcon from '@mui/icons-material/Home';
 import DrawerComp from '../Drawer/DrawerComp';
 import { Link } from 'react-router-dom';
-
-// const pages = ['Products', 'Services', 'About Us', 'Contact Us'];
+import { AuthContext } from '../AuthContext/AuthContext';
 
 const Navbar = () => {
+  const ctx = useContext(AuthContext);
+
   const [value, setValue] = useState(false);
 
   const handleTabChange = (event, newValue) => {
@@ -30,9 +31,9 @@ const Navbar = () => {
   };
 
   const theme = useTheme();
-  console.log(theme);
+
   const isMatch = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(isMatch);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -55,65 +56,76 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Tabs
-                sx={{ marginLeft: 'auto' }}
-                textColor="inherit"
-                onChange={handleTabChange}
-                indicatorColor="secondary"
-                value={value}
-              >
-                <Tab
-                  label="Products"
-                  component={Link}
-                  to={'/components/Products/Products'}
+              {!ctx.currentUser && (
+                <>
+                  <Tabs
+                    sx={{ marginLeft: 'auto' }}
+                    textColor="inherit"
+                    onChange={handleTabChange}
+                    indicatorColor="secondary"
+                    value={value}
+                  >
+                    <Tab
+                      label="Products"
+                      component={Link}
+                      to={'/components/Products/Products'}
+                      value={value}
+                    />
+                    <Tab
+                      label="Services"
+                      component={Link}
+                      to={'/components/Services/Services'}
+                      value={value}
+                    />
+                    <Tab
+                      label="About"
+                      component={Link}
+                      to={'/components/About/About'}
+                      value={value}
+                    />
+                    <Tab
+                      label="Contact"
+                      component={Link}
+                      to={'/components/Contact/Contact'}
+                      value={value}
+                    />
+                  </Tabs>
+
+                  <Button
+                    sx={{ marginLeft: 'auto' }}
+                    variant="contained"
+                    component={Link}
+                    to={'/SignIn'}
+                  >
+                    SignIn{' '}
+                  </Button>
+                  <Button
+                    sx={{ marginLeft: '10px' }}
+                    variant="contained"
+                    component={Link}
+                    to={'/register'}
+                  >
+                    SignUp{''}
+                  </Button>
+                </>
+              )}
+
+              {ctx.currentUser && (
+                <Tabs
+                  sx={{ marginLeft: 'auto' }}
+                  textColor="inherit"
+                  onChange={handleTabChange}
+                  indicatorColor="secondary"
                   value={value}
-                />
-                <Tab
-                  label="Services"
-                  component={Link}
-                  to={'/components/Services/Services'}
-                  value={value}
-                />
-                <Tab
-                  label="About"
-                  component={Link}
-                  to={'/components/About/About'}
-                  value={value}
-                />
-                <Tab
-                  label="Contact"
-                  component={Link}
-                  to={'/components/Contact/Contact'}
-                  value={value}
-                />
-                {/* {pages.map((page, index) => (
-                  <Tab key={index} label={page} />
-                ))} */}
-              </Tabs>
-              {/* <Button
-                sx={{ marginLeft: 'auto' }}
-                variant="contained"
-                component={Link}
-                to={'/SignIn'}
-              >
-                SignIn{' '} */}
-              {/* </Button> */}
-              <Button
-                sx={{ marginLeft: 'auto' }}
-                variant="contained"
-                component={Link}
-                to={'/SignIn'}
-              >
-                SignIn{' '}
-              </Button>
-              <Button
-                sx={{ marginLeft: '10px' }}
-                variant="contained"
-                component={Link}
-                to={'/register'}
-              >
-                SignUp{''}
-              </Button>
+                >
+                  <Tab
+                    label="Account"
+                    component={Link}
+                    to={'/components/Account/Account'}
+                    value={value}
+                  />
+                </Tabs>
+              )}
             </>
           )}
         </Toolbar>

@@ -40,10 +40,6 @@ const SampleMap = (props) => {
     });
   };
 
-  const getPositionClickedOnMap = (e) => {
-    // setPositionClickedOnMap(e);
-  };
-
   const success = (position) => {
     const currentPosition = {
       lat: position.coords.latitude,
@@ -113,24 +109,24 @@ const SampleMap = (props) => {
           {ctx.shops !== false &&
             ctx.show &&
             // ctx.openMarkerId === ctx.product_id &&
-            ctx.shops.map((product, id) => {
-              if (product === ctx.selectedProvider) {
+            ctx.shops.map((provider, id) => {
+              if (provider.id === ctx.selectedProvider.id) {
                 return (
                   <Marker
-                    key={product.id}
+                    key={provider.id}
                     position={{
-                      lat: product.location[0],
-                      lng: product.location[1],
+                      lat: provider.location[0],
+                      lng: provider.location[1],
                     }}
                     icon={{
                       url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
                     }}
-                    name={product.name}
+                    name={provider.name}
                     onClick={() => handleToggleOpen(id)}
                   >
                     <DescriptionMarker
-                      name={product.name}
-                      selected={ctx.selectedProduct === product}
+                      name={provider.name}
+                      selected={ctx.selectedProduct === provider}
                     />
 
                     {openInfoWindowMarkerId === id &&
@@ -143,17 +139,17 @@ const SampleMap = (props) => {
                             },
                           }}
                           position={{
-                            lat: product.location[0],
-                            lng: product.location[1],
+                            lat: provider.location[0],
+                            lng: provider.location[1],
                           }}
                           onCloseClick={hideInfoWindow}
                         >
                           <div>
                             <img
-                              src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${product.location[0]},${product.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
+                              src={`https://maps.googleapis.com/maps/api/streetview?size=640x320&location=${provider.location[0]},${provider.location[1]}&heading=220.78&key=AIzaSyC2-n39eQnutXECIDc-9tlNMNFmxzshDtE&amp`}
                               alt=""
                             />
-                            <p>{product.name}</p>
+                            <p>{provider.name}</p>
                           </div>
                         </InfoWindow>
                       )}

@@ -79,7 +79,7 @@ export const ShopContextProvider = (props) => {
   };
 
   const updateBounds = (data) => {
-    setBounds(data);
+    setBounds(() => data);
   };
 
   const updateShow = (shops_id) => {

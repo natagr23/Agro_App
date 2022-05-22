@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,7 +22,7 @@ import {
 } from 'firebase/auth';
 import { auth } from '../Api/firebase-config';
 import { useNavigate } from 'react-router-dom';
-import { useAuthValue } from '../AuthContext/AuthContext';
+import { AuthContext } from '../AuthContext/AuthContext';
 
 function Copyright(props) {
   return (
@@ -45,27 +45,23 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const ctx = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  const { setTimeActive } = useAuthValue();
+
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-        signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((response) => {
         if (auth.currentUser.emailVerified) {
           navigate('/components/Account/Account');
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
         }
         if (!auth.currentUser.emailVerified) {
           sendEmailVerification(auth.currentUser)
             .then(() => {
-              setTimeActive(true);
+              ctx.setTimeActive(true);
               navigate('/verify-email');
             })
 
@@ -81,7 +77,6 @@ export default function SignIn() {
         if (error.code === 'auth/user-not-found') {
           toast.error('Please check the Email');
         }
-       
       });
   };
 

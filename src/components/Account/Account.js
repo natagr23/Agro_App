@@ -1,30 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 // import SearchBar from '../../components/SearchBar/SearchBar';
-// import { AuthProvider } from '../AuthContext/AuthContext';
-
+import { AuthContext } from '../AuthContext/AuthContext';
 import Stack from '@mui/material/Stack';
+import { signOut } from 'firebase/auth';
+import { auth } from '../Api/firebase-config';
 
 export default function Account() {
-  // const ctx = useContext(AuthProvider);
+  const ctx = useContext(AuthContext);
   const handleLogout = () => {
-    sessionStorage.removeItem('Auth Token');
+    ctx.updateUser(null);
+    signOut(auth);
     navigate('/components/Home/Home');
   };
   let navigate = useNavigate();
   useEffect(() => {
-    let authToken = sessionStorage.getItem('Auth Token');
-
-    if (authToken) {
+    if (ctx.currentUser) {
       navigate('/components/Account/Account');
     }
 
-    if (!authToken) {
-      navigate('/SignIn');
+    if (!ctx.currentUser) {
+      navigate('/components/Login/SignIn');
     }
-  }, [navigate]);
+  }, [navigate, ctx.currentUser]);
   return (
     <>
       <div> Account</div>

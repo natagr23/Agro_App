@@ -24,10 +24,6 @@ function Login() {
       .then((response) => {
         if (auth.currentUser.emailVerified) {
           navigate('/components/Account/Account');
-          sessionStorage.setItem(
-            'Auth Token',
-            response._tokenResponse.refreshToken
-          );
         }
         if (!auth.currentUser.emailVerified) {
           sendEmailVerification(auth.currentUser)
@@ -48,6 +44,7 @@ function Login() {
         if (err.code === 'auth/user-not-found') {
           toast.error('Please check the Email');
         }
+        setError(err.code);
       });
   };
 
