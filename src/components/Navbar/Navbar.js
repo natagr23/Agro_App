@@ -122,27 +122,38 @@ const Navbar = () => {
               )}
 
               {ctx.currentUser && (
-                <Tabs
-                  sx={{ marginLeft: 'auto' }}
-                  textColor="inherit"
-                  onChange={handleTabChange}
-                  indicatorColor="secondary"
-                  value={value}
-                >
-                  <Tab
-                    label="Account"
-                    component={Link}
-                    to={'/components/Account/Account'}
-                    value={value}
-                  />
-                  <Tab
+                <>
+                  <Button
+                    sx={{ marginLeft: '10px' }}
+                    variant="contained"
                     label="Create Products"
                     component={Link}
                     to={'/components/Products/CreateProducts'}
                     value={value}
-                  />
-                  <Tab label="SIGN OUT" value={value} onClick={handleLogout} />
-                </Tabs>
+                  >
+                    Create Products{''}
+                  </Button>
+
+                  <Button
+                    sx={{ marginLeft: '10px' }}
+                    variant="contained"
+                    label="Account"
+                    component={Link}
+                    to={'/components/Account/Account'}
+                    value={value}
+                  >
+                    Account{''}
+                  </Button>
+                  <Button
+                    sx={{ marginLeft: '1100px' }}
+                    variant="contained"
+                    label="SignOut"
+                    value={value}
+                    onClick={handleLogout}
+                  >
+                    SignOut{''}
+                  </Button>
+                </>
               )}
             </>
           )}
