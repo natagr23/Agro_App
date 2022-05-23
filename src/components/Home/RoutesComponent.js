@@ -10,6 +10,7 @@ import Register from '../Login/Register';
 import ForgotPassword from '../Login/ForgotPassword';
 import SignIn from '../Login/SignIn';
 import { AuthContext } from '../AuthContext/AuthContext';
+import CreateProducts from '../Products/CreateProducts';
 
 export default function RoutesComponent() {
   const ctx = useContext(AuthContext);
@@ -22,6 +23,11 @@ export default function RoutesComponent() {
         />
       )}
       <Route exact path="/components/Account/Account" element={<Account />} />
+      <Route
+        exact
+        path="/components/Products/CreateProducts"
+        element={<CreateProducts />}
+      />
       {!ctx.currentUser && (
         <>
           <Route

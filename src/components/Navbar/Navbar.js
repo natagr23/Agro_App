@@ -21,6 +21,10 @@ import DrawerComp from '../Drawer/DrawerComp';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../AuthContext/AuthContext';
 
+import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from '../Api/firebase-config';
+
 const Navbar = () => {
   const ctx = useContext(AuthContext);
 
@@ -29,6 +33,13 @@ const Navbar = () => {
   const handleTabChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const handleLogout = () => {
+    ctx.updateUser(null);
+    signOut(auth);
+    navigate('/components/Home/Home');
+  };
+  let navigate = useNavigate();
 
   const theme = useTheme();
 
@@ -124,6 +135,13 @@ const Navbar = () => {
                     to={'/components/Account/Account'}
                     value={value}
                   />
+                  <Tab
+                    label="Create Products"
+                    component={Link}
+                    to={'/components/Products/CreateProducts'}
+                    value={value}
+                  />
+                  <Tab label="SIGN OUT" value={value} onClick={handleLogout} />
                 </Tabs>
               )}
             </>
