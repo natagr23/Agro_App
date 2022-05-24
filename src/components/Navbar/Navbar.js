@@ -145,7 +145,7 @@ const Navbar = () => {
                     Account{''}
                   </Button>
                   <Button
-                    sx={{ marginLeft: '1100px' }}
+                    sx={{ marginLeft: '800px' }}
                     variant="contained"
                     label="SignOut"
                     value={value}
