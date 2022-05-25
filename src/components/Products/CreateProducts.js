@@ -1,3 +1,7 @@
+//inputReducer shop
+//https://health-bloom.vercel.app/index
+//https://blog.logrocket.com/build-crud-application-react-firebase-web-sdk-v9/
+
 import React from 'react';
 import Box from '@mui/material/Box';
 import ProductForm from './ProductForm';
