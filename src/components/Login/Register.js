@@ -1,10 +1,47 @@
 import { useState, useContext } from 'react';
 import { auth } from '../Api/firebase-config';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { AuthContext } from '../AuthContext/AuthContext';
 import { toast } from 'react-toastify';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import 'react-toastify/dist/ReactToastify.css';
+import Link from '@mui/material/Link';
+
+import {
+  signInWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
+
+function Copyright(props) {
+  return (
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Agro App
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 function Register() {
   const ctx = useContext(AuthContext);
   const [email, setEmail] = useState('');
@@ -23,7 +60,7 @@ function Register() {
     return isValid;
   };
 
-  const register = (e) => {
+  const handleSubmitregister = (e) => {
     e.preventDefault();
     setError('');
     if (validatePassword()) {
@@ -48,44 +85,159 @@ function Register() {
     setConfirmPassword('');
   };
 
+  const theme = createTheme();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   signInWithEmailAndPassword(auth, email, password)
+  //     .then((response) => {
+  //       if (auth.currentUser.emailVerified) {
+  //         navigate('/components/Account/Account');
+  //       }
+  //       if (!auth.currentUser.emailVerified) {
+  //         sendEmailVerification(auth.currentUser)
+  //           .then(() => {
+  //             ctx.setTimeActive(true);
+  //             navigate('/verify-email');
+  //           })
+
+  //           .catch((err) => alert(err.message));
+  //       } else {
+  //         navigate('/components/Home/Home');
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       if (error.code === 'auth/wrong-password') {
+  //         toast.error('Please check the Password');
+  //       }
+  //       if (error.code === 'auth/user-not-found') {
+  //         toast.error('Please check the Email');
+  //       }
+  //     });
+  // };
+
   return (
-    <div className="center">
-      <div className="auth">
-        <h1>Register</h1>
-        {error && <div className="auth__error">{error}</div>}
-        <form onSubmit={register} name="registration_form">
-          <input
-            type="email"
-            value={email}
-            placeholder="Enter your email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
+    <>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign Up
+            </Typography>
+            <Box
+              component="form"
+              onSubmit={handleSubmitregister}
+              noValidate
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-          <input
-            type="password"
-            value={password}
-            required
-            placeholder="Enter your password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Register
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="#/SignIn" variant="body2">
+                    {'Already have an account? Sign In'}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+          <Copyright sx={{ mt: 8, mb: 4 }} />
+        </Container>
+      </ThemeProvider>
 
-          <input
-            type="password"
-            value={confirmPassword}
-            required
-            placeholder="Confirm password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+      <div className="center">
+        <div className="auth">
+          <h1>Register</h1>
+          {error && <div className="auth__error">{error}</div>}
+          <form onSubmit={handleSubmitregister} name="registration_form">
+            <input
+              type="email"
+              value={email}
+              placeholder="Enter your email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <button type="submit">Register</button>
-        </form>
-        <span>
-          Already have an account?
-          <Link to="/SignIn">SignIn</Link>
-        </span>
+            <input
+              type="password"
+              value={password}
+              required
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <input
+              type="password"
+              value={confirmPassword}
+              required
+              placeholder="Confirm password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+
+            <button type="submit">Register</button>
+          </form>
+          <span>
+            Already have an account?
+            <Link href="#/SignIn">SignUp</Link>
+          </span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
