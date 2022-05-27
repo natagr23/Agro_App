@@ -61,7 +61,7 @@ export default function SignIn() {
         if (!auth.currentUser.emailVerified) {
           sendEmailVerification(auth.currentUser)
             .then(() => {
-              ctx.updateTimeActive(500);
+              // ctx.updateTimeActive(500);
               navigate('/verify-email');
             })
 

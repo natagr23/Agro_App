@@ -87,35 +87,6 @@ function Register() {
 
   const theme = createTheme();
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   signInWithEmailAndPassword(auth, email, password)
-  //     .then((response) => {
-  //       if (auth.currentUser.emailVerified) {
-  //         navigate('/components/Account/Account');
-  //       }
-  //       if (!auth.currentUser.emailVerified) {
-  //         sendEmailVerification(auth.currentUser)
-  //           .then(() => {
-  //             ctx.setTimeActive(true);
-  //             navigate('/verify-email');
-  //           })
-
-  //           .catch((err) => alert(err.message));
-  //       } else {
-  //         navigate('/components/Home/Home');
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       if (error.code === 'auth/wrong-password') {
-  //         toast.error('Please check the Password');
-  //       }
-  //       if (error.code === 'auth/user-not-found') {
-  //         toast.error('Please check the Email');
-  //       }
-  //     });
-  // };
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -141,6 +112,7 @@ function Register() {
               noValidate
               sx={{ mt: 1 }}
             >
+              {error && <div className="auth__error">{error}</div>}
               <TextField
                 margin="normal"
                 required
@@ -199,44 +171,6 @@ function Register() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-
-      <div className="center">
-        <div className="auth">
-          <h1>Register</h1>
-          {error && <div className="auth__error">{error}</div>}
-          <form onSubmit={handleSubmitregister} name="registration_form">
-            <input
-              type="email"
-              value={email}
-              placeholder="Enter your email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-              type="password"
-              value={password}
-              required
-              placeholder="Enter your password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <input
-              type="password"
-              value={confirmPassword}
-              required
-              placeholder="Confirm password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-
-            <button type="submit">Register</button>
-          </form>
-          <span>
-            Already have an account?
-            <Link href="#/SignIn">SignUp</Link>
-          </span>
-        </div>
-      </div>
     </>
   );
 }
