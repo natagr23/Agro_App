@@ -4,7 +4,7 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
-// import ProductForm from './ProductForm';
+import ProductForm from './ProductForm';
 
 export default function CreateProducts() {
   return (
@@ -18,9 +18,7 @@ export default function CreateProducts() {
         }}
         autoComplete="on"
       >
-        <h2>Crear Producto</h2>
-
-        {/* <ProductForm /> */}
+        <ProductForm />
       </Box>
     </div>
   );
