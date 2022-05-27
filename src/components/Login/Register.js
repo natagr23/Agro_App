@@ -78,6 +78,16 @@ function Register() {
           } else {
             setError(error.message);
           }
+          if (error.code === 'auth/invalid-email') {
+            toast.error('Invalid Email');
+          } else {
+            setError(error.message);
+          }
+          if (error.code === 'auth/weak-password') {
+            toast.error('Password should be at least 6 characters ');
+          } else {
+            setError(error.message);
+          }
         });
     }
     setEmail('');
@@ -112,7 +122,11 @@ function Register() {
               noValidate
               sx={{ mt: 1 }}
             >
-              {error && <div className="auth__error">{error}</div>}
+              {error && (
+                <Typography style={{ color: 'red' }} component="h7">
+                  {error}{' '}
+                </Typography>
+              )}
               <TextField
                 margin="normal"
                 required
