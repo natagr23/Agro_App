@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Box from '@mui/material/Box';
-// import ProductForm from './ProductForm';
+import ProductManager from './ProductManager';
 
 export default function CreateProducts() {
   return (
@@ -22,7 +22,7 @@ export default function CreateProducts() {
       >
         <h2>Crear Producto</h2>
 
-        {/* <ProductForm /> */}
+        <ProductManager />
       </Box>
     </div>
   );
