@@ -6,6 +6,8 @@ import EditProduct from './EditProduct';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
 
+import { Input, InputLabel } from '@mui/material';
+
 function Product({ id, title, description, completed }) {
   const [checked, setChecked] = useState(completed);
   const [open, setOpen] = useState({ edit: false, view: false });
@@ -39,7 +41,7 @@ function Product({ id, title, description, completed }) {
   return (
     <div className={`task ${checked && 'task--borderColor'}`}>
       <div>
-        <input
+        <Input
           id={`checkbox-${id}`}
           className="checkbox-custom"
           name="checkbox"
@@ -47,11 +49,11 @@ function Product({ id, title, description, completed }) {
           onChange={handleChange}
           type="checkbox"
         />
-        <label
+        <InputLabel
           htmlFor={`checkbox-${id}`}
           className="checkbox-custom-label"
           onClick={() => setChecked(!checked)}
-        ></label>
+        ></InputLabel>
       </div>
       <div className="task__body">
         <h2>{title}</h2>

@@ -7,6 +7,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import ProductManager from './ProductManager';
+
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
@@ -39,16 +40,6 @@ const rows = [
 export default function CreateProducts() {
   return (
     <>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-        />
-      </div>
-
       <div>
         <Box
           sx={{
@@ -59,8 +50,16 @@ export default function CreateProducts() {
           }}
           autoComplete="on"
         >
-          <h2>Crear Producto</h2>
-
+          <h2>My Products</h2>
+          <div style={{ height: 300, width: '100%' }}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5]}
+              checkboxSelection
+            />
+          </div>
           <ProductManager />
         </Box>
       </div>
