@@ -15,6 +15,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.26.1",
+    "classnames": "^2.3.1",
     "firebase": "^9.6.10",
     "google-map-react": "^2.1.10",
     "install": "^0.13.0",
@@ -24,6 +25,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-toastify": "^8.2.0",
+    "reactstrap": "^9.0.3",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
