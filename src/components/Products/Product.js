@@ -58,15 +58,10 @@ function Product({ id, title, description, completed }) {
         <p>{description}</p>
         <div className="task__buttons">
           <div className="task__deleteNedit">
-            <Button
-              className="task__editButton"
-              onClick={() => setOpen({ ...open, edit: true })}
-            >
+            <Button onClick={() => setOpen({ ...open, edit: true })}>
               Edit
             </Button>
-            <Button className="task__deleteButton" onClick={handleDelete}>
-              Delete
-            </Button>
+            <Button onClick={handleDelete}>Delete</Button>
             <Button onClick={() => setOpen({ ...open, view: true })}>
               View
             </Button>

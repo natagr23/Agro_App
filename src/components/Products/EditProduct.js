@@ -1,5 +1,6 @@
 // import Modal from './Modal';
 import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 import { useState } from 'react';
 
 import { doc, updateDoc } from 'firebase/firestore';
@@ -37,7 +38,7 @@ function EditProduct({ open, onClose, toEditTitle, toEditDescription, id }) {
           onChange={(e) => setDescription(e.target.value)}
           value={description}
         ></textarea>
-        <button type="submit">Edit</button>
+        <Button type="submit">Edit</Button>
       </form>
     </Modal>
   );
