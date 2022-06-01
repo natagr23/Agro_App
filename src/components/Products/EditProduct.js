@@ -1,4 +1,5 @@
-import Modal from './Modal';
+// import Modal from './Modal';
+import Modal from '@mui/material/Modal';
 import { useState } from 'react';
 
 import { doc, updateDoc } from 'firebase/firestore';
@@ -24,7 +25,7 @@ function EditProduct({ open, onClose, toEditTitle, toEditDescription, id }) {
   };
 
   return (
-    <Modal modalLable="Edit Task" onClose={onClose} open={open}>
+    <Modal onClose={onClose} open={open}>
       <form onSubmit={handleUpdate} className="editTask">
         <input
           type="text"

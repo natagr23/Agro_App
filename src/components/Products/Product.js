@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import Button from '@mui/material/Button';
+// import InputLabel from '@mui/material/InputLabel';
 import ProductItem from './ProductItem';
 import EditProduct from './EditProduct';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -56,17 +58,19 @@ function Product({ id, title, description, completed }) {
         <p>{description}</p>
         <div className="task__buttons">
           <div className="task__deleteNedit">
-            <button
+            <Button
               className="task__editButton"
               onClick={() => setOpen({ ...open, edit: true })}
             >
               Edit
-            </button>
-            <button className="task__deleteButton" onClick={handleDelete}>
+            </Button>
+            <Button className="task__deleteButton" onClick={handleDelete}>
               Delete
-            </button>
+            </Button>
+            <Button onClick={() => setOpen({ ...open, view: true })}>
+              View
+            </Button>
           </div>
-          <button onClick={() => setOpen({ ...open, view: true })}>View</button>
         </div>
       </div>
 

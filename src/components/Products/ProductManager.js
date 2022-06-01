@@ -1,5 +1,6 @@
 import Product from './Product';
 import { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
 import AddProduct from './AddProduct';
@@ -28,7 +29,7 @@ function ProductManager() {
     <div className="taskManager">
       <header>Product Manager</header>
       <div className="taskManager__container">
-        <button onClick={() => setOpenAddModal(true)}>Add Product +</button>
+        <Button onClick={() => setOpenAddModal(true)}>Add Product +</Button>
         <div className="taskManager__tasks">
           {products.map((products) => (
             <Product
