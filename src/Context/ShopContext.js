@@ -1,7 +1,9 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useReducer } from 'react';
 
 import ProviderJson from '../components/Data/ProviderJson.json';
 import ProductJson from '../components/Data/ProductJson.json';
+import { defaultState } from '../Context/defaultState';
+import { reducer } from './AuthContext_reducer';
 
 export const ShopContext = createContext({});
 
@@ -22,6 +24,8 @@ export const ShopContextProvider = (props) => {
     height: '100vh',
     zoom: 10,
   });
+
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
   const selectProduct = (product) => {
     setSelectedProduct((old) => ({
@@ -90,6 +94,23 @@ export const ShopContextProvider = (props) => {
     setViewport({ viewport });
   };
 
+  const toggleNav = () => {
+    dispatch({ type: 'TOGGLE_NAV' });
+  };
+  const toggleMobile = () => {
+    dispatch({ type: 'TOGGLE_MOBILE' });
+  };
+  const toggleTheme = () => {
+    dispatch({ type: 'TOGGLE_THEME' });
+  };
+
+  const setSearch = (q) => {
+    dispatch({ type: 'SET_SEARCH', payload: q });
+  };
+  const setParty = (party) => {
+    dispatch({ type: 'SET_PARTY', payload: party });
+  };
+
   return (
     <ShopContext.Provider
       value={{
@@ -112,6 +133,12 @@ export const ShopContextProvider = (props) => {
         updateMinStars: updateMinStars,
         updateMaxStars: updateMaxStars,
         updateBounds: updateBounds,
+        toggleNav: toggleNav,
+        toggleMobile: toggleMobile,
+        toggleTheme: toggleTheme,
+        setSearch: setSearch,
+        setParty: setParty,
+        state: state,
       }}
     >
       {props.children}

@@ -1,0 +1,35 @@
+.container {
+  /* color: #8800ff; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  font-size: 30px;
+}
+.lightContainer {
+  background-color: #fff;
+}
+.darkContainer {
+  background-color: #373737ff;
+  color: white !important;
+}
+.closeNav {
+  height: 100vh;
+  width: auto;
+  flex-grow: 1;
+}
+.backgroundCont {
+  position: fixed;
+  z-index: 10000000;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.653);
+  display: flex;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.linkText {
+  font-weight: 600;
+  font-size: 25px;
+}

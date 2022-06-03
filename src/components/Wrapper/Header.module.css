@@ -1,0 +1,137 @@
+.header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  padding: 18px 10px;
+  justify-content: space-between;
+  background-color: #fff;
+  z-index: 300;
+}
+.dark {
+  background-color: #373737ff !important;
+  color: white !important;
+}
+.menu {
+  cursor: pointer;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.search input {
+  padding: 8px;
+  border-radius: 50px;
+  padding-left: 12px;
+  font-size: 14px;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+}
+.search input:focus {
+  outline: none;
+}
+.searchContainer {
+  padding: 10px;
+  position: absolute;
+  min-height: 100vh;
+  background: #fff;
+  right: 0;
+  transition: 0.2s;
+  /* width: 100%; */
+  box-shadow: 0px 3px 10px rgb(0 0 0 /10%);
+  z-index: 200;
+}
+
+.panel {
+  background-color: #fcfcfc;
+}
+.search {
+  border: solid 1px #9c9c9c;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 50px;
+  padding-left: 10px;
+  /* background-color: #fcfcfc; */
+}
+.header_group {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  width: 80%;
+  justify-content: flex-end;
+}
+.icon {
+  color: rgba(0, 0, 0, 0.61);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+.noMobile {
+  display: none !important;
+}
+.lgMenu {
+  display: none;
+}
+.party {
+  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 10px 0px;
+  padding: 20px 10px;
+}
+.darkContainer {
+  background-color: #373737ff;
+}
+.darkPanel {
+  background-color: #242526;
+}
+.darkParty {
+  background-color: #373737ff;
+  color: white;
+}
+.dark .icon {
+  color: white !important;
+}
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+@media (max-width: 800px) {
+  .searchContainer {
+    width: 100%;
+  }
+}
+@media (min-width: 801px) {
+  .noMobile {
+    display: block !important;
+  }
+  .lgMenu {
+    display: flex;
+  }
+  .mobileMenu {
+    display: none;
+  }
+  .expandSearch {
+    left: 100px;
+  }
+  .shrinkSearch {
+    left: 300px;
+  }
+}
+@media (min-width: 1024px) {
+  .header {
+    padding: 20px;
+  }
+  .icon {
+    font-size: 23px;
+  }
+  .header_group {
+    gap: 25px;
+  }
+}
