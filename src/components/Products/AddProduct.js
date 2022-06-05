@@ -10,6 +10,7 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 import { db } from '../Api/firebase-config';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { useAuthState } from '../../Context/AuthContext_reducer';
 
 function AddProduct({ onClose, open }) {
   const [title, setTitle] = useState('');
@@ -18,6 +19,7 @@ function AddProduct({ onClose, open }) {
   //   const handleOpen = () => setOpen(true);
   //   const handleClose = () => setOpen(false);
 
+  // const { user } = useAuthState();
   /* function to add new task to firestore */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +29,8 @@ function AddProduct({ onClose, open }) {
         description: description,
         completed: false,
         created: Timestamp.now(),
+        created_At: Timestamp.fromDate(new Date()),
+        // created_By: user.user.uid,
       });
       onClose();
     } catch (err) {

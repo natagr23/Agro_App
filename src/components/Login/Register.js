@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
-import { auth } from '../Api/firebase-config';
+import { useState, useContext, useEffect } from 'react';
+// import { auth } from '../Api/firebase-config';
+// import { doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { AuthContext } from '../AuthContext/AuthContext';
-import { toast } from 'react-toastify';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,11 +18,24 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import 'react-toastify/dist/ReactToastify.css';
 import Link from '@mui/material/Link';
-
 import {
-  signInWithEmailAndPassword,
-  sendEmailVerification,
-} from 'firebase/auth';
+  doc,
+  setDoc,
+  Timestamp,
+  collection,
+  where,
+  query,
+  getDocs,
+} from 'firebase/firestore';
+import { db } from '../Api/firebase-config';
+import { toast } from 'react-toastify';
+
+// import {
+//   signInWithEmailAndPassword,
+//   sendEmailVerification,
+// } from 'firebase/auth';
+
+const auth = getAuth();
 
 function Copyright(props) {
   return (
@@ -48,7 +61,40 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [confirmPwd, setConfirmPwd] = useState('');
+  const [username, setUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isExist, setIsExist] = useState(true);
+  const [usnStat, setUsnStat] = useState('');
   const navigate = useNavigate();
+
+  const checkUsernameAvailability = async () => {
+    setLoading(true);
+    const q = query(collection(db, 'users'), where('username', '==', username));
+    const querySnapshot = await getDocs(q).then((doc) => {
+      if (doc.empty) {
+        setIsExist(false);
+        setLoading(false);
+        setUsnStat('Username Available');
+      } else {
+        setIsExist(true);
+        setLoading(false);
+        setUsnStat('Username not available');
+      }
+    });
+
+    querySnapshot();
+  };
+
+  useEffect(() => {
+    if (username.length > 0) {
+      checkUsernameAvailability();
+    } else {
+      setUsnStat('');
+    }
+  }, [username, usnStat, setUsnStat]);
   const validatePassword = () => {
     let isValid = true;
     if (password !== '' && confirmPassword !== '') {
@@ -66,6 +112,38 @@ function Register() {
     if (validatePassword()) {
       // Create a new user with email and password using firebase
       createUserWithEmailAndPassword(auth, email, password)
+        .then(async (user) => {
+          console.log(user, 'A user');
+          if (user) {
+            const userRef = doc(db, 'users', user.user.uid);
+
+            setDoc(
+              userRef,
+              {
+                username: username.toLowerCase().trim(),
+                firstName: firstName.trim(),
+                lastName: lastName.trim(),
+                email: email.trim(),
+                created_at: Timestamp.fromDate(new Date()), //Timestamp.fromDate(new Date("December 10, 1815")),
+              },
+              { merge: true }
+            ).then(() => {
+              setError('');
+              setLoading(false);
+              console.log('user Created');
+              toast.success(
+                'Account Created, Check mail for email verification'
+              );
+              setFirstName('');
+              setLastName('');
+              setEmail('');
+              setUsername('');
+              setPassword('');
+              setConfirmPwd('');
+              setIsExist(false);
+            });
+          }
+        })
         .then((response) => {
           navigate('/components/Account/Account');
           ctx.updateTimeActive(true); //revisar boolean o tiempo?

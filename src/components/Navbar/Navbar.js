@@ -124,12 +124,12 @@ const Navbar = () => {
                   <Button
                     sx={{ marginLeft: '10px' }}
                     variant="contained"
-                    label="Create Products"
+                    label="My Products"
                     component={Link}
                     to={'/components/Products/CreateProducts'}
                     value={value}
                   >
-                    Create Products{''}
+                    My Products{''}
                   </Button>
 
                   <Button
