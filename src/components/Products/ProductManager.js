@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
 import AddProduct from './AddProduct';
+import EditProduct from './EditProduct';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 
@@ -13,8 +14,9 @@ const columns = [
   { field: 'created', headerName: 'Product Date', width: 200 },
 ];
 
-function ProductManager() {
+function ProductManager({ id }) {
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
 
   /* function to get all tasks from firestore in realtime */
@@ -24,7 +26,7 @@ function ProductManager() {
       orderBy('created', 'desc')
     );
     onSnapshot(taskColRef, (snapshot) => {
-      console.log(snapshot.docs);
+      // console.log(snapshot.docs);
       setProducts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -47,7 +49,11 @@ function ProductManager() {
         <Button variant="contained" onClick={() => setOpenAddModal(true)}>
           Add
         </Button>
-        <Button variant="contained" color="success">
+        <Button
+          variant="contained"
+          onClick={() => setOpenEditModal(true)}
+          color="success"
+        >
           Edit
         </Button>
         <Button variant="contained" color="error">
@@ -67,6 +73,13 @@ function ProductManager() {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
+          onSelectionModelChange={(ids) => {
+            const selectedIDs = new Set(ids);
+            const selectedRowData = products.filter((product) =>
+              selectedIDs.has(product.id.toString())
+            );
+            console.log(selectedRowData);
+          }}
         />
       </div>
 
@@ -74,6 +87,13 @@ function ProductManager() {
         <AddProduct
           onClose={() => setOpenAddModal(false)}
           open={openAddModal}
+        />
+      )}
+      {openEditModal && (
+        <EditProduct
+          onClose={() => setOpenEditModal(false)}
+          open={openEditModal}
+          id={id}
         />
       )}
     </Stack>

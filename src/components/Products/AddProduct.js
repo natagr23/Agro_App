@@ -53,7 +53,7 @@ function AddProduct({ onClose, open }) {
           noValidate
           sx={modalStyle}
         >
-          <Stack spacing={2}>
+          <Stack spacing={3}>
             <TextField
               minRows={1}
               name="title"

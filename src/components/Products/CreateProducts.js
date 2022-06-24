@@ -40,7 +40,7 @@ export default function CreateProducts() {
 
             await _parties.push(data);
             setParties(_parties);
-            console.log(parties);
+            // console.log(parties);
             setLoading(false);
           }
         });
