@@ -1,3 +1,5 @@
+//https://stackoverflow.com/questions/69609309/how-to-edit-a-specific-row-in-material-ui-datagrid
+
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
@@ -21,7 +23,9 @@ function ProductManager({ id, name, description, completed }) {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
-  const [selectionModel, setSelectionModel] = useState(false);
+  // const [selectionModel, setSelectionModel] = useState(false);
+  const [open, setOpen] = useState({ edit: false, view: false });
+  // const [checked, setChecked] = useState(completed);
 
   /* function to get all tasks from firestore in realtime */
   useEffect(() => {
@@ -55,7 +59,7 @@ function ProductManager({ id, name, description, completed }) {
         </Button>
         <Button
           variant="contained"
-          onClick={() => setOpenEditModal(true)}
+          onClick={() => setOpen({ ...open, edit: true })}
           color="success"
         >
           Edit
@@ -78,7 +82,7 @@ function ProductManager({ id, name, description, completed }) {
           rowsPerPageOptions={[5]}
           checkboxSelection
           onSelectionModelChange={(id) => {
-            setSelectionModel(id);
+            // setSelectionModel(id);
             const selectedIDs = new Set(id);
             const selectedRowData = products.filter((product) =>
               selectedIDs.has(product.id)
@@ -94,10 +98,10 @@ function ProductManager({ id, name, description, completed }) {
           open={openAddModal}
         />
       )}
-      {openEditModal && (
+      {open.edit && (
         <EditProduct
           onClose={() => setOpenEditModal(false)}
-          open={openEditModal}
+          open={open.edit}
           toEditTitle={name}
           toEditDescription={description}
           id={id}

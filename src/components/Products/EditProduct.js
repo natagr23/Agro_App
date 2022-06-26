@@ -23,17 +23,17 @@ const modalStyle = {
 
 function EditProduct({
   name,
-  open,
   onClose,
   toEditName,
   toEditDescription,
   id,
   completed,
+  open,
 }) {
-  const [updatedName, setUpdatedName] = useState(toEditName);
-  const [updatedDescription, setUpdatedDescription] =
+  const [productName, setProductName] = useState(toEditName);
+  const [productDescription, setProductDescription] =
     useState(toEditDescription);
-  // const [checked, setChecked] = useState(completed);
+  const [checked, setChecked] = useState(completed);
 
   /* function to update firestore */
   const handleUpdate = async (e) => {
@@ -41,9 +41,9 @@ function EditProduct({
     const productDocRef = doc(db, 'products', id);
     try {
       await updateDoc(productDocRef, {
-        name: updatedName,
-        description: updatedDescription,
-        // completed: checked,
+        // productName: productName,
+        // productDescription: productDescription,
+        completed: checked,
       });
       // setUpdatedName('');
       // setUpdatedDescription('');
@@ -60,9 +60,9 @@ function EditProduct({
           <TextField
             minRows={1}
             name="title"
-            onChange={(e) => setUpdatedName(e.target.value.toUpperCase())}
-            value={updatedName}
-            placeholder={updatedName}
+            onChange={(e) => setProductName(e.target.value.toUpperCase())}
+            // value={productName}
+            placeholder={productName}
             variant="filled"
             id="add Product"
             label="Enter Product Name"
@@ -71,10 +71,10 @@ function EditProduct({
           <TextField
             minRows={1}
             name="description"
-            onChange={(e) => setUpdatedDescription(e.target.value)}
+            onChange={(e) => setProductDescription(e.target.value)}
             variant="filled"
-            placeholder=""
-            value={updatedDescription}
+            placeholder={productDescription}
+            // value={productDescription}
             label="Enter Product Description"
           />
 
@@ -84,7 +84,7 @@ function EditProduct({
             alignItems="baseline"
             spacing={1}
           >
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" onClick={onClose}>
               Edit
             </Button>
 
