@@ -22,16 +22,18 @@ const modalStyle = {
 };
 
 function EditProduct({
+  name,
   open,
   onClose,
-  toEditTitle,
+  toEditName,
   toEditDescription,
   id,
   completed,
 }) {
-  const [editName, setEditName] = useState(toEditTitle);
-  const [editDescription, setEditDescription] = useState(toEditDescription);
-  const [checked, setChecked] = useState(completed);
+  const [updatedName, setUpdatedName] = useState(toEditName);
+  const [updatedDescription, setUpdatedDescription] =
+    useState(toEditDescription);
+  // const [checked, setChecked] = useState(completed);
 
   /* function to update firestore */
   const handleUpdate = async (e) => {
@@ -39,10 +41,12 @@ function EditProduct({
     const productDocRef = doc(db, 'products', id);
     try {
       await updateDoc(productDocRef, {
-        name: editName,
-        description: editDescription,
-        completed: checked,
+        name: updatedName,
+        description: updatedDescription,
+        // completed: checked,
       });
+      // setUpdatedName('');
+      // setUpdatedDescription('');
       onClose();
     } catch (err) {
       alert(err);
@@ -56,9 +60,9 @@ function EditProduct({
           <TextField
             minRows={1}
             name="title"
-            onChange={(e) => setEditName(e.target.value.toUpperCase())}
-            value={editName}
-            placeholder={editName}
+            onChange={(e) => setUpdatedName(e.target.value.toUpperCase())}
+            value={updatedName}
+            placeholder={updatedName}
             variant="filled"
             id="add Product"
             label="Enter Product Name"
@@ -67,10 +71,10 @@ function EditProduct({
           <TextField
             minRows={1}
             name="description"
-            onChange={(e) => setEditDescription(e.target.value)}
+            onChange={(e) => setUpdatedDescription(e.target.value)}
             variant="filled"
             placeholder=""
-            value={editDescription}
+            value={updatedDescription}
             label="Enter Product Description"
           />
 

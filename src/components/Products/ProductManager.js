@@ -4,7 +4,10 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
 import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
-import { DataGrid } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  gridFilterActiveItemsLookupSelector,
+} from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 
 const columns = [
@@ -14,18 +17,19 @@ const columns = [
   { field: 'created', headerName: 'Product Date', width: 200 },
 ];
 
-function ProductManager({ id }) {
+function ProductManager({ id, name, description, completed }) {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
+  const [selectionModel, setSelectionModel] = useState(false);
 
   /* function to get all tasks from firestore in realtime */
   useEffect(() => {
-    const taskColRef = query(
+    const productColRef = query(
       collection(db, 'products'),
       orderBy('created', 'desc')
     );
-    onSnapshot(taskColRef, (snapshot) => {
+    onSnapshot(productColRef, (snapshot) => {
       // console.log(snapshot.docs);
       setProducts(
         snapshot.docs.map((doc) => ({
@@ -73,12 +77,13 @@ function ProductManager({ id }) {
           pageSize={5}
           rowsPerPageOptions={[5]}
           checkboxSelection
-          onSelectionModelChange={(ids) => {
-            const selectedIDs = new Set(ids);
+          onSelectionModelChange={(id) => {
+            setSelectionModel(id);
+            const selectedIDs = new Set(id);
             const selectedRowData = products.filter((product) =>
-              selectedIDs.has(product.id.toString())
+              selectedIDs.has(product.id)
             );
-            console.log(selectedRowData);
+            setProducts(selectedRowData);
           }}
         />
       </div>
@@ -93,6 +98,8 @@ function ProductManager({ id }) {
         <EditProduct
           onClose={() => setOpenEditModal(false)}
           open={openEditModal}
+          toEditTitle={name}
+          toEditDescription={description}
           id={id}
         />
       )}
