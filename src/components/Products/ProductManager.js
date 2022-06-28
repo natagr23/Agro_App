@@ -1,9 +1,11 @@
-//https://stackoverflow.com/questions/69609309/how-to-edit-a-specific-row-in-material-ui-datagrid
+//https://bluuweb.github.io/react-udemy/07-crud-firestore/#crear-proyecto
+//https://github.com/bluuweb/react-udemy/tree/master/src/07-crud-firestore
 
 import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
+import { doc, deleteDoc } from 'firebase/firestore';
 import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
 import {
@@ -23,7 +25,7 @@ function ProductManager({ id, name, description, completed }) {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
-  // const [selectionModel, setSelectionModel] = useState(false);
+  const [selectionModel, setSelectionModel] = useState(false);
   const [open, setOpen] = useState({ edit: false, view: false });
   // const [checked, setChecked] = useState(completed);
 
@@ -43,6 +45,16 @@ function ProductManager({ id, name, description, completed }) {
       );
     });
   }, []);
+
+  const eliminar = async (id) => {
+    try {
+      await db.collection('products').doc(id).delete();
+      const arrayFiltrado = products.filter((item) => item.id !== id);
+      setProducts(arrayFiltrado);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Stack spacing={1} justifyContent="flex-end" alignItems="baseline">
@@ -64,7 +76,14 @@ function ProductManager({ id, name, description, completed }) {
         >
           Edit
         </Button>
-        <Button variant="contained" color="error">
+        <Button
+          variant="contained"
+          color="error"
+          onClick={() => eliminar(products.id)}
+          // onClick={(id) => {
+          //   deleteDoc(doc(db, 'products', id));
+          // }}
+        >
           Delete
         </Button>
       </Stack>
@@ -82,12 +101,20 @@ function ProductManager({ id, name, description, completed }) {
           rowsPerPageOptions={[5]}
           checkboxSelection
           onSelectionModelChange={(id) => {
-            // setSelectionModel(id);
+            setSelectionModel(id);
             const selectedIDs = new Set(id);
             const selectedRowData = products.filter((product) =>
               selectedIDs.has(product.id)
             );
+            // const deselectedRowData = products.filter(
+            //   (product) => selectedIDs.has(product.id)
+            // );
+            console.log(selectedRowData);
             setProducts(selectedRowData);
+
+            // if (setProducts(deselectedRowData)) {
+            //   setProducts('');
+            // }
           }}
         />
       </div>
