@@ -1,6 +1,6 @@
-import { useAuthValue } from '../AuthContext/AuthContext';
+import { useAuthValue } from '../../src/components/AuthContext/AuthContext';
 import { signOut } from 'firebase/auth';
-import { auth } from '../Api/firebase-config';
+import { auth } from '../../src/components/Api/firebase-config';
 
 function Profile() {
   const { currentUser } = useAuthValue();
