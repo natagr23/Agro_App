@@ -67,7 +67,8 @@ function ProductManager({ name, description, id, completed }) {
     setOpen({ edit: false, view: false });
   };
 
-  const handleChange = async () => {
+  const handleChange = async (e) => {
+    e.preventDefault();
     const taskDocRef = doc(db, 'products', id);
     try {
       await updateDoc(taskDocRef, {
@@ -144,7 +145,7 @@ function ProductManager({ name, description, id, completed }) {
         )}
         {open.edit && (
           <EditProduct
-            onClose={() => setOpenEditModal(false)}
+            onClose={handleClose}
             open={open.edit}
             toEditTitle={name}
             toEditDescription={description}
@@ -176,7 +177,7 @@ function ProductManager({ name, description, id, completed }) {
             </TableHead>
             <TableBody>
               {products.map((product) => (
-                <TableRow key={product.name}>
+                <TableRow key={product.id}>
                   <TableCell onChange={handleChange}>
                     {product.data.name}
                   </TableCell>
@@ -202,17 +203,18 @@ function ProductManager({ name, description, id, completed }) {
                   >
                     Edit
                   </Button>
-                  {open.edit && (
-                    <EditProduct
-                      onClose={handleClose}
-                      toEditTitle={name}
-                      toEditDescription={description}
-                      open={open.edit}
-                      id={id}
-                    />
-                  )}
                 </TableRow>
               ))}
+
+              {open.edit && (
+                <EditProduct
+                  onClose={handleClose}
+                  toEditTitle={name}
+                  toEditDescription={description}
+                  open={open.edit}
+                  id={id}
+                />
+              )}
             </TableBody>
           </Table>
         </TableContainer>

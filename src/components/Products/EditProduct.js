@@ -35,11 +35,13 @@ function EditProduct({
     useState(toEditDescription);
   const [checked, setChecked] = useState(completed);
 
-  const handleChange = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     const taskDocRef = doc(db, 'products', id);
     try {
       await updateDoc(taskDocRef, {
-        completed: checked,
+        productName: productName,
+        productDescription: productDescription,
       });
     } catch (err) {
       alert(err);
@@ -48,32 +50,36 @@ function EditProduct({
 
   return (
     <Modal onClose={onClose} open={open}>
-      <Box component="form" onSubmit={handleChange} noValidate sx={modalStyle}>
+      <Box component="form" onSubmit={handleUpdate} noValidate sx={modalStyle}>
         <Stack spacing={3}>
           <TextField
             minRows={1}
             name="title"
             // onChange={(e) => setProductName(e.target.value.toUpperCase())}
             // value={productName}
-            placeholder={productName}
+            // placeholder={productName}
             variant="filled"
             id="add Product"
             // checked={checked}
-            onChange={(e) => setProductName(e.target.value.toUpperCase())}
+            onChange={(e) =>
+              setProductName({ productName: e.target.value.toUpperCase() })
+            }
             label="Enter Product Name"
-            onClick={() => setChecked(!checked)}
+            // onClick={() => setChecked(!checked)}
           />
 
           <TextField
             minRows={1}
             name="description"
             // checked={checked}
-            onChange={(e) => setProductDescription(e.target.value)}
+            onChange={(e) =>
+              setProductDescription({ productDescription: e.target.value })
+            }
             variant="filled"
-            placeholder={productDescription}
+            // placeholder={productDescription}
             // value={productDescription}
             label="Enter Product Description"
-            onClick={() => setChecked(!checked)}
+            // onClick={() => setChecked(!checked)}
           />
 
           <Stack
