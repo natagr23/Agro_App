@@ -1,35 +1,36 @@
 // import Modal from './Modal';
 import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-// import Grid from '@mui/material/Grid';
 
-function ProductItem({ onClose, open, title, description }) {
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+function ProductItem({ onClose, open, name, description }) {
   return (
     <Modal onClose={onClose} open={open}>
-      {/* <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '100vh' }}
-      > */}
-      <Box
-        sx={{ mt: 10 }}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <h2>Product Item</h2>
-        <h2>{title}</h2>
-        <p>{description}</p>
-
-        <Button sx={{ border: '1px dashed grey' }} onClick={onClose}>
-          x
-        </Button>
-      </Box>
-      {/* </Grid> */}
+      <div style={{ height: 400, width: 1000 }}>
+        <TableContainer component={Paper}>
+          <Table>
+            <caption>Product User List</caption>
+            <TableHead>
+              <TableRow>
+                <TableCell>Product Name</TableCell>
+                <TableCell>Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>{name}</TableCell>
+                <TableCell>{description}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </Modal>
   );
 }

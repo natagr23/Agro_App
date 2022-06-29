@@ -21,28 +21,19 @@ const modalStyle = {
   p: 4,
 };
 
-function EditProduct({
-  name,
-  onClose,
-  toEditName,
-  toEditDescription,
-  id,
-  completed,
-  open,
-}) {
-  const [productName, setProductName] = useState(toEditName);
-  const [productDescription, setProductDescription] =
-    useState(toEditDescription);
-  const [checked, setChecked] = useState(completed);
+function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
+  const [name, setName] = useState(toEditName);
+  const [description, setDescription] = useState(toEditDescription);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const taskDocRef = doc(db, 'products', id);
     try {
       await updateDoc(taskDocRef, {
-        productName: productName,
-        productDescription: productDescription,
+        name: name,
+        description: description,
       });
+      onClose();
     } catch (err) {
       alert(err);
     }
@@ -54,16 +45,14 @@ function EditProduct({
         <Stack spacing={3}>
           <TextField
             minRows={1}
-            name="title"
-            // onChange={(e) => setProductName(e.target.value.toUpperCase())}
-            // value={productName}
+            // name="title"
+
+            value={name}
             // placeholder={productName}
             variant="filled"
             id="add Product"
             // checked={checked}
-            onChange={(e) =>
-              setProductName({ productName: e.target.value.toUpperCase() })
-            }
+            onChange={(e) => setName(e.target.value.toUpperCase())}
             label="Enter Product Name"
             // onClick={() => setChecked(!checked)}
           />
@@ -72,12 +61,10 @@ function EditProduct({
             minRows={1}
             name="description"
             // checked={checked}
-            onChange={(e) =>
-              setProductDescription({ productDescription: e.target.value })
-            }
+            onChange={(e) => setDescription(e.target.value)}
             variant="filled"
             // placeholder={productDescription}
-            // value={productDescription}
+            value={description}
             label="Enter Product Description"
             // onClick={() => setChecked(!checked)}
           />

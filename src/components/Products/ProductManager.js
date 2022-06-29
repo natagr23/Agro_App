@@ -8,6 +8,7 @@ import { db } from '../Api/firebase-config';
 import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
+import Product from './Product';
 import { DataGrid } from '@mui/x-data-grid';
 import Stack from '@mui/material/Stack';
 // import ListItem from '@mui/material/ListItem';
@@ -35,7 +36,6 @@ function ProductManager({ name, description, id, completed }) {
   const [selectionModel, setSelectionModel] = useState(false);
 
   const [open, setOpen] = useState({ edit: false, view: false });
-  const [checked, setChecked] = useState(completed);
 
   useEffect(() => {
     const productColRef = query(
@@ -65,18 +65,6 @@ function ProductManager({ name, description, id, completed }) {
 
   const handleClose = () => {
     setOpen({ edit: false, view: false });
-  };
-
-  const handleChange = async (e) => {
-    e.preventDefault();
-    const taskDocRef = doc(db, 'products', id);
-    try {
-      await updateDoc(taskDocRef, {
-        completed: checked,
-      });
-    } catch (err) {
-      alert(err);
-    }
   };
 
   return (
@@ -178,12 +166,8 @@ function ProductManager({ name, description, id, completed }) {
             <TableBody>
               {products.map((product) => (
                 <TableRow key={product.id}>
-                  <TableCell onChange={handleChange}>
-                    {product.data.name}
-                  </TableCell>
-                  <TableCell onChange={handleChange}>
-                    {product.data.description}
-                  </TableCell>
+                  <TableCell>{product.data.name}</TableCell>
+                  <TableCell>{product.data.description}</TableCell>
                   <TableCell>
                     {product.data.created.toDate().toString()}
                   </TableCell>
@@ -218,6 +202,17 @@ function ProductManager({ name, description, id, completed }) {
             </TableBody>
           </Table>
         </TableContainer>
+      </div>
+      <div>
+        {products.map((products) => (
+          <Product
+            // id={products.id}
+            key={products.id}
+            // completed={products.data.completed}
+            name={products.data.name}
+            description={products.data.description}
+          />
+        ))}
       </div>
     </>
   );

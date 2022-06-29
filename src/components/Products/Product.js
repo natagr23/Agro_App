@@ -1,14 +1,14 @@
+// import './task.css';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-// import InputLabel from '@mui/material/InputLabel';
 import ProductItem from './ProductItem';
 import EditProduct from './EditProduct';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+
 import { db } from '../Api/firebase-config';
+import Button from '@mui/material/Button';
+// import { ButtonBase } from '@mui/material';
 
-import { Input, InputLabel } from '@mui/material';
-
-function Product({ id, title, description, completed }) {
+function Product({ id, name, description, completed }) {
   const [checked, setChecked] = useState(completed);
   const [open, setOpen] = useState({ edit: false, view: false });
 
@@ -39,57 +39,64 @@ function Product({ id, title, description, completed }) {
   };
 
   return (
-    <div className={`task ${checked && 'task--borderColor'}`}>
-      <div>
-        <Input
-          id={`checkbox-${id}`}
-          className="checkbox-custom"
-          name="checkbox"
-          checked={checked}
-          onChange={handleChange}
-          type="checkbox"
-        />
-        <InputLabel
-          htmlFor={`checkbox-${id}`}
-          className="checkbox-custom-label"
-          onClick={() => setChecked(!checked)}
-        ></InputLabel>
-      </div>
-      <div className="task__body">
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <div className="task__buttons">
-          <div className="task__deleteNedit">
-            <Button onClick={() => setOpen({ ...open, edit: true })}>
-              Edit
-            </Button>
-            <Button onClick={handleDelete}>Delete</Button>
+    <>
+      <div className={`task ${checked && 'task--borderColor'}`}>
+        <div>
+          <input
+            id={`checkbox-${id}`}
+            className="checkbox-custom"
+            name="checkbox"
+            checked={checked}
+            onChange={handleChange}
+            type="checkbox"
+          />
+          <label
+            htmlFor={`checkbox-${id}`}
+            className="checkbox-custom-label"
+            onClick={() => setChecked(!checked)}
+          ></label>
+        </div>
+        <div className="task__body">
+          <h2>{name}</h2>
+          <p>{description}</p>
+          <div className="task__buttons">
+            <div className="task__deleteNedit">
+              <Button
+                className="task__editButton"
+                onClick={() => setOpen({ ...open, edit: true })}
+              >
+                Edit
+              </Button>
+              <Button className="task__deleteButton" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
             <Button onClick={() => setOpen({ ...open, view: true })}>
               View
             </Button>
           </div>
         </div>
+
+        {open.view && (
+          <ProductItem
+            onClose={handleClose}
+            title={name}
+            description={description}
+            open={open.view}
+          />
+        )}
+
+        {open.edit && (
+          <EditProduct
+            onClose={handleClose}
+            toEditTitle={name}
+            toEditDescription={description}
+            open={open.edit}
+            id={id}
+          />
+        )}
       </div>
-
-      {open.view && (
-        <ProductItem
-          onClose={handleClose}
-          title={title}
-          description={description}
-          open={open.view}
-        />
-      )}
-
-      {open.edit && (
-        <EditProduct
-          onClose={handleClose}
-          toEditTitle={title}
-          toEditDescription={description}
-          open={open.edit}
-          id={id}
-        />
-      )}
-    </div>
+    </>
   );
 }
 
