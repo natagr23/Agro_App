@@ -18,9 +18,9 @@ function Product({ id, name, description, completed }) {
 
   /* function to update firestore */
   const handleChange = async () => {
-    const taskDocRef = doc(db, 'products', id);
+    const productDocRef = doc(db, 'products', id);
     try {
-      await updateDoc(taskDocRef, {
+      await updateDoc(productDocRef, {
         completed: checked,
       });
     } catch (err) {
@@ -80,7 +80,7 @@ function Product({ id, name, description, completed }) {
         {open.view && (
           <ProductItem
             onClose={handleClose}
-            title={name}
+            name={name}
             description={description}
             open={open.view}
           />
@@ -89,7 +89,7 @@ function Product({ id, name, description, completed }) {
         {open.edit && (
           <EditProduct
             onClose={handleClose}
-            toEditTitle={name}
+            toEditName={name}
             toEditDescription={description}
             open={open.edit}
             id={id}

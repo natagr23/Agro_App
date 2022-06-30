@@ -29,9 +29,9 @@ const columns = [
   { field: 'created', headerName: 'Product Date', width: 400 },
 ];
 
-function ProductManager({ name, description, id, completed }) {
+function ProductManager() {
   const [openAddModal, setOpenAddModal] = useState(false);
-  const [openEditModal, setOpenEditModal] = useState(false);
+  // const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectionModel, setSelectionModel] = useState(false);
 
@@ -63,9 +63,9 @@ function ProductManager({ name, description, id, completed }) {
     }
   };
 
-  const handleClose = () => {
-    setOpen({ edit: false, view: false });
-  };
+  // const handleClose = () => {
+  //   setOpen({ edit: false, view: false });
+  // };
 
   return (
     <>
@@ -131,7 +131,7 @@ function ProductManager({ name, description, id, completed }) {
             open={openAddModal}
           />
         )}
-        {open.edit && (
+        {/* {open.edit && (
           <EditProduct
             onClose={handleClose}
             open={open.edit}
@@ -139,7 +139,7 @@ function ProductManager({ name, description, id, completed }) {
             toEditDescription={description}
             id={id}
           />
-        )}
+        )} */}
       </Stack>
 
       <Stack spacing={1} justifyContent="flex-end" alignItems="baseline">
@@ -190,7 +190,7 @@ function ProductManager({ name, description, id, completed }) {
                 </TableRow>
               ))}
 
-              {open.edit && (
+              {/* {open.edit && (
                 <EditProduct
                   onClose={handleClose}
                   toEditTitle={name}
@@ -198,7 +198,7 @@ function ProductManager({ name, description, id, completed }) {
                   open={open.edit}
                   id={id}
                 />
-              )}
+              )} */}
             </TableBody>
           </Table>
         </TableContainer>
@@ -206,8 +206,8 @@ function ProductManager({ name, description, id, completed }) {
       <div>
         {products.map((products) => (
           <Product
-            // id={products.id}
-            key={products.id}
+            id={products.id}
+            // key={products.id}
             // completed={products.data.completed}
             name={products.data.name}
             description={products.data.description}
