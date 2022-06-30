@@ -22,6 +22,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const columns = [
   { field: 'id', headerName: 'Product Id', width: 150 },
   { field: 'name', headerName: 'Product Name', width: 150 },
@@ -29,7 +31,7 @@ const columns = [
   { field: 'created', headerName: 'Product Date', width: 400 },
 ];
 
-function ProductManager() {
+function ProductManager({ id, name, description }) {
   const [openAddModal, setOpenAddModal] = useState(false);
   // const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
@@ -56,16 +58,25 @@ function ProductManager() {
   const eliminar = async (id) => {
     try {
       await deleteDoc(doc(db, 'products', id));
-      const arrayFiltrado = products.filter((item) => item.id !== id);
-      setProducts(arrayFiltrado);
+      const filteredArray = products.filter((product) => product.id !== id);
+      setProducts(filteredArray);
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const handleClose = () => {
-  //   setOpen({ edit: false, view: false });
-  // };
+  const handleClose = () => {
+    setOpen({ edit: false, view: false });
+  };
+
+  const handleDelete = async (id) => {
+    const taskDocRef = doc(db, 'products', id);
+    try {
+      await deleteDoc(taskDocRef);
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <>
@@ -88,12 +99,24 @@ function ProductManager() {
           >
             Edit
           </Button>
-          <Button variant="contained" color="error" onClick={() => eliminar()}>
+          <Button
+            variant="contained"
+            type="submit"
+            color="error"
+            onClick={() => eliminar(id)}
+          >
             Delete
           </Button>
         </Stack>
 
         <div style={{ height: 400, width: 800 }}>
+          <DeleteIcon
+            fontSize="large"
+            style={{ opacity: 0.7 }}
+            onClick={(id) => {
+              deleteDoc(doc(db, 'products', id));
+            }}
+          />
           <DataGrid
             rows={products.map((product) => ({
               id: product.id,
@@ -125,13 +148,22 @@ function ProductManager() {
           />
         </div>
 
+        <Button
+          variant="contained"
+          type="submit"
+          color="error"
+          onClick={handleDelete}
+        >
+          Delete
+        </Button>
+
         {openAddModal && (
           <AddProduct
             onClose={() => setOpenAddModal(false)}
             open={openAddModal}
           />
         )}
-        {/* {open.edit && (
+        {open.edit && (
           <EditProduct
             onClose={handleClose}
             open={open.edit}
@@ -139,7 +171,7 @@ function ProductManager() {
             toEditDescription={description}
             id={id}
           />
-        )} */}
+        )}
       </Stack>
 
       <Stack spacing={1} justifyContent="flex-end" alignItems="baseline">
@@ -165,7 +197,7 @@ function ProductManager() {
             </TableHead>
             <TableBody>
               {products.map((product) => (
-                <TableRow key={product.id}>
+                <TableRow id={product.id}>
                   <TableCell>{product.data.name}</TableCell>
                   <TableCell>{product.data.description}</TableCell>
                   <TableCell>
@@ -175,7 +207,7 @@ function ProductManager() {
                     variant="contained"
                     type="submit"
                     color="error"
-                    onClick={() => eliminar(product.id)}
+                    onClick={() => handleDelete(product.id)}
                   >
                     Delete
                   </Button>
@@ -187,18 +219,17 @@ function ProductManager() {
                   >
                     Edit
                   </Button>
+                  {open.edit && (
+                    <EditProduct
+                      onClose={handleClose}
+                      toEditTitle={name}
+                      toEditDescription={description}
+                      open={open.edit}
+                      id={product.id}
+                    />
+                  )}
                 </TableRow>
               ))}
-
-              {/* {open.edit && (
-                <EditProduct
-                  onClose={handleClose}
-                  toEditTitle={name}
-                  toEditDescription={description}
-                  open={open.edit}
-                  id={id}
-                />
-              )} */}
             </TableBody>
           </Table>
         </TableContainer>

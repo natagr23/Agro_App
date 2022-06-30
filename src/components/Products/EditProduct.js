@@ -53,7 +53,10 @@ function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
           onChange={(e) => setDescription(e.target.value)}
           value={description}
         ></TextField>
-        <button type="submit">Edit</button>
+        <Button type="submit">Edit</Button>
+        <Button variant="outlined" color="error" onClick={onClose}>
+          Close{' '}
+        </Button>
       </Box>
     </Modal>
     // <Modal onClose={onClose} open={open}>
