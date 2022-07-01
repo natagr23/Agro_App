@@ -27,7 +27,7 @@ function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const productDocRef = doc(db, 'products', `${id}`);
+    const productDocRef = doc(db, 'products', id);
     try {
       await updateDoc(productDocRef, {
         name: name,

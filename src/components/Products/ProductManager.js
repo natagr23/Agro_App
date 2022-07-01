@@ -31,13 +31,14 @@ const columns = [
   { field: 'created', headerName: 'Product Date', width: 400 },
 ];
 
-function ProductManager({ id, name, description }) {
+function ProductManager({ id, name, description, completed }) {
   const [openAddModal, setOpenAddModal] = useState(false);
   // const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectionModel, setSelectionModel] = useState(false);
 
   const [open, setOpen] = useState({ edit: false, view: false });
+  const [checked, setChecked] = useState(completed);
 
   useEffect(() => {
     const productColRef = query(
@@ -78,6 +79,17 @@ function ProductManager({ id, name, description }) {
     const taskDocRef = doc(db, 'products', id);
     try {
       await deleteDoc(taskDocRef);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const handleChange = async () => {
+    const productDocRef = doc(db, 'products', id);
+    try {
+      await updateDoc(productDocRef, {
+        completed: checked,
+      });
     } catch (err) {
       alert(err);
     }
@@ -216,7 +228,7 @@ function ProductManager({ id, name, description }) {
                   </Button>
                   <Button
                     variant="contained"
-                    // type="submit"
+                    type="submit"
                     color="success"
                     onClick={() => setOpen({ ...open, edit: true })}
                   >
@@ -238,13 +250,13 @@ function ProductManager({ id, name, description }) {
         </TableContainer>
       </div>
       <div>
-        {products.map((products) => (
+        {products.map((product) => (
           <Product
-            id={products.id}
+            id={product.id}
             // key={products.id}
             // completed={products.data.completed}
-            name={products.data.name}
-            description={products.data.description}
+            name={product.data.name}
+            description={product.data.description}
           />
         ))}
       </div>

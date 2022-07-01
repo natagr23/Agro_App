@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 // import { ButtonBase } from '@mui/material';
 
 function Product({ id, name, description, completed }) {
-  const [checked, setChecked] = useState(completed);
+  // const [checked, setChecked] = useState(completed);
   const [open, setOpen] = useState({ edit: false, view: false });
 
   const handleClose = () => {
@@ -17,16 +17,16 @@ function Product({ id, name, description, completed }) {
   };
 
   /* function to update firestore */
-  const handleChange = async () => {
-    const productDocRef = doc(db, 'products', id);
-    try {
-      await updateDoc(productDocRef, {
-        completed: checked,
-      });
-    } catch (err) {
-      alert(err);
-    }
-  };
+  // const handleChange = async () => {
+  //   const productDocRef = doc(db, 'products', id);
+  //   try {
+  //     await updateDoc(productDocRef, {
+  //       completed: checked,
+  //     });
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // };
 
   /* function to delete a document from firstore */
   const handleDelete = async () => {
@@ -40,21 +40,21 @@ function Product({ id, name, description, completed }) {
 
   return (
     <>
-      <div className={`task ${checked && 'task--borderColor'}`}>
+      <div>
         <div>
-          <input
+          {/* <input
             id={`checkbox-${id}`}
             className="checkbox-custom"
             name="checkbox"
             checked={checked}
             onChange={handleChange}
             type="checkbox"
-          />
-          <label
+          /> */}
+          {/* <label
             htmlFor={`checkbox-${id}`}
             className="checkbox-custom-label"
             onClick={() => setChecked(!checked)}
-          ></label>
+          ></label> */}
         </div>
         <div className="task__body">
           <h2>{name}</h2>
