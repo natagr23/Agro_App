@@ -55,11 +55,16 @@ function ProductManager({ id, name, description }) {
     });
   }, []);
 
-  const eliminar = async (id) => {
+  const eliminar = async (clickedProduct) => {
     try {
-      await deleteDoc(doc(db, 'products', id));
-      const filteredArray = products.filter((product) => product.id !== id);
-      setProducts(filteredArray);
+      await deleteDoc(doc(db, 'products', doc.id));
+      setProducts(
+        products.filter((product) => product.id !== clickedProduct.id)
+      );
+      console.log(clickedProduct.id);
+
+      // const filteredArray = products.filter((product) => product.id !== id);
+      // setProducts(filteredArray);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +108,7 @@ function ProductManager({ id, name, description }) {
             variant="contained"
             type="submit"
             color="error"
-            onClick={() => eliminar(id)}
+            onClick={() => handleDelete(id)}
           >
             Delete
           </Button>
@@ -113,9 +118,7 @@ function ProductManager({ id, name, description }) {
           <DeleteIcon
             fontSize="large"
             style={{ opacity: 0.7 }}
-            onClick={(id) => {
-              deleteDoc(doc(db, 'products', id));
-            }}
+            onClick={() => eliminar(id)}
           />
           <DataGrid
             rows={products.map((product) => ({
@@ -213,7 +216,7 @@ function ProductManager({ id, name, description }) {
                   </Button>
                   <Button
                     variant="contained"
-                    type="submit"
+                    // type="submit"
                     color="success"
                     onClick={() => setOpen({ ...open, edit: true })}
                   >

@@ -27,7 +27,7 @@ function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const productDocRef = doc(db, 'products', id);
+    const productDocRef = doc(db, 'products', `${id}`);
     try {
       await updateDoc(productDocRef, {
         name: name,
@@ -41,23 +41,32 @@ function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
 
   return (
     <Modal modalLable="Edit Task" onClose={onClose} open={open}>
-      <Box component="form" onSubmit={handleUpdate} sx={modalStyle}>
-        {/* <form onSubmit={handleUpdate} className="editTask"> */}
-        <TextField
-          type="text"
-          name="title"
-          onChange={(e) => setName(e.target.value.toUpperCase())}
-          value={name}
-        />
-        <TextField
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-        ></TextField>
-        <Button type="submit">Edit</Button>
-        <Button variant="outlined" color="error" onClick={onClose}>
-          Close{' '}
-        </Button>
-      </Box>
+      <Stack spacing={3}>
+        <Box component="form" onSubmit={handleUpdate} sx={modalStyle}>
+          {/* <form onSubmit={handleUpdate} className="editTask"> */}
+          <TextField
+            type="text"
+            name="title"
+            onChange={(e) => setName(e.target.value.toUpperCase())}
+            value={name}
+          />
+          <TextField
+            onChange={(e) => setDescription(e.target.value)}
+            value={description}
+          ></TextField>
+          <Stack
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="baseline"
+            spacing={1}
+          >
+            <Button type="submit">Edit</Button>
+            <Button variant="outlined" color="error" onClick={onClose}>
+              Close{' '}
+            </Button>
+          </Stack>
+        </Box>
+      </Stack>
     </Modal>
     // <Modal onClose={onClose} open={open}>
     //   <Box component="form" onSubmit={handleUpdate} sx={modalStyle}>
