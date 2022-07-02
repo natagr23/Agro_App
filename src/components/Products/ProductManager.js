@@ -115,7 +115,7 @@ function ProductManager({ id, name, description, completed }) {
             variant="contained"
             type="submit"
             color="error"
-            onClick={() => handleDelete(id)}
+            onClick={(id) => handleDelete(id)}
           >
             Delete
           </Button>
@@ -237,7 +237,7 @@ function ProductManager({ id, name, description, completed }) {
                       toEditTitle={name}
                       toEditDescription={description}
                       open={open.edit}
-                      id={product.id}
+                      id={product.id.toString()}
                     />
                   )}
                 </TableRow>
