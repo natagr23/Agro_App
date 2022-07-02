@@ -38,7 +38,8 @@ function ProductManager({ id, name, description, completed }) {
   const [selectionModel, setSelectionModel] = useState(false);
 
   const [open, setOpen] = useState({ edit: false, view: false });
-  const [checked, setChecked] = useState(completed);
+
+  const [selectedId, setSelectedId] = useState(-1);
 
   useEffect(() => {
     const productColRef = query(
@@ -73,6 +74,7 @@ function ProductManager({ id, name, description, completed }) {
 
   const handleClose = () => {
     setOpen({ edit: false, view: false });
+    setSelectedId(-1);
   };
 
   const handleDelete = async (id) => {
@@ -83,16 +85,9 @@ function ProductManager({ id, name, description, completed }) {
       alert(err);
     }
   };
-
-  const handleChange = async () => {
-    const productDocRef = doc(db, 'products', id);
-    try {
-      await updateDoc(productDocRef, {
-        completed: checked,
-      });
-    } catch (err) {
-      alert(err);
-    }
+  const handleOpen = (id) => {
+    setSelectedId(id);
+    setOpen(true);
   };
 
   return (
@@ -230,7 +225,9 @@ function ProductManager({ id, name, description, completed }) {
                     variant="contained"
                     type="submit"
                     color="success"
-                    onClick={() => setOpen({ ...open, edit: true })}
+                    onClick={() =>
+                      setOpen({ ...open, edit: true }) && handleOpen(product.id)
+                    }
                   >
                     Edit
                   </Button>
