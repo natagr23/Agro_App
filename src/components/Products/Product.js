@@ -6,7 +6,14 @@ import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 import { db } from '../Api/firebase-config';
 import Button from '@mui/material/Button';
-// import { ButtonBase } from '@mui/material';
+import { List, ListItem } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 function Product({ id, name, description, completed }) {
   // const [checked, setChecked] = useState(completed);
@@ -15,18 +22,6 @@ function Product({ id, name, description, completed }) {
   const handleClose = () => {
     setOpen({ edit: false, view: false });
   };
-
-  /* function to update firestore */
-  // const handleChange = async () => {
-  //   const productDocRef = doc(db, 'products', id);
-  //   try {
-  //     await updateDoc(productDocRef, {
-  //       completed: checked,
-  //     });
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // };
 
   /* function to delete a document from firstore */
   const handleDelete = async () => {
@@ -40,43 +35,48 @@ function Product({ id, name, description, completed }) {
 
   return (
     <>
-      <div>
-        <div>
-          {/* <input
-            id={`checkbox-${id}`}
-            className="checkbox-custom"
-            name="checkbox"
-            checked={checked}
-            onChange={handleChange}
-            type="checkbox"
-          /> */}
-          {/* <label
-            htmlFor={`checkbox-${id}`}
-            className="checkbox-custom-label"
-            onClick={() => setChecked(!checked)}
-          ></label> */}
-        </div>
-        <div className="task__body">
-          <h2>{name}</h2>
-          <p>{description}</p>
-          <div className="task__buttons">
-            <div className="task__deleteNedit">
-              <Button
-                className="task__editButton"
-                onClick={() => setOpen({ ...open, edit: true })}
-              >
-                Edit
-              </Button>
-              <Button className="task__deleteButton" onClick={handleDelete}>
-                Delete
-              </Button>
-            </div>
-            <Button onClick={() => setOpen({ ...open, view: true })}>
-              View
-            </Button>
-          </div>
-        </div>
-
+      <div style={{ height: 200, width: 1000 }}>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Product Name</TableCell>
+                <TableCell>Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>{name}</TableCell>
+                <TableCell>{description}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="error"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="success"
+                    onClick={() => setOpen({ ...open, edit: true })}
+                  >
+                    Edit
+                  </Button>
+                </TableCell>
+                <TableCell>
+                  <Button onClick={() => setOpen({ ...open, view: true })}>
+                    View
+                  </Button>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
         {open.view && (
           <ProductItem
             onClose={handleClose}

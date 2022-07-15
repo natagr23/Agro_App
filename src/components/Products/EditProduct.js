@@ -40,7 +40,7 @@ function EditProduct({ onClose, toEditName, toEditDescription, id, open }) {
   };
 
   return (
-    <Modal modalLable="Edit Task" onClose={onClose} open={open}>
+    <Modal onClose={onClose} open={open}>
       <Stack spacing={3}>
         <Box component="form" onSubmit={handleUpdate} sx={modalStyle}>
           {/* <form onSubmit={handleUpdate} className="editTask"> */}
