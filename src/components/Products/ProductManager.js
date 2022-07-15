@@ -14,7 +14,7 @@ import Stack from '@mui/material/Stack';
 // import ListItem from '@mui/material/ListItem';
 // import List from '@mui/material/List';
 
-function ProductManager({ id, name, description, completed }) {
+function ProductManager() {
   const [openAddModal, setOpenAddModal] = useState(false);
   // const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
@@ -60,9 +60,11 @@ function ProductManager({ id, name, description, completed }) {
           <Product
             id={product.id}
             key={product.id}
-            // completed={products.data.completed}
             name={product.data.name}
             description={product.data.description}
+            latitude={product.data.latitude}
+            longitude={product.data.longitude}
+            place={product.data.place}
           />
         ))}
       </div>

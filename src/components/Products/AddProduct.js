@@ -24,12 +24,9 @@ const modalStyle = {
 function AddProduct({ onClose, open }) {
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
-  //   const [open, setOpen] = React.useState(false);
-  //   const handleOpen = () => setOpen(true);
-  //   const handleClose = () => setOpen(false);
+  const [productLatitude, setProductLatitude] = useState('');
+  const [productLongitude, setProductLongitude] = useState('');
 
-  // const { user } = useAuthState();
-  /* function to add new task to firestore */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -71,6 +68,22 @@ function AddProduct({ onClose, open }) {
               variant="filled"
               placeholder=""
               value={productDescription}
+              label="Enter Product Description"
+            />
+            <TextField
+              minRows={1}
+              onChange={(e) => setProductLatitude(e.target.value)}
+              variant="filled"
+              placeholder=""
+              value={productLatitude}
+              label="Enter Product Latitude"
+            />
+            <TextField
+              minRows={1}
+              onChange={(e) => setProductLongitude(e.target.value)}
+              variant="filled"
+              placeholder=""
+              value={productLongitude}
               label="Enter Product Description"
             />
 

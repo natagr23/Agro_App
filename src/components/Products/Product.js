@@ -15,7 +15,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function Product({ id, name, description, completed }) {
+function Product({ id, name, description, latitude, longitude, place }) {
   // const [checked, setChecked] = useState(completed);
   const [open, setOpen] = useState({ edit: false, view: false });
 
@@ -42,12 +42,18 @@ function Product({ id, name, description, completed }) {
               <TableRow>
                 <TableCell>Product Name</TableCell>
                 <TableCell>Description</TableCell>
+                <TableCell>Longitude</TableCell>
+                <TableCell>Latitude</TableCell>
+                <TableCell>Place Name</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow>
                 <TableCell>{name}</TableCell>
                 <TableCell>{description}</TableCell>
+                <TableCell>{latitude}</TableCell>
+                <TableCell>{longitude}</TableCell>
+                <TableCell>{place}</TableCell>
                 <TableCell>
                   <Button
                     variant="contained"
@@ -91,6 +97,8 @@ function Product({ id, name, description, completed }) {
             onClose={handleClose}
             toEditName={name}
             toEditDescription={description}
+            toEditLatitude={latitude}
+            toEditLongitude={longitude}
             open={open.edit}
             id={id}
           />
