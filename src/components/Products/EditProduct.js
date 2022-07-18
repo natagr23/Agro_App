@@ -6,6 +6,8 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { TextField } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../Api/firebase-config';
 
@@ -14,7 +16,7 @@ const modalStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 1000,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -59,29 +61,87 @@ function EditProduct({
       <Stack spacing={3}>
         <Box component="form" onSubmit={handleUpdate} sx={modalStyle}>
           {/* <form onSubmit={handleUpdate} className="editTask"> */}
-          <TextField
-            type="text"
-            name="title"
-            onChange={(e) => setName(e.target.value.toUpperCase())}
-            value={name}
-          />
-          <TextField
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-          />
-          <TextField
-            onChange={(e) => setLatitude(e.target.value)}
-            value={latitude}
-          />
-          <TextField
-            onChange={(e) => setLongitude(e.target.value)}
-            value={longitude}
-          />
-          <TextField onChange={(e) => setPlace(e.target.value)} value={place} />
           <Stack
             direction="row"
-            justifyContent="flex-end"
+            // justifyContent="flex-end"
             alignItems="baseline"
+            // divider={
+            //   <Divider
+            //     variant="inset"
+            //     component="li"
+            //     orientation="horizontal"
+            //     flexItem
+            //   />
+            // }
+            spacing={1}
+          >
+            <Typography
+              sx={{ mt: 0.5, ml: 9 }}
+              color="text.primary"
+              display="block"
+              variant="caption"
+            >
+              Product Name
+            </Typography>
+            <TextField
+              type="text"
+              name="title"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+            <Typography
+              sx={{ mt: 0.5, ml: 9 }}
+              color="text.primary"
+              display="block"
+              variant="caption"
+            >
+              Description
+            </Typography>
+            <TextField
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
+            <Typography
+              sx={{ mt: 0.5, ml: 9 }}
+              color="text.primary"
+              display="block"
+              variant="caption"
+            >
+              Latitude
+            </Typography>
+            <TextField
+              onChange={(e) => setLatitude(e.target.value)}
+              value={latitude}
+            />
+            <Typography
+              sx={{ mt: 0.5, ml: 9 }}
+              color="text.primary"
+              display="block"
+              variant="caption"
+            >
+              Longitude
+            </Typography>
+            <TextField
+              onChange={(e) => setLongitude(e.target.value)}
+              value={longitude}
+            />
+            <Typography
+              sx={{ mt: 0.5, ml: 9 }}
+              color="text.primary"
+              display="block"
+              variant="caption"
+            >
+              Place
+            </Typography>
+            <TextField
+              onChange={(e) => setPlace(e.target.value)}
+              value={place}
+            />
+          </Stack>
+          <Stack
+            direction="column"
+            justifyContent="flex-end"
+            // alignItems="baseline"
             spacing={1}
           >
             <Button type="submit">Edit</Button>

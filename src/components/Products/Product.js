@@ -42,8 +42,8 @@ function Product({ id, name, description, latitude, longitude, place }) {
               <TableRow>
                 <TableCell>Product Name</TableCell>
                 <TableCell>Description</TableCell>
-                <TableCell>Longitude</TableCell>
                 <TableCell>Latitude</TableCell>
+                <TableCell>Longitude</TableCell>
                 <TableCell>Place Name</TableCell>
               </TableRow>
             </TableHead>
@@ -89,6 +89,9 @@ function Product({ id, name, description, latitude, longitude, place }) {
             name={name}
             description={description}
             open={open.view}
+            latitude={latitude}
+            longitude={longitude}
+            place={place}
           />
         )}
 
@@ -99,6 +102,7 @@ function Product({ id, name, description, latitude, longitude, place }) {
             toEditDescription={description}
             toEditLatitude={latitude}
             toEditLongitude={longitude}
+            toEditPlace={place}
             open={open.edit}
             id={id}
           />

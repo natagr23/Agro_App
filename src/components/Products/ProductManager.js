@@ -16,7 +16,6 @@ import Stack from '@mui/material/Stack';
 
 function ProductManager() {
   const [openAddModal, setOpenAddModal] = useState(false);
-  // const [openEditModal, setOpenEditModal] = useState(false);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {

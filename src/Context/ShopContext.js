@@ -1,18 +1,17 @@
-import React, { useState, createContext, useReducer } from 'react';
+import React, { useState, createContext, useReducer, useEffect } from 'react';
 
 import ProviderJson from '../components/Data/ProviderJson.json';
 import ProductJson from '../components/Data/ProductJson.json';
 import { defaultState } from '../Context/defaultState';
 import { reducer } from './AuthContext_reducer';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { db } from '../components/Api/firebase-config';
 
 export const ShopContext = createContext({});
 
 export const ShopContextProvider = (props) => {
   const [shops, setShops] = useState(ProviderJson);
-  const [products] = useState(ProductJson);
-
-  const [minStars, setMinStars] = useState(1);
-  const [maxStars, setMaxStars] = useState(5);
+  const [products_json] = useState(ProductJson);
   const [bounds, setBounds] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(null);
@@ -25,32 +24,60 @@ export const ShopContextProvider = (props) => {
     zoom: 10,
   });
 
-  const [state, dispatch] = useReducer(reducer, defaultState);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const productColRef = query(
+      collection(db, 'products'),
+      orderBy('created', 'desc')
+    );
+    onSnapshot(productColRef, (snapshot) => {
+      setProducts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+  }, []);
+
+  // const [state, dispatch] = useReducer(reducer, defaultState);
 
   const selectProduct = (product) => {
     setSelectedProduct((old) => ({
       selectedProduct: product,
       viewport: {
         ...old.viewport,
-        latitude: shops.location[0],
-        longitude: shops.location[1],
+        latitude: product.data.latitude,
+        longitude: product.data.longitude,
       },
     }));
   };
 
+  // const selectProduct = (product) => {
+  //   setSelectedProduct((old) => ({
+  //     selectedProduct: product,
+  //     viewport: {
+  //       ...old.viewport,
+  //       latitude: shops.location[0],
+  //       longitude: shops.location[1],
+  //     },
+  //   }));
+  // };
+
   const handleOpenMarker = (product_id) => {
     updateShow(product_id);
 
-    let selected_product = products.find((product) => {
+    let selected_product = products_json.find((product) => {
       return product.id === product_id;
     });
-    let selected_provider2 = shops.find((provider) => {
+    let selected_provider = shops.find((provider) => {
       return provider.id === selected_product.provider_id;
     });
     setSelectedProvider(() => {
-      return selected_provider2;
+      return selected_provider;
     });
-    console.log(selected_provider2.name, selected_provider2.location);
+    console.log(selected_provider.name, selected_provider.location);
   };
 
   const updateShops = (shopsUpdated) => {
@@ -59,27 +86,6 @@ export const ShopContextProvider = (props) => {
 
   const updateProducts = (productsUpdated) => {
     setShops((prevState) => [...prevState, productsUpdated]);
-  };
-
-  const updateShopReview = (shopName, review) => {
-    if (shops.find((shop) => shop.shopName === shopName)) {
-      let updatedRestaurantReviews = shops.map((shop) => {
-        if (shop.restaurantName === shopName) {
-          return { ...shop, ratings: review }; //gets everything that was already in item, and updates "done"
-        }
-        return shop; // else return unmodified item
-      });
-
-      setShops(updatedRestaurantReviews); // set state to new object with updated list
-    }
-  };
-
-  const updateMinStars = (data) => {
-    setMinStars(data);
-  };
-
-  const updateMaxStars = (data) => {
-    setMaxStars(data);
   };
 
   const updateBounds = (data) => {
@@ -94,22 +100,9 @@ export const ShopContextProvider = (props) => {
     setViewport({ viewport });
   };
 
-  const toggleNav = () => {
-    dispatch({ type: 'TOGGLE_NAV' });
-  };
-  const toggleMobile = () => {
-    dispatch({ type: 'TOGGLE_MOBILE' });
-  };
-  const toggleTheme = () => {
-    dispatch({ type: 'TOGGLE_THEME' });
-  };
-
-  const setSearch = (q) => {
-    dispatch({ type: 'SET_SEARCH', payload: q });
-  };
-  const setParty = (party) => {
-    dispatch({ type: 'SET_PARTY', payload: party });
-  };
+  // const setParty = (party) => {
+  //   dispatch({ type: 'SET_PARTY', payload: party });
+  // };
 
   return (
     <ShopContext.Provider
@@ -125,20 +118,11 @@ export const ShopContextProvider = (props) => {
         shops: shops,
         show: show,
         updateShow: updateShow,
-        minStars: minStars,
-        maxStars: maxStars,
         bounds: bounds,
         updateShops: updateShops,
-        updateShopReview: updateShopReview,
-        updateMinStars: updateMinStars,
-        updateMaxStars: updateMaxStars,
         updateBounds: updateBounds,
-        toggleNav: toggleNav,
-        toggleMobile: toggleMobile,
-        toggleTheme: toggleTheme,
-        setSearch: setSearch,
-        setParty: setParty,
-        state: state,
+        // setParty: setParty,
+        // state: state,
       }}
     >
       {props.children}
