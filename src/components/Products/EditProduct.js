@@ -110,7 +110,7 @@ function EditProduct({
               Latitude
             </Typography>
             <TextField
-              onChange={(e) => setLatitude(e.target.value)}
+              onChange={(e) => setLatitude(+e.target.value)}
               value={latitude}
             />
             <Typography
@@ -122,7 +122,7 @@ function EditProduct({
               Longitude
             </Typography>
             <TextField
-              onChange={(e) => setLongitude(e.target.value)}
+              onChange={(e) => setLongitude(+e.target.value)}
               value={longitude}
             />
             <Typography

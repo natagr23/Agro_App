@@ -6,6 +6,6 @@ export default function DescriptionMarker(props) {
   return (
     <div
       className={`marker ${props.selected ? 'selected' : null}`}
-    >{`$${props.name}`}</div>
+    >{`$${props.data.name}`}</div>
   );
 }

@@ -39,17 +39,18 @@ export const ProductList = (props) => {
 
   // useEffect(() => {
   //   setFilteredData(
-  //     productList.filter((product) => {
-  //       if (ctx.bounds) {
-  //         let selected_provider = providerList.find((provider) => {
-  //           return provider.id === product.provider_id;
-  //         });
+  //     filteredData.filter(
+  //       (product) => {
+  //         // if (ctx.bounds) {
+  //         //   let selectedProduct = filteredData.find((product_id) => {
+  //         //     return product_id === product.id;
+  //         //   });
 
   //         if (
-  //           selected_provider.location[0] > ctx.bounds.boundsSudOuestlat &&
-  //           selected_provider.location[0] < ctx.bounds.boundsNordEstlat &&
-  //           selected_provider.location[1] > ctx.bounds.boundsSudOuestlng &&
-  //           selected_provider.location[1] < ctx.bounds.boundsNordEstlng
+  //           product.latitude > ctx.bounds.boundsSudOuestlat &&
+  //           product.latitude < ctx.bounds.boundsNordEstlat &&
+  //           product.longitude > ctx.bounds.boundsSudOuestlng &&
+  //           product.longitude < ctx.bounds.boundsNordEstlng
   //         ) {
   //           return true;
   //         } else {
@@ -58,14 +59,15 @@ export const ProductList = (props) => {
   //       }
 
   //       //if no input the return the original
-  //       if (props.input === '') {
-  //         return product;
-  //       }
+  //       // if (props.input === '') {
+  //       //   return product;
+  //       // }
   //       //return the item which contains the user input
-  //       else {
-  //         return product.name.toLowerCase().includes(props.input);
-  //       }
-  //     })
+  //       //   else {
+  //       //     return product.name.toLowerCase().includes(props.input);
+  //       //   }
+  //       // }
+  //     )
   //   );
   // }, [ctx.bounds, productList, props.input, providerList]);
 
@@ -83,9 +85,9 @@ export const ProductList = (props) => {
                   name={product.data.name}
                   id={product.id}
                   description={product.data.description}
+                  place={product.data.place}
                   image_url={product.image_url}
-                  // OnSelectProduct={OnSelectProduct_ini}
-                  OnSelectProduct={ctx.handleOpenMarker}
+                  // OnSelectProduct={ctx.handleOpenMarker}
                   onClick={ctx.selectProduct}
                   product={product}
                 />

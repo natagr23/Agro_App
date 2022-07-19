@@ -26,6 +26,7 @@ function AddProduct({ onClose, open }) {
   const [productDescription, setProductDescription] = useState('');
   const [productLatitude, setProductLatitude] = useState('');
   const [productLongitude, setProductLongitude] = useState('');
+  const [productPlace, setProductPlace] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +34,9 @@ function AddProduct({ onClose, open }) {
       await addDoc(collection(db, 'products'), {
         name: productName,
         description: productDescription,
+        latitude: productLatitude,
+        longitude: productLongitude,
+        place: productPlace,
         created: Timestamp.now(),
       });
       onClose();
@@ -54,7 +58,7 @@ function AddProduct({ onClose, open }) {
             <TextField
               minRows={1}
               name="title"
-              onChange={(e) => setProductName(e.target.value.toUpperCase())}
+              onChange={(e) => setProductName(e.target.value)}
               value={productName}
               placeholder=""
               variant="filled"
@@ -72,7 +76,7 @@ function AddProduct({ onClose, open }) {
             />
             <TextField
               minRows={1}
-              onChange={(e) => setProductLatitude(e.target.value)}
+              onChange={(e) => setProductLatitude(+e.target.value)}
               variant="filled"
               placeholder=""
               value={productLatitude}
@@ -80,11 +84,19 @@ function AddProduct({ onClose, open }) {
             />
             <TextField
               minRows={1}
-              onChange={(e) => setProductLongitude(e.target.value)}
+              onChange={(e) => setProductLongitude(+e.target.value)}
               variant="filled"
               placeholder=""
               value={productLongitude}
-              label="Enter Product Description"
+              label="Enter Product Longitude"
+            />
+            <TextField
+              minRows={1}
+              onChange={(e) => setProductPlace(e.target.value)}
+              variant="filled"
+              placeholder=""
+              value={productPlace}
+              label="Enter Product Place"
             />
 
             <Stack

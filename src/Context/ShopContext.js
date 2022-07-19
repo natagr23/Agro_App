@@ -17,8 +17,8 @@ export const ShopContextProvider = (props) => {
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [viewport, setViewport] = useState({
-    latitude: 4.7208119626905445, // bogota
-    longitude: -74.02090554345155, // bogota
+    latitude: 4.748953890419404, // bogota
+    longitude: -74.10978321570579, // bogota
     width: '100wv',
     height: '100vh',
     zoom: 10,
@@ -48,8 +48,8 @@ export const ShopContextProvider = (props) => {
       selectedProduct: product,
       viewport: {
         ...old.viewport,
-        latitude: product.data.latitude,
-        longitude: product.data.longitude,
+        latitude: products.latitude,
+        longitude: products.longitude,
       },
     }));
   };
@@ -68,16 +68,16 @@ export const ShopContextProvider = (props) => {
   const handleOpenMarker = (product_id) => {
     updateShow(product_id);
 
-    let selected_product = products_json.find((product) => {
-      return product.id === product_id;
-    });
-    let selected_provider = shops.find((provider) => {
-      return provider.id === selected_product.provider_id;
-    });
-    setSelectedProvider(() => {
-      return selected_provider;
-    });
-    console.log(selected_provider.name, selected_provider.location);
+    // let selected_product = products.find((product) => {
+    //   return product.id === product_id;
+    // });
+    // // let selected_place = products.find((place_id) => {
+    // //   return place_id === selected_product.place;
+    // // });
+    // setSelectedProvider(() => {
+    //   return selected_product;
+    // });
+    // console.log(selected_place.name, selected_place.place);
   };
 
   const updateShops = (shopsUpdated) => {
