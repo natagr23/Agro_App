@@ -24,7 +24,8 @@ export default function ProductCard(props) {
         <CardMedia
           component="img"
           height="140"
-          image={props.image_url}
+          // image={props.image_url}
+          image="https://source.unsplash.com/1600x900/?vegetable"
           alt="green iguana"
         />
         <CardContent>

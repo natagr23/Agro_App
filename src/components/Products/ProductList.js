@@ -86,7 +86,7 @@ export const ProductList = (props) => {
                   id={product.id}
                   description={product.data.description}
                   place={product.data.place}
-                  image_url={product.image_url}
+                  // image_url={product.image_url}
                   // OnSelectProduct={ctx.handleOpenMarker}
                   onClick={ctx.selectProduct}
                   product={product}

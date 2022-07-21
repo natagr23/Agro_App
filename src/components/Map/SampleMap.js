@@ -122,6 +122,13 @@ const SampleMap = (props) => {
                   }}
                   icon={{
                     url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                    labelOrigin: new window.google.maps.Point(-25, 16),
+                    scale: 0.5,
+                    strokeWeight: 10,
+                    strokeColor: 'black',
+                    // strokeOpacity: 5,
+                    // fillColor: 'black',
+                    // fillOpacity: 5,
                   }}
                   onClick={() => handleToggleOpen(id)}
                 >
@@ -136,8 +143,8 @@ const SampleMap = (props) => {
                         // pixelOffset={'0'}
                         options={{
                           pixelOffset: {
-                            width: 100,
-                            height: 100,
+                            width: 0,
+                            height: 0,
                           },
                         }}
                         position={{

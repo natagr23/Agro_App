@@ -1,7 +1,11 @@
 import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Paper from '@mui/material/Paper';
+// import IconButton from 'material-ui/IconButton';
+// import ActionHome from 'material-ui/svg-icons/action/home';
 
+import Image from '../Data/ag.jpg';
 export default function Products(props) {
   console.log(props.name);
 
@@ -55,9 +59,17 @@ export default function Products(props) {
       title: 'Bike',
     },
   ];
+
+  const styles = {
+    paperContainer: {
+      backgroundImage: `url(${Image})`,
+    },
+  };
   return (
     <>
-      <h2>name</h2>
+      <Paper style={styles}>Some text to fill the Paper Component</Paper>
+      <img src={`${Image}`} alt="image_ag" width="1000" />
+      {/* <h2>name</h2>
       <p>That feels like an existential question, don't you think?</p>
       <ImageList sx={{ width: 500, height: 450 }} cols={1} rowHeight={164}>
         {itemData.map((item) => (
@@ -70,7 +82,7 @@ export default function Products(props) {
             />
           </ImageListItem>
         ))}
-      </ImageList>
+      </ImageList> */}
     </>
   );
 }
