@@ -1,15 +1,12 @@
-# CRUD APP Using React + Firebase + MUI
+# CRUD APP Using React with Authentication + Firebase + MUI
 
-(https://user-images.githubusercontent.com/16936525/180281789-3c2f3633-53b1-49a0-b194-f1f16edc8467.mp4 )
+https://user-images.githubusercontent.com/16936525/188492199-d4bb8d38-f680-4899-9bea-9c452775ef8a.mp4
 
-## Available Scripts
+## Live demo:
 
 In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+https://agro-app-three.vercel.app/#/components/Home/Home
 
 
 
