@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useMemo, useEffect } from 'react';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -37,39 +37,39 @@ export const ProductList = (props) => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   setFilteredData(
-  //     filteredData.filter(
-  //       (product) => {
-  //         // if (ctx.bounds) {
-  //         //   let selectedProduct = filteredData.find((product_id) => {
-  //         //     return product_id === product.id;
-  //         //   });
+  useEffect(() => {
+    setFilteredData(
+      filteredData.filter((product) => {
+        // if (ctx.bounds) {
+        //   let selectedProduct = filteredData.find((product_id) => {
+        //     return product_id === product.id;
+        //   });
 
-  //         if (
-  //           product.latitude > ctx.bounds.boundsSudOuestlat &&
-  //           product.latitude < ctx.bounds.boundsNordEstlat &&
-  //           product.longitude > ctx.bounds.boundsSudOuestlng &&
-  //           product.longitude < ctx.bounds.boundsNordEstlng
-  //         ) {
-  //           return true;
-  //         } else {
-  //           return false;
-  //         }
-  //       }
+        //   if (
+        //     product.latitude > ctx.bounds.boundsSudOuestlat &&
+        //     product.latitude < ctx.bounds.boundsNordEstlat &&
+        //     product.longitude > ctx.bounds.boundsSudOuestlng &&
+        //     product.longitude < ctx.bounds.boundsNordEstlng
+        //   ) {
+        //     return true;
+        //   } else {
+        //     return false;
+        //   }
+        // }
 
-  //       //if no input the return the original
-  //       // if (props.input === '') {
-  //       //   return product;
-  //       // }
-  //       //return the item which contains the user input
-  //       //   else {
-  //       //     return product.name.toLowerCase().includes(props.input);
-  //       //   }
-  //       // }
-  //     )
-  //   );
-  // }, [ctx.bounds, productList, props.input, providerList]);
+        //if no input the return the original
+        if (props.input === '') {
+          return product;
+        }
+        //return the item which contains the user input
+        else {
+          return product.data.name
+            .toLowerCase()
+            .includes(props.input.toLowerCase());
+        }
+      })
+    );
+  }, [props.input]);
 
   return (
     <Box sx={{ width: '100%', height: 600, overflowY: 'scroll' }}>
@@ -77,22 +77,21 @@ export const ProductList = (props) => {
         {/* <PersonalInfoProvider value={providerList}> */}
         <Stack spacing={2}>
           {/* {cartIsShown && <Cart onClose={hideCartHandler} />} */}
-          {!ctx.setShow &&
-            filteredData.map((product) => {
-              return (
-                <ProductCard
-                  key={product.id}
-                  name={product.data.name}
-                  id={product.id}
-                  description={product.data.description}
-                  place={product.data.place}
-                  // image_url={product.image_url}
-                  // OnSelectProduct={ctx.handleOpenMarker}
-                  onClick={ctx.selectProduct}
-                  product={product}
-                />
-              );
-            })}
+          {filteredData.map((product) => {
+            return (
+              <ProductCard
+                key={product.data.id}
+                name={product.data.name}
+                id={product.data.id}
+                description={product.data.description}
+                place={product.data.place}
+                // image_url={product.image_url}
+                // OnSelectProduct={ctx.handleOpenMarker}
+                onClick={ctx.selectProduct}
+                product={product}
+              />
+            );
+          })}
         </Stack>
 
         {/* </PersonalInfoProvider> */}
