@@ -16,10 +16,6 @@ export const ProductList = (props) => {
   const [productList] = useState(ProductJson);
   // const [filteredData, setFilteredData] = useState(ProviderJson);
 
-  // const selectFlat = () => {
-  //   props.selectFlat(props.flat);
-  // };
-
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
@@ -35,28 +31,11 @@ export const ProductList = (props) => {
         }))
       );
     });
-  }, []);
+  }, [!props.input]);
 
   useEffect(() => {
     setFilteredData(
       filteredData.filter((product) => {
-        // if (ctx.bounds) {
-        //   let selectedProduct = filteredData.find((product_id) => {
-        //     return product_id === product.id;
-        //   });
-
-        //   if (
-        //     product.latitude > ctx.bounds.boundsSudOuestlat &&
-        //     product.latitude < ctx.bounds.boundsNordEstlat &&
-        //     product.longitude > ctx.bounds.boundsSudOuestlng &&
-        //     product.longitude < ctx.bounds.boundsNordEstlng
-        //   ) {
-        //     return true;
-        //   } else {
-        //     return false;
-        //   }
-        // }
-
         //if no input the return the original
         if (props.input === '') {
           return product;
