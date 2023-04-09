@@ -10,7 +10,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
+  apiKey: 'AIzaSyCZM910LqZ-fhnETUNAl2UYyOTF1fCnPs8',
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: 'agro-app2-f9755',
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
